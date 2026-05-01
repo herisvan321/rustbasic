@@ -1,13 +1,25 @@
+# ---------------------------------------------------------
+# 📑 LABEL: KONFIGURASI PROYEK (Cargo.toml)
+# File ini berisi daftar "bahan baku" atau library yang digunakan.
+# ---------------------------------------------------------
+
 [package]
-name = "rustmyadmin"
+name = "rustbasic"
 version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+# 1. Framework Web & Server
 axum = "0.8.9"
-minijinja = { version = "2.19.0", features = ["loader"] }
-serde = { version = "1.0.228", features = ["derive"] }
 tokio = { version = "1.52.1", features = ["full"] }
+
+# 2. Tampilan (Template HTML)
+minijinja = { version = "2.19.0", features = ["loader"] }
+
+# 3. Pengolah Data & File Statis
+serde = { version = "1.0.228", features = ["derive"] }
 tower-http = { version = "0.6.8", features = ["fs"] }
+
+# 4. Pencatatan Aktivitas (Logging)
 tracing = "0.1.44"
 tracing-subscriber = "0.3.23"

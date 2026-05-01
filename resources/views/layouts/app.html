@@ -1,24 +1,29 @@
+<!-- 
+  📑 LABEL: LAYOUT UTAMA (app.html)
+  File ini adalah kerangka dasar untuk semua halaman.
+-->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Rust Application{% endblock %}</title>
+    <title>{% block title %}RustBasic{% endblock %}</title>
     
-    <!-- Fonts -->
+    <!-- 1. Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
     
-    <!-- Styles -->
+    <!-- 2. File CSS Utama -->
     <link rel="stylesheet" href="/css/style.css">
     
-    <!-- Scripts -->
-    <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>
+    <!-- 3. Library Frontend (HTMX & Alpine.js) -->
+    <script src="https://unpkg.com/htmx.org@1.9.10" crossorigin="anonymous"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 <body hx-boost="true">
     <main>
+        <!-- Konten dari file lain akan muncul di sini -->
         {% block content %}{% endblock %}
     </main>
 </body>
