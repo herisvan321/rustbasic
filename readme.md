@@ -8,6 +8,7 @@ Aplikasi web modern berbasis Rust dengan arsitektur **Laravel-inspired**. Diranc
 - **⚡ Performa Axum**: Backend super cepat dengan framework Axum dan Tokio.
 - **🗄️ Dual-Database Ready**: Dukungan otomatis untuk **SQLite** dan **MySQL** menggunakan **Sea-ORM**.
 - **🔑 Session ala Laravel**: Sistem session dengan skema tabel database standar Laravel (IP Address, User Agent, dll).
+- **📥 Request & Response Helpers**: Gunakan `$request->input()` dan `Response::json()` layaknya di Laravel.
 - **⚙️ Config via .env**: Pengaturan aplikasi terpusat dalam file `.env` (Port, DB, App Key).
 - **🎨 Premium UI**: Desain modern menggunakan Vanilla CSS, HTMX, dan Alpine.js.
 - **📂 Modular Structure**: Folder terorganisir rapi (`config/`, `database/`, `app/`, `routes/`).
@@ -25,7 +26,11 @@ rustbasic/
 │   ├── config/           # Loader Konfigurasi (.env)
 │   ├── database/         # Koneksi DB & Custom Session Store
 │   ├── routes/           # Web & API Routing
-│   └── app/              # Http Controllers
+│   └── app/              # Folder Inti Aplikasi
+│       └── http/         # Logic HTTP (Controllers, Requests, Responses)
+│           ├── controllers/
+│           ├── requests/
+│           └── responses/
 └── .env                  # File Pengaturan Utama (Rahasia)
 ```
 
@@ -49,6 +54,18 @@ cargo run
 ```
 Setelah berjalan, akses di:
 👉 **[http://localhost:4000](http://localhost:4000)**
+
+---
+
+## 📝 Contoh Penggunaan Laravel Style
+
+### Request & Response
+```rust
+pub async fn store(req: Request) -> impl IntoResponse {
+    let name = req.input("name").unwrap_or_default();
+    Response::json(json!({ "status": "success", "user": name }))
+}
+```
 
 ---
 

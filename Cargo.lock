@@ -1881,6 +1881,7 @@ dependencies = [
  "minijinja",
  "sea-orm",
  "serde",
+ "serde_json",
  "sqlx",
  "tokio",
  "tower-http",
