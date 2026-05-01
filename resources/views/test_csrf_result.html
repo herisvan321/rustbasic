@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }} - RustBasic</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="bg-dark text-light">
+    <div class="flex-center min-h-screen">
+        <div class="glass-panel" style="width: 100%; max-width: 500px; text-align: center;">
+            <div class="success-icon mb-4" style="font-size: 3rem;">✅</div>
+            <h1 class="text-primary mb-2">Data Diterima!</h1>
+            <p class="text-muted mb-4">Request berhasil divalidasi oleh CSRF Middleware.</p>
+
+            <div class="text-left bg-dark-soft p-4 border-radius-sm mb-4">
+                <p><strong>Nama:</strong> {{ name }}</p>
+                <p><strong>Email:</strong> {{ email }}</p>
+            </div>
+
+            <a href="/test-csrf" class="btn btn-outline w-100">Kirim Lagi</a>
+        </div>
+    </div>
+</body>
+</html>

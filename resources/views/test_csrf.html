@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }} - RustBasic</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+</head>
+<body class="bg-dark text-light">
+    <div class="flex-center min-h-screen">
+        <div class="glass-panel" style="width: 100%; max-width: 500px;">
+            <h1 class="text-primary mb-4">{{ title }}</h1>
+            <p class="mb-4">Form ini dilindungi oleh middleware <strong>CSRF Protection</strong> kustom.</p>
+
+            <!-- 
+                Gunakan hx-post untuk demonstrasi. 
+                Token dikirim melalui header X-CSRF-TOKEN.
+            -->
+            <form hx-post="/test-csrf" 
+                  hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token }}"}'
+                  hx-target="body"
+                  class="text-left">
+                
+                <div class="mb-3">
+                    <label class="form-label">Nama Lengkap</label>
+                    <input type="text" name="name" class="form-control" placeholder="Masukkan nama..." required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" name="email" class="form-control" placeholder="Masukkan email..." required>
+                </div>
+
+                <div class="alert alert-info py-2 mb-4" style="font-size: 0.8rem;">
+                    <strong>Token CSRF Anda:</strong><br>
+                    <code>{{ csrf_token }}</code>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">
+                    Kirim Data (Aman)
+                </button>
+            </form>
+
+            <div class="mt-4">
+                <a href="/" class="text-muted" style="text-decoration: none;">&larr; Kembali ke Home</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

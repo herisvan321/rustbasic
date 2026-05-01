@@ -1,0 +1,44 @@
+/* ---------------------------------------------------------
+ * 📑 LABEL: SECURITY HEADERS (app/http/middleware/security_headers.rs)
+ * Menambahkan header keamanan standar industri.
+ * --------------------------------------------------------- */
+
+use axum::{
+    body::Body,
+    http::{Request, header},
+    middleware::Next,
+    response::Response,
+};
+
+pub async fn security_headers_middleware(
+    req: Request<Body>,
+    next: Next,
+) -> Response {
+    let mut response = next.run(req).await;
+    
+    let headers = response.headers_mut();
+    
+    // 1. Mencegah Clickjacking
+    headers.insert(header::X_FRAME_OPTIONS, "DENY".parse().unwrap());
+    
+    // 2. Mencegah MIME Sniffing
+    headers.insert(header::X_CONTENT_TYPE_OPTIONS, "nosniff".parse().unwrap());
+    
+    // 3. XSS Protection (untuk browser lama)
+    headers.insert(header::X_XSS_PROTECTION, "1; mode=block".parse().unwrap());
+    
+    // 4. Content Security Policy (Lengkap)
+    headers.insert(
+        header::CONTENT_SECURITY_POLICY,
+        concat!(
+            "default-src 'self'; ",
+            "script-src 'self' 'unsafe-eval' https://unpkg.com https://cdn.jsdelivr.net; ",
+            "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; ",
+            "font-src 'self' https://fonts.gstatic.com; ",
+            "img-src 'self' data:; ",
+            "connect-src 'self';"
+        ).parse().unwrap()
+    );
+    
+    response
+}
