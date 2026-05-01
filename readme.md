@@ -1,71 +1,68 @@
 # 🚀 RustBasic (Axum SPA)
 
-Aplikasi manajemen database SQLite yang ringan, cepat, dan modern. Proyek ini dirancang agar sangat mudah dipelajari dengan kode yang bersih dan terstruktur.
+Aplikasi web modern berbasis Rust dengan arsitektur **Laravel-inspired**. Dirancang untuk performa maksimal, keamanan tinggi, dan kemudahan pengembangan.
 
 ---
 
 ## 💎 Fitur Unggulan
-- **⚡ Super Cepat**: Menggunakan Rust & Axum untuk performa maksimal.
-- **🎨 Desain Premium**: Tampilan *Glassmorphism* modern dengan Vanilla CSS.
-- **🔄 SPA Experience**: Navigasi mulus tanpa reload halaman berkat **HTMX**.
-- **🪄 Interaktif**: Efek UI instan menggunakan **Alpine.js**.
-- **📂 Arsitektur Bersih**: Struktur folder ala Laravel yang rapi dan logis.
+- **⚡ Performa Axum**: Backend super cepat dengan framework Axum dan Tokio.
+- **🗄️ Dual-Database Ready**: Dukungan otomatis untuk **SQLite** dan **MySQL** menggunakan **Sea-ORM**.
+- **🔑 Session ala Laravel**: Sistem session dengan skema tabel database standar Laravel (IP Address, User Agent, dll).
+- **⚙️ Config via .env**: Pengaturan aplikasi terpusat dalam file `.env` (Port, DB, App Key).
+- **🎨 Premium UI**: Desain modern menggunakan Vanilla CSS, HTMX, dan Alpine.js.
+- **📂 Modular Structure**: Folder terorganisir rapi (`config/`, `database/`, `app/`, `routes/`).
 
 ---
 
-## 📂 Struktur Folder
-Berikut adalah susunan file terbaru dalam proyek ini:
-
-### 📑 Label: Struktur Direktori Proyek
+## 📂 Struktur Proyek Terbaru
 ```text
 rustbasic/
+├── config/               # Loader Konfigurasi (.env)
+├── database/             # Tempat penyimpanan SQLite (.sqlite) & SQL Schema
 ├── public/               # File statis (CSS, JS, Gambar)
-│   └── css/
-│       └── style.css     # File CSS Utama
-├── resources/
-│   └── views/            # Template HTML (Minijinja)
-│       └── layouts/      # Kerangka utama (Base Layout)
+├── resources/            # Template HTML (Minijinja)
 ├── src/
-│   ├── main.rs           # Jantung aplikasi (Entry Point)
-│   ├── routes/           # Pengatur jalan/URL (Routing)
-│   └── app/              # Logika bisnis & Controller
-└── Cargo.toml            # Daftar dependensi & konfigurasi
+│   ├── main.rs           # Entry Point & Middleware Session
+│   ├── database/         # Koneksi DB & Custom Session Store
+│   ├── routes/           # Web & API Routing
+│   └── app/              # Http Controllers
+└── .env                  # File Pengaturan Utama (Rahasia)
 ```
-
----
-
-## 📝 Sistem Pelabelan Kode
-Untuk mempermudah Anda belajar, setiap file penting telah ditandai dengan label khusus:
-- **`📑 LABEL: ...`**: Menandakan fungsi utama dari file tersebut.
-- **Komentar Bahasa Indonesia**: Penjelasan sederhana di setiap baris kode yang kompleks.
 
 ---
 
 ## 🚀 Cara Menjalankan
 
-### 📑 Label: Perintah Masuk ke Folder
-```bash
-cd "rustbasic"
+### 1. Persiapan Lingkungan
+Salin file `.env.example` ke `.env` (jika ada) atau pastikan file `.env` Anda sudah benar:
+```env
+APP_NAME=RustBasic
+APP_PORT=4000
+DB_CONNECTION=sqlite
+DB_DATABASE=rustbasic
+SESSION_DRIVER=database
 ```
 
-### 📑 Label: Perintah Menjalankan Aplikasi
+### 2. Jalankan Aplikasi
 ```bash
 cargo run
 ```
-
-Setelah muncul pesan `Server berjalan di: http://0.0.0.0:3000`, buka:
-👉 **[http://localhost:3000](http://localhost:3000)**
+Setelah berjalan, akses di:
+👉 **[http://localhost:4000](http://localhost:4000)**
 
 ---
 
-## 💡 Tips Pengembangan
-- **Auto-Reload?** Saat ini Anda perlu menjalankan ulang `cargo run` jika mengubah kode Rust (`.rs`).
-- **Update Tampilan?** Cukup ubah file di `resources/views` atau `public/css` dan *refresh* browser (tidak perlu restart server).
+## 📝 Konfigurasi Database & Session
+- **SQLite**: Secara otomatis disimpan di dalam folder `database/`.
+- **MySQL**: Cukup ubah `DB_CONNECTION=mysql` dan isi kredensial di `.env`.
+- **Session**: Tabel `sessions` akan dibuat otomatis di database dengan kolom audit lengkap (ID, Payload, Last Activity).
 
 ---
 
 ## 🛠️ Troubleshooting
-- **Port 3000 sibuk?** Jika muncul error `Address already in use`, pastikan tidak ada aplikasi lain yang menggunakan port 3000, atau hentikan server sebelumnya dengan `Ctrl + C`.
+- **Error Database?** Pastikan folder `database/` ada dan memiliki izin tulis.
+- **Port Bentrok?** Ubah `APP_PORT` di file `.env`.
+- **Cargo Error?** Pastikan Anda menggunakan versi Rust terbaru (`rustup update`).
 
 ---
-*Dibuat dengan ❤️ untuk komunitas Rust Indonesia.*
+*Dibuat dengan ❤️ untuk komunitas Rust Indonesia. Arsitektur Bersih, Kode Rapi.*
