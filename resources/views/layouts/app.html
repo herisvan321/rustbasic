@@ -45,32 +45,7 @@
          style="display: none;">
     </div>
 
-    <script>
-        window.addEventListener('DOMContentLoaded', () => {
-            const flashData = document.getElementById('flash-data');
-            const success = flashData.getAttribute('data-success');
-            const error = flashData.getAttribute('data-error');
-
-            if (success) {
-                window.dispatchEvent(new CustomEvent('show-toast', { detail: { message: success, type: 'success' } }));
-            }
-            if (error) {
-                window.dispatchEvent(new CustomEvent('show-toast', { detail: { message: error, type: 'error' } }));
-            }
-        });
-
-        window.addEventListener('show-toast', (e) => {
-            // Mengambil instance data Alpine.js
-            const el = document.body;
-            if (el && el.__x) {
-                const data = el.__x.$data;
-                data.toast.message = e.detail.message;
-                data.toast.type = e.detail.type;
-                data.toast.show = true;
-                setTimeout(() => data.toast.show = false, 4000);
-            }
-        });
-    </script>
+    <script src="/public/js/app.js"></script>
 
     <main>
         <!-- Konten dari file lain akan muncul di sini -->

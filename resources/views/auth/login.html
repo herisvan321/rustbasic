@@ -3,29 +3,42 @@
 {% block title %}Login - RustBasic{% endblock %}
 
 {% block content %}
-<div class="flex-center">
-    <div class="glass-panel" style="max-width: 450px;">
-        <h1 class="title" style="font-size: 2.5rem; text-align: center;">Login</h1>
-        <p class="subtitle" style="text-align: center;">Masuk ke akun Anda</p>
+<div class="split-screen">
+    <!-- Sisi Visual -->
+    <div class="split-side-visual">
+        <div class="visual-inner">
+            <h1 style="font-size: 3rem; font-weight: 800; margin-bottom: 1rem;">Selamat Datang Kembali</h1>
+            <p style="font-size: 1.25rem; opacity: 0.9;">Masuk untuk melanjutkan petualangan Anda di ekosistem RustBasic.</p>
+        </div>
+    </div>
 
-        <form hx-post="/login" hx-target="body" hx-push-url="true">
-            <div class="mb-4">
-                <label class="form-label">Email</label>
-                <input type="email" name="email" class="form-control" placeholder="nama@email.com" value="{{ old.email }}" required>
-                {% if errors.email %}<small class="text-danger">{{ errors.email[0] }}</small>{% endif %}
-            </div>
+    <!-- Sisi Form -->
+    <div class="split-side-content">
+        <div class="content-container">
+            <a href="/" class="text-primary mb-4" style="display: inline-block; font-weight: 700; text-decoration: none;">&larr; KEMBALI</a>
+            
+            <h2 class="title" style="font-size: 2.5rem; margin-bottom: 0.5rem; text-align: left;">Login</h2>
+            <p class="text-muted mb-5">Masukkan kredensial Anda untuk masuk.</p>
 
-            <div class="mb-4">
-                <label class="form-label">Password</label>
-                <input type="password" name="password" class="form-control" placeholder="********" required>
-            </div>
+            <form hx-post="/login" hx-target="body" hx-push-url="true">
+                <div class="mb-4">
+                    <label class="form-label">Email</label>
+                    <input type="email" name="email" class="form-control" placeholder="nama@email.com" value="{{ old.email }}" required>
+                    {% if errors.email %}<small class="text-danger">{{ errors.email[0] }}</small>{% endif %}
+                </div>
 
-            <button type="submit" class="btn btn-primary w-100 mb-4">MASUK</button>
+                <div class="mb-5">
+                    <label class="form-label">Password</label>
+                    <input type="password" name="password" class="form-control" placeholder="********" required>
+                </div>
 
-            <p class="text-muted" style="text-align: center; font-size: 0.9rem;">
-                Belum punya akun? <a href="/register" class="text-primary" style="font-weight: 700;">Daftar Sekarang</a>
-            </p>
-        </form>
+                <button type="submit" class="btn btn-primary w-100 mb-4">MASUK</button>
+
+                <p class="text-muted" style="text-align: center; font-size: 0.9rem;">
+                    Belum punya akun? <a href="/register" class="text-primary" style="font-weight: 700;">Daftar Sekarang</a>
+                </p>
+            </form>
+        </div>
     </div>
 </div>
 {% endblock %}

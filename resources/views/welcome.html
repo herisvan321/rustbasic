@@ -1,49 +1,55 @@
-<!-- 
-  📑 LABEL: HALAMAN WELCOME (welcome.html)
-  Tampilan utama yang dilihat pengguna saat pertama kali buka.
--->
 {% extends "layouts/app.html" %}
 
-{% block title %}{{ title }}{% endblock %}
+{% block title %}Selamat Datang - RustBasic{% endblock %}
 
 {% block content %}
-<!-- x-data & x-init adalah fitur Alpine.js untuk animasi -->
-<div class="flex-center" x-data="{ show: false }" x-init="setTimeout(() => show = true, 100)">
-    <div class="container" style="display: flex; justify-content: center;">
-        
-        <div class="glass-panel" x-show="show" 
-             x-transition:enter="transition ease-out duration-500" 
-             x-transition:enter-start="opacity-0 transform translate-y-8" 
-             x-transition:enter-end="opacity-100 transform translate-y-0" 
-             style="max-width: 600px; text-align: center;">
-            
-            <h1 class="title">{{ title }}</h1>
-            <p class="subtitle">
-                Backend Rust yang sangat cepat dengan tampilan modern dan interaktif.
+<div class="split-screen">
+    <!-- Sisi Visual (Kiri/Besar) -->
+    <div class="split-side-visual">
+        <div class="visual-inner">
+            <h1 style="font-size: 4rem; font-weight: 800; margin-bottom: 1rem; color: #fff;">RustBasic</h1>
+            <p style="font-size: 1.5rem; opacity: 0.9; font-weight: 500; max-width: 400px; margin: 0 auto;">
+                Framework Rust masa depan dengan kecepatan cahaya dan desain elegan.
             </p>
             
-            <div style="margin-top: 2rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                {% if auth %}
-                    <a href="/dashboard" class="btn btn-primary">Buka Dashboard</a>
-                    <form action="/logout" method="POST" style="margin: 0;">
-                        <button type="submit" class="btn btn-outline">Logout</button>
-                    </form>
-                {% else %}
-                    <a href="/login" class="btn btn-primary">Login ke Akun</a>
-                    <a href="/register" class="btn btn-outline">Daftar Sekarang</a>
-                {% endif %}
-            </div>
-
-            <!-- Daftar Teknologi -->
-            <div class="tech-stack" style="justify-content: center;">
-                <span class="badge">Rust</span>
-                <span class="badge">Axum</span>
-                <span class="badge">Minijinja</span>
-                <span class="badge">HTMX</span>
-                <span class="badge">Alpine.js</span>
+            <div class="tech-stack" style="margin-top: 3rem; justify-content: center;">
+                <span class="badge" style="background: rgba(255,255,255,0.2); color: #fff; border: none;">Rust</span>
+                <span class="badge" style="background: rgba(255,255,255,0.2); color: #fff; border: none;">Axum</span>
+                <span class="badge" style="background: rgba(255,255,255,0.2); color: #fff; border: none;">Minijinja</span>
+                <span class="badge" style="background: rgba(255,255,255,0.2); color: #fff; border: none;">HTMX</span>
+                <span class="badge" style="background: rgba(255,255,255,0.2); color: #fff; border: none;">Alpine.js</span>
             </div>
         </div>
+    </div>
 
+    <!-- Sisi Konten (Kanan) -->
+    <div class="split-side-content">
+        <div class="content-container">
+            <div class="text-center">
+                <h2 class="title" style="font-size: 2.5rem; margin-bottom: 1rem;">Mulai Sekarang</h2>
+                <p class="text-muted mb-5">
+                    Bangun aplikasi web yang tangguh dan modern tanpa hambatan.
+                </p>
+
+                <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+                    {% if auth %}
+                        <a href="/dashboard" class="btn btn-primary w-100">Buka Dashboard</a>
+                        <form action="/logout" method="POST" style="margin: 0; width: 100%;">
+                            <button type="submit" class="btn btn-outline w-100">Logout</button>
+                        </form>
+                    {% else %}
+                        <a href="/login" class="btn btn-primary w-100">Login ke Akun</a>
+                        <a href="/register" class="btn btn-outline w-100">Daftar Sekarang</a>
+                    {% endif %}
+                </div>
+
+                <div style="margin-top: 4rem; border-top: 1px solid var(--glass-border); padding-top: 2rem;">
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">
+                        &copy; 2026 RustBasic Engine. All rights reserved.
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

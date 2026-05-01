@@ -3,84 +3,72 @@
 {% block title %}{{ title }} - RustBasic{% endblock %}
 
 {% block content %}
-<div class="flex-center" style="align-items: flex-start; padding-top: 5rem;">
-    <div class="container" style="max-width: 1000px; width: 100%;">
-        
-        <!-- Header Dashboard -->
-        <div class="glass-panel" style="margin-bottom: 2rem; padding: 2.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem;">
-            <div>
-                <h1 class="title" style="font-size: 2.5rem; margin-bottom: 0.5rem; text-align: left;">Halo, {{ user_name }}!</h1>
-                <p class="text-muted" style="font-weight: 500;">Selamat datang kembali di panel kendali Anda.</p>
+<div class="split-screen">
+    <!-- Sidebar / Visual Side (Kiri - Narrower) -->
+    <div class="split-side-visual" style="flex: 0.4; align-items: flex-start; text-align: left; padding: 3rem;">
+        <div style="width: 100%;">
+            <div style="width: 80px; height: 80px; background: rgba(255,255,255,0.2); border-radius: 2rem; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 800; margin-bottom: 2rem; border: 2px solid rgba(255,255,255,0.3);">
+                {{ user_name[0] | upper }}
             </div>
-            <div style="display: flex; gap: 1rem;">
-                <a href="/" class="btn btn-outline" style="padding: 0.8rem 1.5rem;">Beranda</a>
-                <form action="/logout" method="POST" style="margin: 0;">
-                    <button type="submit" class="btn btn-primary" style="padding: 0.8rem 1.5rem; background: var(--secondary);">Logout</button>
-                </form>
-            </div>
-        </div>
+            <h2 style="font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem;">{{ user_name }}</h2>
+            <p style="opacity: 0.8; margin-bottom: 3rem;">{{ user_email }}</p>
 
-        <!-- Grid Statistik -->
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
-            
-            <!-- Card 1: User Info -->
-            <div class="glass-panel" style="padding: 2rem; border-left: 6px solid var(--primary);">
-                <h3 style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--primary); margin-bottom: 1rem;">Profil Saya</h3>
-                <div style="display: flex; align-items: center; gap: 1rem;">
-                    <div style="width: 50px; height: 50px; background: var(--bg-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; color: var(--primary); border: 2px solid var(--primary);">
-                        {{ user_name[0] | upper }}
+            <nav style="display: flex; flex-direction: column; gap: 0.75rem; width: 100%;">
+                <a href="/dashboard" class="btn" style="background: rgba(255,255,255,0.2); color: #fff; justify-content: flex-start; text-transform: none;">Dashboard Overview</a>
+                <a href="/" class="btn" style="color: #fff; justify-content: flex-start; text-transform: none; opacity: 0.7;">Beranda Utama</a>
+                <div style="margin-top: auto; padding-top: 2rem;">
+                    <form action="/logout" method="POST" style="margin: 0;">
+                        <button type="submit" class="btn btn-outline w-100" style="border: none; background: rgba(255,255,255,0.1); color: #fff;">LOGOUT</button>
+                    </form>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Main Content (Kanan - Wider) -->
+    <div class="split-side-content" style="flex: 1.2; align-items: flex-start; justify-content: flex-start; background: #f8faff;">
+        <div style="width: 100%; padding: 4rem;">
+            <div class="mb-5">
+                <h1 class="title" style="font-size: 3rem; text-align: left; margin-bottom: 0.5rem;">Dashboard</h1>
+                <p class="text-muted">Kelola aplikasi dan pantau aktivitas Anda di sini.</p>
+            </div>
+
+            <!-- Grid Statistik (No Cards, just clean sections) -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 4rem;">
+                
+                <div style="border-bottom: 4px solid var(--primary); padding: 1.5rem 0;">
+                    <p class="text-muted text-uppercase" style="font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; margin-bottom: 1rem;">Total Pengguna</p>
+                    <div style="font-size: 3.5rem; font-weight: 800; color: var(--text-main);">{{ total_users }}</div>
+                </div>
+
+                <div style="border-bottom: 4px solid var(--accent); padding: 1.5rem 0;">
+                    <p class="text-muted text-uppercase" style="font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; margin-bottom: 1rem;">Status Sistem</p>
+                    <div style="display: flex; align-items: center; gap: 0.75rem; font-size: 1.5rem; font-weight: 800; color: #2e7d32; padding: 1.2rem 0;">
+                        <div style="width: 12px; height: 12px; background: #4caf50; border-radius: 50%;"></div>
+                        ONLINE
                     </div>
-                    <div>
-                        <p style="font-weight: 700; margin-bottom: 0.2rem;">{{ user_name }}</p>
-                        <p class="text-muted" style="font-size: 0.85rem;">{{ user_email }}</p>
-                    </div>
                 </div>
+
+                <div style="border-bottom: 4px solid var(--secondary); padding: 1.5rem 0;">
+                    <p class="text-muted text-uppercase" style="font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; margin-bottom: 1rem;">Performa</p>
+                    <div style="font-size: 3.5rem; font-weight: 800; color: var(--text-main);">99.9<span style="font-size: 1.5rem; opacity: 0.5;">%</span></div>
+                </div>
+
             </div>
 
-            <!-- Card 2: Statistik -->
-            <div class="glass-panel" style="padding: 2rem; border-left: 6px solid var(--accent);">
-                <h3 style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 1rem;">Total Pengguna</h3>
-                <div style="display: flex; align-items: baseline; gap: 0.5rem;">
-                    <span style="font-size: 2.5rem; font-weight: 800; color: var(--text-main);">{{ total_users }}</span>
-                    <span class="text-muted" style="font-weight: 600;">Orang</span>
+            <!-- Content Area -->
+            <div style="background: #fff; padding: 3rem; border-radius: 0; border-left: 8px solid var(--primary);">
+                <h2 style="font-weight: 800; margin-bottom: 1.5rem;">Informasi Sistem</h2>
+                <p class="text-muted" style="line-height: 1.8; margin-bottom: 2rem;">
+                    Aplikasi ini berjalan menggunakan backend Rust yang dioptimalkan. Semua data diproses secara real-time melalui koneksi SQLite yang aman.
+                </p>
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <span class="badge">Engine: Axum 0.8</span>
+                    <span class="badge">Render: Minijinja</span>
+                    <span class="badge">Frontend: HTMX + Alpine.js</span>
                 </div>
-                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">Terdaftar dalam database</p>
-            </div>
-
-            <!-- Card 3: System Status -->
-            <div class="glass-panel" style="padding: 2rem; border-left: 6px solid #4caf50;">
-                <h3 style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.1em; color: #4caf50; margin-bottom: 1rem;">Status Sistem</h3>
-                <div style="display: flex; align-items: center; gap: 0.5rem; color: #2e7d32; font-weight: 700;">
-                    <div style="width: 10px; height: 10px; background: #4caf50; border-radius: 50%; animation: pulse 2s infinite;"></div>
-                    Online & Aktif
-                </div>
-                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 1rem;">Mesin Rust berjalan optimal.</p>
-            </div>
-
-        </div>
-
-        <!-- Section Info Tambahan -->
-        <div class="glass-panel" style="padding: 3rem; text-align: center;">
-            <h2 style="font-weight: 800; margin-bottom: 1rem;">Eksplorasi Fitur</h2>
-            <p class="text-muted" style="margin-bottom: 2.5rem; max-width: 600px; margin-left: auto; margin-right: auto;">
-                Dashboard ini dibangun menggunakan Axum di sisi server dan HTMX untuk interaksi yang responsif. Anda dapat mulai membangun aplikasi Anda di sini.
-            </p>
-            
-            <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
-                <div class="badge" style="padding: 1rem 2rem;">Manajemen Database</div>
-                <div class="badge" style="padding: 1rem 2rem;">Pengaturan Akun</div>
-                <div class="badge" style="padding: 1rem 2rem;">Laporan Aktivitas</div>
             </div>
         </div>
-
     </div>
 </div>
-
-<style>
-@keyframes pulse {
-    0% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.5); opacity: 0.5; }
-    100% { transform: scale(1); opacity: 1; }
-}
-</style>
 {% endblock %}

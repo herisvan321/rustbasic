@@ -5,47 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ code }} | {{ title }}</title>
     <link rel="stylesheet" href="/public/css/style.css?v=1.1">
-    <style>
-        .error-code {
-            font-size: 8rem;
-            font-weight: 800;
-            color: #00bcd4; /* Solid fallback */
-            background: linear-gradient(135deg, #00bcd4, #7c4dff, #ff4081);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            line-height: 1;
-            margin-bottom: 1rem;
-            display: block;
-            opacity: 1;
-            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.15));
-        }
-        .divider {
-            width: 50px;
-            height: 4px;
-            background: var(--primary);
-            margin: 2rem auto;
-            border-radius: 2px;
-        }
-    </style>
 </head>
-<body class="bg-light text-main">
-    <div class="flex-center min-h-screen">
-        <div class="glass-panel" style="max-width: 600px; text-align: center; padding: 4rem 2rem;">
-            <div class="error-code">{{ code }}</div>
-            <h1 class="text-uppercase tracking-widest mb-2" style="font-size: 1.5rem; letter-spacing: 0.3em;">
-                {{ title }}
-            </h1>
-            
-            <div class="divider"></div>
-            
-            <p class="text-muted mb-5" style="font-size: 1.1rem;">
-                {{ message }}
-            </p>
-            
-            <a href="/" class="btn btn-primary px-5">
-                KEMBALI KE BERANDA
-            </a>
+<body>
+    <div class="split-screen">
+        <!-- Sisi Visual (Error) -->
+        <div class="split-side-visual" style="background: #1a1a2e;">
+            <div style="font-size: 15rem; font-weight: 800; opacity: 0.2; line-height: 1; margin-bottom: -2rem;">
+                {{ code }}
+            </div>
+            <h1 style="font-size: 4rem; font-weight: 800; color: var(--primary);">{{ code }}</h1>
+        </div>
+
+        <!-- Sisi Konten -->
+        <div class="split-side-content">
+            <div class="content-container text-center">
+                <h2 class="title" style="font-size: 2.5rem; margin-bottom: 1.5rem; text-align: center;">{{ title }}</h2>
+                <p class="text-muted mb-5" style="font-size: 1.1rem;">
+                    {{ message }}
+                </p>
+                <a href="/" class="btn btn-primary w-100">KEMBALI KE BERANDA</a>
+            </div>
         </div>
     </div>
 </body>

@@ -26,6 +26,8 @@ body {
   background-color: var(--bg-light);
   color: var(--text-main);
   min-height: 100vh;
+  margin: 0;
+  padding: 0;
   overflow-x: hidden;
   /* Retro Light Gradient Mesh */
   background: 
@@ -241,15 +243,81 @@ body::before {
 
 [x-cloak] { display: none !important; }
 
+/* ---------------------------------------------------------
+ * 🌓 LAYOUT SPLITSCREEN
+ * --------------------------------------------------------- */
+.split-screen {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.split-side-visual {
+  flex: 1.2;
+  background: linear-gradient(135deg, var(--primary), var(--accent), var(--secondary));
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem;
+  color: #fff;
+  text-align: center;
+}
+
+/* Glass effect for visual side content */
+.visual-inner {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 3rem;
+  border-radius: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  animation: floatIn 1s ease-out;
+}
+
+.split-side-content {
+  flex: 1;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem;
+}
+
+.content-container {
+  max-width: 450px;
+  width: 100%;
+}
+
+@media (max-width: 992px) {
+  .split-screen {
+    flex-direction: column;
+  }
+  .split-side-visual {
+    min-height: 350px;
+    padding: 2rem;
+  }
+  .split-side-content {
+    padding: 3rem 2rem;
+  }
+}
+
 /* Utils */
 .text-primary { color: var(--primary); }
 .text-muted { color: var(--text-muted); }
 .text-left { text-align: left; }
+.text-center { text-align: center; }
 .mb-2 { margin-bottom: 0.5rem; }
 .mb-4 { margin-bottom: 1.5rem; }
+.mb-5 { margin-bottom: 2.5rem; }
 .w-100 { width: 100%; }
 .p-4 { padding: 1.5rem; }
 .bg-dark-soft { background: #f8f9fa; border: 1px solid var(--glass-border); }
 .border-radius-sm { border-radius: 1rem; }
 .tracking-widest { letter-spacing: 0.2em; }
 .text-uppercase { text-transform: uppercase; }
+.flex-column { flex-direction: column; }
+.gap-2 { gap: 0.5rem; }
+.gap-3 { gap: 1rem; }
+.gap-4 { gap: 1.5rem; }
