@@ -1,0 +1,31 @@
+{% extends "layouts/app.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="flex-center" x-data="{ show: false }" x-init="setTimeout(() => show = true, 100)">
+    <div class="container" style="display: flex; justify-content: center;">
+        <div class="glass-panel" x-show="show" x-transition:enter="transition ease-out duration-500" x-transition:enter-start="opacity-0 transform translate-y-8" x-transition:enter-end="opacity-100 transform translate-y-0" style="max-width: 600px; text-align: center;">
+            <h1 class="title">{{ title }}</h1>
+            <p class="subtitle">
+                A blazingly fast backend with a beautiful, modern, and interactive frontend.
+                Built with Axum, Minijinja, HTMX, and Alpine.js.
+            </p>
+            
+            <div style="margin-bottom: 2rem;">
+                <button class="btn btn-primary" @click="alert('Hello from Alpine.js!')">
+                    Click Me (Alpine.js)
+                </button>
+            </div>
+
+            <div class="tech-stack" style="justify-content: center;">
+                <span class="badge">Rust</span>
+                <span class="badge">Axum</span>
+                <span class="badge">Minijinja</span>
+                <span class="badge">HTMX</span>
+                <span class="badge">Alpine.js</span>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
