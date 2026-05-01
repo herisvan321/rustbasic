@@ -22,11 +22,16 @@
                 Backend Rust yang sangat cepat dengan tampilan modern dan interaktif.
             </p>
             
-            <div style="margin-bottom: 2rem;">
-                <!-- Tombol interaktif menggunakan Alpine.js -->
-                <button class="btn btn-primary" @click="alert('Halo dari Alpine.js!')">
-                    Klik Saya (Alpine.js)
-                </button>
+            <div style="margin-top: 2rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                {% if auth %}
+                    <a href="/dashboard" class="btn btn-primary">Buka Dashboard</a>
+                    <form action="/logout" method="POST" style="margin: 0;">
+                        <button type="submit" class="btn btn-outline">Logout</button>
+                    </form>
+                {% else %}
+                    <a href="/login" class="btn btn-primary">Login ke Akun</a>
+                    <a href="/register" class="btn btn-outline">Daftar Sekarang</a>
+                {% endif %}
             </div>
 
             <!-- Daftar Teknologi -->

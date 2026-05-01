@@ -4,61 +4,81 @@
  * --------------------------------------------------------- */
 
 use axum::{
-    response::{Html, IntoResponse, Json, Redirect},
+    response::{Html, IntoResponse, Json, Redirect, Response},
 };
 use serde::Serialize;
 use serde_json;
 
-pub struct Response;
+pub struct ResponseHelper;
 
-impl Response {
+impl ResponseHelper {
     /// Mengembalikan tampilan HTML (Minijinja)
     #[allow(dead_code)]
-    pub fn view(html_content: String) -> impl IntoResponse {
-        Html(html_content)
+    pub fn view(html_content: String) -> Response {
+        Html(html_content).into_response()
     }
 
     /// Mengembalikan data JSON
-    pub fn json<T: Serialize>(data: T) -> impl IntoResponse {
-        Json(data)
+    pub fn json<T: Serialize>(data: T) -> Response {
+        Json(data).into_response()
     }
 
     /// Melakukan pengalihan (Redirect)
     #[allow(dead_code)]
-    pub fn redirect(url: &str) -> impl IntoResponse {
-        Redirect::to(url)
+    pub fn redirect(url: &str) -> Response {
+        Redirect::to(url).into_response()
     }
 
     /// Mengembalikan pesan sukses sederhana
     #[allow(dead_code)]
-    pub fn success(message: &str) -> impl IntoResponse {
+    pub fn success(message: &str) -> Response {
         Json(serde_json::json!({
             "status": "success",
             "message": message
-        }))
+        })).into_response()
     }
 
     #[allow(dead_code)]
-    pub fn not_found() -> impl IntoResponse {
+    pub fn not_found() -> Response {
         Json(serde_json::json!({
             "status": "error",
             "message": "Resource not found"
-        }))
+        })).into_response()
     }
 
     #[allow(dead_code)]
-    pub fn error(message: &str) -> impl IntoResponse {
+    pub fn error(message: &str) -> Response {
         Json(serde_json::json!({
             "status": "error",
             "message": message
-        }))
+        })).into_response()
     }
 
     #[allow(dead_code)]
-    pub fn internal_server_error() -> impl IntoResponse {
+    pub fn internal_server_error() -> Response {
         Json(serde_json::json!({
             "status": "error",
             "message": "Internal server error"
-        }))
+        })).into_response()
+    }
+
+    /// Redirect dengan pesan sukses (Flash Message)
+    pub fn redirect_with_success(
+        url: &str, 
+        message: &str, 
+        session: axum_session::Session<crate::database::session_manager::LaravelSessionStore>
+    ) -> Response {
+        session.set("flash_success", message);
+        Redirect::to(url).into_response()
+    }
+
+    /// Redirect dengan pesan error (Flash Message)
+    pub fn redirect_with_error(
+        url: &str, 
+        message: &str, 
+        session: axum_session::Session<crate::database::session_manager::LaravelSessionStore>
+    ) -> Response {
+        session.set("flash_error", message);
+        Redirect::to(url).into_response()
     }
 }

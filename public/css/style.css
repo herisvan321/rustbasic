@@ -218,6 +218,29 @@ body::before {
   color: #008ba3;
 }
 
+/* Toast Notifications */
+.toast-container {
+  background: var(--bg-panel);
+  backdrop-filter: blur(20px);
+  border-radius: 1.25rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  min-width: 300px;
+  border: 1px solid var(--glass-border);
+  overflow: hidden;
+}
+
+.toast-success {
+  border-left: 6px solid #4caf50;
+  color: #2e7d32;
+}
+
+.toast-error {
+  border-left: 6px solid #f44336;
+  color: #c62828;
+}
+
+[x-cloak] { display: none !important; }
+
 /* Utils */
 .text-primary { color: var(--primary); }
 .text-muted { color: var(--text-muted); }

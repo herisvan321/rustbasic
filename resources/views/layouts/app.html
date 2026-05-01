@@ -21,7 +21,57 @@
     <script src="https://unpkg.com/htmx.org@1.9.10" crossorigin="anonymous"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
-<body hx-boost="true">
+<body hx-boost="true" hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token }}"}' x-data="{ toast: { show: false, message: '', type: 'success' } }">
+    <!-- Komponen Toast (Notifikasi) -->
+    <div x-show="toast.show" 
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0 transform translate-y-4"
+         x-transition:enter-end="opacity-100 transform translate-y-0"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100 transform translate-y-0"
+         x-transition:leave-end="opacity-0 transform translate-y-4"
+         class="toast-container"
+         :class="toast.type === 'success' ? 'toast-success' : 'toast-error'"
+         style="position: fixed; bottom: 2rem; right: 2rem; z-index: 9999;"
+         x-cloak>
+        <div class="flex-center" style="min-height: auto; padding: 1rem 2rem;">
+            <span x-text="toast.message"></span>
+        </div>
+    </div>
+
+    <div id="flash-data" 
+         data-success="{{ flash_success }}" 
+         data-error="{{ flash_error }}"
+         style="display: none;">
+    </div>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const flashData = document.getElementById('flash-data');
+            const success = flashData.getAttribute('data-success');
+            const error = flashData.getAttribute('data-error');
+
+            if (success) {
+                window.dispatchEvent(new CustomEvent('show-toast', { detail: { message: success, type: 'success' } }));
+            }
+            if (error) {
+                window.dispatchEvent(new CustomEvent('show-toast', { detail: { message: error, type: 'error' } }));
+            }
+        });
+
+        window.addEventListener('show-toast', (e) => {
+            // Mengambil instance data Alpine.js
+            const el = document.body;
+            if (el && el.__x) {
+                const data = el.__x.$data;
+                data.toast.message = e.detail.message;
+                data.toast.type = e.detail.type;
+                data.toast.show = true;
+                setTimeout(() => data.toast.show = false, 4000);
+            }
+        });
+    </script>
+
     <main>
         <!-- Konten dari file lain akan muncul di sini -->
         {% block content %}{% endblock %}

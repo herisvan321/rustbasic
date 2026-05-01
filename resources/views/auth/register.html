@@ -1,0 +1,38 @@
+{% extends "layouts/app.html" %}
+
+{% block title %}Daftar - RustBasic{% endblock %}
+
+{% block content %}
+<div class="flex-center">
+    <div class="glass-panel" style="max-width: 450px;">
+        <h1 class="title" style="font-size: 2.5rem; text-align: center;">Daftar</h1>
+        <p class="subtitle" style="text-align: center;">Buat akun baru Anda</p>
+
+        <form hx-post="/register" hx-target="body" hx-push-url="true">
+            <div class="mb-4">
+                <label class="form-label">Nama Lengkap</label>
+                <input type="text" name="name" class="form-control" placeholder="Nama Anda" value="{{ old.name }}" required>
+                {% if errors.name %}<small class="text-danger">{{ errors.name[0] }}</small>{% endif %}
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label">Email</label>
+                <input type="email" name="email" class="form-control" placeholder="nama@email.com" value="{{ old.email }}" required>
+                {% if errors.email %}<small class="text-danger">{{ errors.email[0] }}</small>{% endif %}
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label">Password</label>
+                <input type="password" name="password" class="form-control" placeholder="Min. 8 karakter" required>
+                {% if errors.password %}<small class="text-danger">{{ errors.password[0] }}</small>{% endif %}
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100 mb-4">DAFTAR SEKARANG</button>
+
+            <p class="text-muted" style="text-align: center; font-size: 0.9rem;">
+                Sudah punya akun? <a href="/login" class="text-primary" style="font-weight: 700;">Login Disini</a>
+            </p>
+        </form>
+    </div>
+</div>
+{% endblock %}
