@@ -49,3 +49,161 @@
 2026-05-02T10:55:50.486270Z DEBUG Rendering template: welcome.html (APP_DEBUG: true)
 2026-05-02T10:55:53.535194Z  INFO Request method=GET path=/register ip=127.0.0.1
 2026-05-02T10:55:53.535604Z DEBUG Rendering template: auth/register.html (APP_DEBUG: true)
+2026-05-02T11:10:25.717101Z  INFO Request method=GET path=/register ip=127.0.0.1
+2026-05-02T11:10:25.717490Z DEBUG Rendering template: auth/register.html (APP_DEBUG: true)
+2026-05-02T11:10:29.062594Z  INFO Request method=GET path=/login ip=127.0.0.1
+2026-05-02T11:10:29.063014Z DEBUG Rendering template: auth/login.html (APP_DEBUG: true)
+2026-05-02T11:14:40.296957Z  WARN Port 4000 sedang digunakan oleh PID 4958. Membunuh proses...
+2026-05-02T11:14:40.301881Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T11:14:47.321529Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T11:14:55.090921Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T11:15:07.869395Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T11:15:20.000100Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T11:15:29.754567Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T11:15:41.614861Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T11:15:51.592649Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T11:16:11.663178Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T11:16:29.736307Z  INFO Request method=GET path=/login ip=127.0.0.1
+2026-05-02T11:16:29.737133Z DEBUG Rendering template: auth/login.html (APP_DEBUG: true)
+2026-05-02T11:16:32.094331Z  INFO Request method=GET path=/ ip=127.0.0.1
+2026-05-02T11:16:32.094654Z DEBUG Rendering template: welcome.html (APP_DEBUG: true)
+2026-05-02T11:16:34.459821Z  INFO Request method=GET path=/login ip=127.0.0.1
+2026-05-02T11:16:34.460246Z DEBUG Rendering template: auth/login.html (APP_DEBUG: true)
+2026-05-02T11:17:26.450774Z  WARN Port 4000 sedang digunakan oleh PID 5123. Membunuh proses...
+2026-05-02T11:17:26.653447Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T11:17:41.117935Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T11:17:48.031874Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T11:18:14.536885Z  INFO Request method=GET path=/login ip=127.0.0.1
+2026-05-02T11:18:14.537702Z DEBUG Rendering template: auth/login.html (APP_DEBUG: true)
+2026-05-02T11:18:14.558916Z  INFO Request method=GET path=/public/css/style.css ip=127.0.0.1
+2026-05-02T11:18:17.109606Z  INFO Request method=GET path=/register ip=127.0.0.1
+2026-05-02T11:18:17.110044Z DEBUG Rendering template: auth/register.html (APP_DEBUG: true)
+2026-05-02T11:18:28.661846Z  INFO Request method=POST path=/register ip=127.0.0.1
+2026-05-02T11:18:29.568236Z  INFO Request method=GET path=/login ip=127.0.0.1
+2026-05-02T11:18:29.568426Z DEBUG Rendering template: auth/login.html (APP_DEBUG: true)
+2026-05-02T11:18:42.631589Z  INFO Request method=GET path=/login ip=127.0.0.1
+2026-05-02T11:18:42.631981Z DEBUG Rendering template: auth/login.html (APP_DEBUG: true)
+2026-05-02T11:18:49.628751Z  INFO Request method=POST path=/login ip=127.0.0.1
+2026-05-02T11:18:50.541986Z  INFO Request method=GET path=/dashboard ip=127.0.0.1
+2026-05-02T11:18:50.542738Z DEBUG Rendering template: dashboard.html (APP_DEBUG: true)
+2026-05-02T11:18:50.543242Z ERROR Gagal render template: too many arguments: unknown keyword argument `style` (in dashboard.html:22)
+2026-05-02T11:19:09.939741Z  WARN Port 4000 sedang digunakan oleh PID 5368. Membunuh proses...
+2026-05-02T11:19:10.117000Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T11:19:13.419136Z  INFO Request method=GET path=/dashboard ip=127.0.0.1
+2026-05-02T11:19:13.421101Z DEBUG Rendering template: dashboard.html (APP_DEBUG: false)
+2026-05-02T11:19:13.425822Z ERROR Gagal render template: too many arguments: unknown keyword argument `style` (in dashboard.html:22)
+2026-05-02T11:19:15.496902Z  INFO Request method=GET path=/dashboard ip=127.0.0.1
+2026-05-02T11:19:15.499005Z DEBUG Rendering template: dashboard.html (APP_DEBUG: false)
+2026-05-02T11:19:15.499521Z ERROR Gagal render template: too many arguments: unknown keyword argument `style` (in dashboard.html:22)
+2026-05-02T11:19:17.314110Z  INFO Request method=GET path=/ ip=127.0.0.1
+2026-05-02T11:19:17.314429Z DEBUG Rendering template: welcome.html (APP_DEBUG: false)
+2026-05-02T11:19:19.024242Z  INFO Request method=GET path=/dashboard ip=127.0.0.1
+2026-05-02T11:19:19.027322Z DEBUG Rendering template: dashboard.html (APP_DEBUG: false)
+2026-05-02T11:19:19.027848Z ERROR Gagal render template: too many arguments: unknown keyword argument `style` (in dashboard.html:22)
+2026-05-02T11:19:31.029602Z  WARN Port 4000 sedang digunakan oleh PID 5501. Membunuh proses...
+2026-05-02T11:19:31.232319Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T11:19:32.952018Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T11:19:35.044043Z  INFO Request method=GET path=/dashboard ip=127.0.0.1
+2026-05-02T11:19:35.046303Z DEBUG Rendering template: dashboard.html (APP_DEBUG: true)
+2026-05-02T11:19:35.049903Z ERROR Gagal render template: too many arguments: unknown keyword argument `style` (in dashboard.html:22)
+2026-05-02T11:19:51.231330Z  WARN Port 4000 sedang digunakan oleh PID 5536. Membunuh proses...
+2026-05-02T11:19:51.415446Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T11:20:01.057775Z  INFO Request method=GET path=/dashboard ip=127.0.0.1
+2026-05-02T11:20:01.060895Z DEBUG Rendering template: dashboard.html (APP_DEBUG: true)
+2026-05-02T11:20:03.827673Z  INFO Request method=GET path=/ ip=127.0.0.1
+2026-05-02T11:20:03.828070Z DEBUG Rendering template: welcome.html (APP_DEBUG: true)
+2026-05-02T11:20:06.043413Z  INFO Request method=GET path=/dashboard ip=127.0.0.1
+2026-05-02T11:20:06.046318Z DEBUG Rendering template: dashboard.html (APP_DEBUG: true)
+2026-05-02T11:21:42.509954Z  WARN Port 4000 sedang digunakan oleh PID 5591. Membunuh proses...
+2026-05-02T11:21:42.712378Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T11:21:50.229904Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T11:21:56.838750Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T11:22:02.360732Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T11:22:08.140540Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T11:22:16.481862Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T11:22:26.238431Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T11:22:37.224702Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T11:22:45.617255Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T11:23:41.869675Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T11:23:49.056741Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T11:23:56.428534Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T11:25:02.873836Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T11:25:09.914989Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T11:25:16.901491Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T11:25:23.946754Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T11:25:30.630783Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T11:25:37.977734Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T11:25:57.434878Z  INFO Request method=GET path=/dashboard ip=127.0.0.1
+2026-05-02T11:25:57.438159Z DEBUG Rendering template: dashboard.html (APP_DEBUG: true)
+2026-05-02T11:26:55.735558Z  INFO Request method=GET path=/dashboard ip=127.0.0.1
+2026-05-02T11:26:55.738682Z DEBUG Rendering template: dashboard.html (APP_DEBUG: true)
+2026-05-02T11:26:56.780928Z  INFO Request method=GET path=/dashboard ip=127.0.0.1
+2026-05-02T11:26:56.783968Z DEBUG Rendering template: dashboard.html (APP_DEBUG: true)
+2026-05-02T11:26:58.915304Z  INFO Request method=POST path=/logout ip=127.0.0.1
+2026-05-02T11:26:58.923107Z  INFO Request method=GET path=/ ip=127.0.0.1
+2026-05-02T11:26:58.923384Z DEBUG Rendering template: welcome.html (APP_DEBUG: true)
+2026-05-02T11:28:16.844253Z  WARN Port 4000 sedang digunakan oleh PID 5658. Membunuh proses...
+2026-05-02T11:28:17.047075Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T11:28:32.055989Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T11:28:53.215424Z  INFO Request method=GET path=/ ip=127.0.0.1
+2026-05-02T11:28:53.216257Z DEBUG Rendering template: welcome.html (APP_DEBUG: true)
+2026-05-02T11:28:54.314675Z  INFO Request method=GET path=/ ip=127.0.0.1
+2026-05-02T11:28:54.315164Z DEBUG Rendering template: welcome.html (APP_DEBUG: true)
+2026-05-02T11:29:57.742732Z  WARN Port 4000 sedang digunakan oleh PID 6149. Membunuh proses...
+2026-05-02T11:29:57.924309Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T11:30:08.019436Z  INFO Request method=GET path=/ ip=127.0.0.1
+2026-05-02T11:30:08.020207Z DEBUG Rendering template: welcome.html (APP_DEBUG: true)
+2026-05-02T11:30:08.045153Z  INFO Request method=GET path=/public/css/style.css ip=127.0.0.1
+2026-05-02T11:30:12.079639Z  INFO Request method=GET path=/login ip=127.0.0.1
+2026-05-02T11:30:12.079979Z DEBUG Rendering template: auth/login.html (APP_DEBUG: true)
+2026-05-02T11:30:15.782387Z  INFO Request method=POST path=/login ip=127.0.0.1
+2026-05-02T11:30:16.713102Z  INFO Request method=GET path=/dashboard ip=127.0.0.1
+2026-05-02T11:30:16.714205Z DEBUG Rendering template: dashboard.html (APP_DEBUG: true)
+2026-05-02T11:31:38.733898Z  INFO Request method=GET path=/dashboard ip=127.0.0.1
+2026-05-02T11:31:38.737244Z DEBUG Rendering template: dashboard.html (APP_DEBUG: true)
+2026-05-02T11:31:38.756762Z  INFO Request method=GET path=/public/css/style.css ip=127.0.0.1
+2026-05-02T11:31:42.463828Z  INFO Request method=POST path=/logout ip=127.0.0.1
+2026-05-02T11:31:42.469418Z  INFO Request method=GET path=/ ip=127.0.0.1
+2026-05-02T11:31:42.469734Z DEBUG Rendering template: welcome.html (APP_DEBUG: true)
+2026-05-02T11:33:04.101177Z  WARN Port 4000 sedang digunakan oleh PID 6269. Membunuh proses...
+2026-05-02T11:33:04.303749Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T11:33:16.342093Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T11:33:19.274414Z  INFO Request method=GET path=/login ip=127.0.0.1
+2026-05-02T11:33:19.275549Z DEBUG Rendering template: auth/login.html (APP_DEBUG: true)
+2026-05-02T11:33:23.542683Z  INFO Request method=POST path=/login ip=127.0.0.1
+2026-05-02T11:33:24.464551Z  INFO Request method=GET path=/dashboard ip=127.0.0.1
+2026-05-02T11:33:24.465326Z DEBUG Rendering template: dashboard.html (APP_DEBUG: true)
+2026-05-02T11:33:32.187630Z  WARN Port 4000 sedang digunakan oleh PID 6350. Membunuh proses...
+2026-05-02T11:33:32.374572Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T11:33:39.486060Z  INFO Request method=POST path=/logout ip=127.0.0.1
+2026-05-02T11:33:39.496246Z  INFO Request method=GET path=/ ip=127.0.0.1
+2026-05-02T11:33:39.497217Z DEBUG Rendering template: welcome.html (APP_DEBUG: true)
+2026-05-02T11:33:41.184622Z  WARN Port 4000 sedang digunakan oleh PID 6417. Membunuh proses...
+2026-05-02T11:33:41.387008Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T11:33:42.454095Z  INFO Request method=GET path=/login ip=127.0.0.1
+2026-05-02T11:33:42.455154Z DEBUG Rendering template: auth/login.html (APP_DEBUG: true)
+2026-05-02T11:34:01.797803Z  INFO Request method=POST path=/login ip=127.0.0.1
+2026-05-02T11:34:02.718413Z  INFO Request method=GET path=/dashboard ip=127.0.0.1
+2026-05-02T11:34:02.719201Z DEBUG Rendering template: dashboard.html (APP_DEBUG: true)
+2026-05-02T11:34:23.343895Z  INFO Request method=POST path=/logout ip=127.0.0.1
+2026-05-02T11:34:23.350746Z  INFO Request method=GET path=/ ip=127.0.0.1
+2026-05-02T11:34:23.351131Z DEBUG Rendering template: welcome.html (APP_DEBUG: true)
+2026-05-02T11:34:25.273952Z  INFO Request method=GET path=/login ip=127.0.0.1
+2026-05-02T11:34:25.274331Z DEBUG Rendering template: auth/login.html (APP_DEBUG: true)
+2026-05-02T11:34:29.094619Z  INFO Request method=POST path=/login ip=127.0.0.1
+2026-05-02T11:34:30.014545Z  INFO Request method=GET path=/dashboard ip=127.0.0.1
+2026-05-02T11:34:30.015469Z DEBUG Rendering template: dashboard.html (APP_DEBUG: true)
+2026-05-02T11:35:40.967438Z  WARN Port 4000 sedang digunakan oleh PID 6451. Membunuh proses...
+2026-05-02T11:35:41.169868Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T11:35:56.725917Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T11:36:05.742544Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T11:36:18.576275Z  INFO Request method=GET path=/dashboard ip=127.0.0.1
+2026-05-02T11:36:18.578856Z DEBUG Rendering template: dashboard.html (APP_DEBUG: true)
+2026-05-02T11:36:18.599892Z  INFO Request method=GET path=/public/css/style.css ip=127.0.0.1
+2026-05-02T11:36:38.309207Z  INFO Request method=POST path=/logout ip=127.0.0.1
+2026-05-02T11:36:38.315427Z  INFO Request method=GET path=/ ip=127.0.0.1
+2026-05-02T11:36:38.315699Z DEBUG Rendering template: welcome.html (APP_DEBUG: true)
+2026-05-02T11:36:44.826177Z  INFO Request method=GET path=/register ip=127.0.0.1
+2026-05-02T11:36:44.826700Z DEBUG Rendering template: auth/register.html (APP_DEBUG: true)
+2026-05-02T11:36:47.676156Z  INFO Request method=GET path=/login ip=127.0.0.1
+2026-05-02T11:36:47.676738Z DEBUG Rendering template: auth/login.html (APP_DEBUG: true)

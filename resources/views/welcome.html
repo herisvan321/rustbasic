@@ -1,4 +1,5 @@
 {% extends "layouts/app.html" %}
+{% from "components/buttons.html" import button, link_button %}
 
 {% block title %}Selamat Datang - RustBasic{% endblock %}
 
@@ -17,7 +18,7 @@
                 <span class="badge" style="background: rgba(255,255,255,0.2); color: #fff; border: none;">Axum</span>
                 <span class="badge" style="background: rgba(255,255,255,0.2); color: #fff; border: none;">Minijinja</span>
                 <span class="badge" style="background: rgba(255,255,255,0.2); color: #fff; border: none;">HTMX</span>
-                <span class="badge" style="background: rgba(255,255,255,0.2); color: #fff; border: none;">Alpine.js</span>
+                <span class="badge" style="background: rgba(255,255,255,0.2); color: #fff; border: none;">Zero-JS</span>
             </div>
         </div>
     </div>
@@ -33,13 +34,12 @@
 
                 <div style="display: flex; flex-direction: column; gap: 1.25rem;">
                     {% if auth %}
-                        <a href="/dashboard" class="btn btn-primary w-100">Buka Dashboard</a>
-                        <form action="/logout" method="POST" style="margin: 0; width: 100%;">
-                            <button type="submit" class="btn btn-outline w-100">Logout</button>
-                        </form>
+                        {{ link_button("/dashboard", "Buka Dashboard", class="w-100") }}
+                        {% from "components/overlays.html" import logout_confirm_button %}
+                        {{ logout_confirm_button(id="welcome-logout", label="Logout", variant="outline", class="w-100") }}
                     {% else %}
-                        <a href="/login" class="btn btn-primary w-100">Login ke Akun</a>
-                        <a href="/register" class="btn btn-outline w-100">Daftar Sekarang</a>
+                        {{ link_button("/login", "Login ke Akun", class="w-100") }}
+                        {{ link_button("/register", "Daftar Sekarang", variant="outline", class="w-100") }}
                     {% endif %}
                 </div>
 

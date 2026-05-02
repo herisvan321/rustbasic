@@ -1,52 +1,30 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }} - RustBasic</title>
-    <link rel="stylesheet" href="/public/css/style.css?v=1.1">
-    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-</head>
-<body class="bg-light text-main">
-    <div class="flex-center min-h-screen">
-        <div class="glass-panel" style="width: 100%; max-width: 500px;">
-            <h1 class="text-primary mb-4">{{ title }}</h1>
-            <p class="mb-4">Form ini dilindungi oleh middleware <strong>CSRF Protection</strong> kustom.</p>
+{% extends "layouts/app.html" %}
+{% from "components/forms.html" import input %}
+{% from "components/buttons.html" import button %}
 
-            <!-- 
-                Gunakan hx-post untuk demonstrasi. 
-                Token dikirim melalui header X-CSRF-TOKEN.
-            -->
-            <form hx-post="/test-csrf" 
-                  hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token }}"}'
-                  hx-target="body"
-                  class="text-left">
-                
-                <div class="mb-3">
-                    <label class="form-label">Nama Lengkap</label>
-                    <input type="text" name="name" class="form-control" placeholder="Masukkan nama..." required>
-                </div>
+{% block title %}{{ title }} - RustBasic{% endblock %}
 
-                <div class="mb-3">
-                    <label class="form-label">Email</label>
-                    <input type="email" name="email" class="form-control" placeholder="Masukkan email..." required>
-                </div>
+{% block content %}
+<div class="flex-center min-h-screen">
+    <div class="glass-panel" style="width: 100%; max-width: 500px;">
+        <h1 class="text-primary mb-4">{{ title }}</h1>
+        <p class="mb-4">Form ini dilindungi oleh middleware <strong>CSRF Protection</strong> kustom.</p>
 
-                <div class="alert alert-info py-2 mb-4" style="font-size: 0.8rem;">
-                    <strong>Token CSRF Anda:</strong><br>
-                    <code>{{ csrf_token }}</code>
-                </div>
+        <form hx-post="/test-csrf" hx-target="body" class="text-left">
+            {{ input("name", label="Nama Lengkap", placeholder="Masukkan nama...", required=true) }}
+            {{ input("email", type="email", label="Email", placeholder="Masukkan email...", required=true) }}
 
-                <button type="submit" class="btn btn-primary w-100">
-                    Kirim Data (Aman)
-                </button>
-            </form>
-
-            <div class="mt-4">
-                <a href="/" class="text-muted" style="text-decoration: none;">&larr; Kembali ke Home</a>
+            <div class="alert alert-info py-2 mb-4" style="font-size: 0.8rem;">
+                <strong>Token CSRF Anda:</strong><br>
+                <code>{{ csrf_token }}</code>
             </div>
+
+            {{ button("Kirim Data (Aman)", class="w-100") }}
+        </form>
+
+        <div class="mt-4">
+            <a href="/" class="text-muted" style="text-decoration: none;">&larr; Kembali ke Home</a>
         </div>
     </div>
-</body>
-</html>
+</div>
+{% endblock %}

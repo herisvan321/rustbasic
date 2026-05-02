@@ -2,3 +2,5 @@
 .env
 !.env.example
 /database/*.sqlite
+/storage/logs/*.log
+/storage/uploads

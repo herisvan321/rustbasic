@@ -1,0 +1,50 @@
+{# 📑 LABEL: OVERLAY COMPONENTS (components/overlays.html) #}
+
+{# 1. Logout Confirmation Button & Modal (Fixed Zero-JS) #}
+{% macro logout_confirm_button(id="logout-modal", label="LOGOUT", variant="outline", class="", style="") %}
+<div class="logout-wrapper" style="display: contents;">
+    <!-- Checkbox State (Hidden) -->
+    <input type="checkbox" id="{{ id }}" class="modal-state-checkbox" style="display: none !important;">
+    
+    <!-- Tombol Pemicu -->
+    <label for="{{ id }}" class="btn btn-{{ variant }} {{ class }}" style="{{ style }}">
+        {{ label }}
+    </label>
+
+    <!-- Konten Modal (Fixed Position akan membuatnya keluar dari sidebar) -->
+    <div class="modal-backdrop zero-js-modal">
+        <div class="modal-content modal-sm" style="text-align: center;">
+            <div style="font-size: 4rem; margin-bottom: 1rem;">👋</div>
+            <h3 style="font-size: 1.75rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-main);">Konfirmasi Logout</h3>
+            <p class="text-muted mb-5">Apakah Anda yakin ingin mengakhiri sesi ini?</p>
+            
+            <div style="display: flex; gap: 1rem; justify-content: center;">
+                <!-- Tombol Batal: Menggunakan Label untuk uncheck checkbox -->
+                <label for="{{ id }}" class="btn btn-outline" style="cursor: pointer;">BATAL</label>
+                
+                <!-- Tombol Logout -->
+                <form hx-post="/logout" hx-target="body" hx-push-url="true" hx-indicator="#indicator" style="margin: 0;">
+                    <button type="submit" class="btn btn-primary" style="cursor: pointer;">IYA, LOGOUT</button>
+                </form>
+            </div>
+        </div>
+        <!-- Area Klik di luar modal untuk menutup (Overlay label) -->
+        <label for="{{ id }}" class="modal-close-overlay" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index: -1; cursor: default;"></label>
+    </div>
+</div>
+{% endmacro %}
+
+{# 2. Modal Container (Standard) #}
+{% macro modal(id, title="", size="md") %}
+<div id="{{ id }}" class="modal-backdrop">
+    <div class="modal-content modal-{{ size }}">
+        <div class="modal-header">
+            <h3>{{ title }}</h3>
+            <button class="modal-close" hx-on="click: this.closest('.modal-backdrop').remove()">&times;</button>
+        </div>
+        <div class="modal-body">
+            {{ caller() }}
+        </div>
+    </div>
+</div>
+{% endmacro %}

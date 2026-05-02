@@ -1,6 +1,6 @@
 <!-- 
-  📑 LABEL: LAYOUT UTAMA (app.html)
-  File ini adalah kerangka dasar untuk semua halaman.
+  📑 LABEL: LAYOUT UTAMA (app.html) - ZERO JS VERSION
+  Hanya menggunakan HTMX untuk interaksi.
 -->
 <!DOCTYPE html>
 <html lang="id">
@@ -15,39 +15,25 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
     
     <!-- 2. File CSS Utama -->
-    <link rel="stylesheet" href="/public/css/style.css?v=1.1">
+    <link rel="stylesheet" href="/public/css/style.css?v=1.3">
     
-    <!-- 3. Library Frontend (HTMX & Alpine.js) -->
+    <!-- 3. Library Frontend (HTMX SAJA) -->
     <script src="https://unpkg.com/htmx.org@1.9.10" crossorigin="anonymous"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
-<body hx-boost="true" hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token }}"}' x-data="{ toast: { show: false, message: '', type: 'success' } }">
-    <!-- Komponen Toast (Notifikasi) -->
-    <div x-show="toast.show" 
-         x-transition:enter="transition ease-out duration-300"
-         x-transition:enter-start="opacity-0 transform translate-y-4"
-         x-transition:enter-end="opacity-100 transform translate-y-0"
-         x-transition:leave="transition ease-in duration-200"
-         x-transition:leave-start="opacity-100 transform translate-y-0"
-         x-transition:leave-end="opacity-0 transform translate-y-4"
-         class="toast-container"
-         :class="toast.type === 'success' ? 'toast-success' : 'toast-error'"
-         style="position: fixed; bottom: 2rem; right: 2rem; z-index: 9999;"
-         x-cloak>
-        <div class="flex-center" style="min-height: auto; padding: 1rem 2rem;">
-            <span x-text="toast.message"></span>
-        </div>
-    </div>
-
-    <div id="flash-data" 
-         data-success="{{ flash_success }}" 
-         data-error="{{ flash_error }}"
-         style="display: none;">
-    </div>
-
-    <script src="/public/js/app.js"></script>
-
+<body hx-boost="true" hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token }}"}'>
+    {% from "components/feedback.html" import indicator %}
+    {{ indicator() }}
+    
     <main>
+        {% from "components/display.html" import alert %}
+        <!-- Flash Messages (Tanpa JS, dirender langsung) -->
+        {% if flash_success %}
+            {{ alert(flash_success, type="success") }}
+        {% endif %}
+        {% if flash_error %}
+            {{ alert(flash_error, type="error") }}
+        {% endif %}
+
         <!-- Konten dari file lain akan muncul di sini -->
         {% block content %}{% endblock %}
     </main>

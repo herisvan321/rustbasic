@@ -1,4 +1,6 @@
 {% extends "layouts/app.html" %}
+{% from "components/forms.html" import input %}
+{% from "components/buttons.html" import button, link_back %}
 
 {% block title %}Login - RustBasic{% endblock %}
 
@@ -15,24 +17,17 @@
     <!-- Sisi Form -->
     <div class="split-side-content">
         <div class="content-container">
-            <a href="/" class="text-primary mb-4" style="display: inline-block; font-weight: 700; text-decoration: none;">&larr; KEMBALI</a>
+            {{ link_back() }}
             
             <h2 class="title" style="font-size: 2.5rem; margin-bottom: 0.5rem; text-align: left;">Login</h2>
             <p class="text-muted mb-5">Masukkan kredensial Anda untuk masuk.</p>
 
-            <form hx-post="/login" hx-target="body" hx-push-url="true">
-                <div class="mb-4">
-                    <label class="form-label">Email</label>
-                    <input type="email" name="email" class="form-control" placeholder="nama@email.com" value="{{ old.email }}" required>
-                    {% if errors.email %}<small class="text-danger">{{ errors.email[0] }}</small>{% endif %}
-                </div>
+            <form hx-post="/login" hx-target="body" hx-push-url="true" hx-indicator="#indicator">
+                {{ input("email", type="email", label="Email", placeholder="nama@email.com", value=old.email, errors=errors.email, required=true) }}
+                
+                {{ input("password", type="password", label="Password", placeholder="********", required=true) }}
 
-                <div class="mb-5">
-                    <label class="form-label">Password</label>
-                    <input type="password" name="password" class="form-control" placeholder="********" required>
-                </div>
-
-                <button type="submit" class="btn btn-primary w-100 mb-4">MASUK</button>
+                {{ button("MASUK", class="w-100 mb-4") }}
 
                 <p class="text-muted" style="text-align: center; font-size: 0.9rem;">
                     Belum punya akun? <a href="/register" class="text-primary" style="font-weight: 700;">Daftar Sekarang</a>

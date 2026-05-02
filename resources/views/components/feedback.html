@@ -1,0 +1,27 @@
+{# 📑 LABEL: FEEDBACK COMPONENTS (components/feedback.html) #}
+
+{# 1. Loading Spinner #}
+{% macro spinner(class="") %}
+<div class="spinner {{ class }}">
+    <div class="spinner-circle"></div>
+</div>
+{% endmacro %}
+
+{# 2. HTMX Indicator #}
+{% macro indicator(id="indicator", label="Memproses...") %}
+<div id="{{ id }}" class="htmx-indicator feedback-overlay">
+    <div class="feedback-content">
+        {{ spinner() }}
+        <p>{{ label }}</p>
+    </div>
+</div>
+{% endmacro %}
+
+{# 3. Skeleton Loading #}
+{% macro skeleton_text(lines=3) %}
+<div class="skeleton-wrapper">
+    {% for i in range(lines) %}
+        <div class="skeleton-line" style="width: {{ [100, 90, 80, 70] | random }}%;"></div>
+    {% endfor %}
+</div>
+{% endmacro %}

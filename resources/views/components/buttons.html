@@ -1,0 +1,24 @@
+{# 📑 LABEL: BUTTON COMPONENTS (components/buttons.html) #}
+
+{% macro button(label, type="submit", variant="primary", class="", style="", hx_post="", hx_target="", hx_swap="") %}
+    <button type="{{ type }}" 
+            class="btn btn-{{ variant }} {{ class }}"
+            style="{{ style }}"
+            {% if hx_post %}hx-post="{{ hx_post }}"{% endif %}
+            {% if hx_target %}hx-target="{{ hx_target }}"{% endif %}
+            {% if hx_swap %}hx-swap="{{ hx_swap }}"{% endif %}>
+        {{ label }}
+    </button>
+{% endmacro %}
+
+{% macro link_button(href, label, variant="primary", class="", style="") %}
+    <a href="{{ href }}" class="btn btn-{{ variant }} {{ class }}" style="{{ style }}">
+        {{ label }}
+    </a>
+{% endmacro %}
+
+{% macro link_back(href="/", label="KEMBALI") %}
+    <a href="{{ href }}" class="text-primary mb-4" style="display: inline-block; font-weight: 700; text-decoration: none;">
+        &larr; {{ label }}
+    </a>
+{% endmacro %}
