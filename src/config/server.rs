@@ -53,10 +53,12 @@ pub async fn start_server(
     );
 
     // 2. Bangun Router
+    let web_router = routes::web::router()
+        .layer(GovernorLayer { config: governor_conf });
+
     let app = Router::new()
-        .merge(routes::web::router())
+        .merge(web_router)
         .nest_service("/public", static_files)
-        .layer(GovernorLayer { config: governor_conf })
         .layer(middleware::from_fn(app::http::middleware::csrf::csrf_middleware))
         .layer(middleware::from_fn(app::http::middleware::security_headers::security_headers_middleware))
         .layer(middleware::from_fn(app::http::middleware::logging::logging_middleware))
