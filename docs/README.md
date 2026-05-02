@@ -27,5 +27,16 @@ Selamat datang di panduan resmi framework RustBasic. Framework ini dirancang unt
 - [Error Handling](advanced.md#error-handling)
 - [URL Generation](advanced.md#url-generation)
 
+### [5. View & Komponen (UI)](views.md)
+- [Modular Macros](views.md#struktur-komponen)
+- [Zero-JS Philosophy](views.md#filosofi-zero-js)
+- [HTMX Integration](views.md#htmx-integration)
+
+### [6. Command Line Interface (CLI)](cli.md)
+- [Generator Komponen](cli.md#-1-generator-komponen-scaffolding)
+- [Database & Cache](cli.md#-2-database--cache)
+- [Security Audit](cli.md#-3-monitoring--security)
+- [Build Manager](cli.md#-4-build-manager)
+
 ---
 *Dibuat dengan ❤️ untuk RustMyAdmin Project.*
