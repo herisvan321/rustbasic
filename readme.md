@@ -28,12 +28,24 @@ cargo install cargo-watch
 ```
 
 ### 2. Menjalankan Aplikasi dengan Auto-Reload
-Kini Anda bisa menggunakan perintah singkat berikut (mirip `php artisan serve`):
+Kini Anda bisa menggunakan perintah singkat berikut (mirip `php rustbasic serve`):
 ```bash
 cargo serve
 ```
 
 *Perintah ini secara otomatis menjalankan `cargo watch -x run -w src -w resources`.*
+
+### 3. Membuat Model & Migration
+Sama seperti Laravel, Anda dapat membuat model dan migration baru berbasis Rust (Sea-ORM) dengan mudah:
+```bash
+cargo rustbasic make:model Product -m
+```
+
+### 4. Menjalankan Migrasi
+Migrasi sekarang bersifat manual untuk keamanan data:
+```bash
+cargo rustbasic migrate
+```
 
 ---
 
@@ -66,7 +78,7 @@ cp .env.example .env
 ```
 
 ### 2. Jalankan Aplikasi (Mode Pengembangan)
-Gunakan perintah singkat berikut untuk fitur Auto-Reload dan Port Cleaner:
+Gunakan perintah singkat berikut untuk fitur Auto-Reload dan Manual Migration dan Port Cleaner:
 ```bash
 cargo serve
 ```

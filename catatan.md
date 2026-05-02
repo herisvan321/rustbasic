@@ -109,11 +109,13 @@ Aplikasi dilengkapi dengan fitur otomatis untuk mempermudah pengembangan:
 - **Tidy Terminal**: Menggunakan fitur *clear screen* dan *quiet mode* agar log tetap bersih dan fokus pada informasi penting.
 
 ### Shortcut Command
-Gunakan perintah singkat (mirip Laravel) untuk menjalankan server pengembangan:
+Gunakan perintah singkat (mirip Laravel) untuk alur pengembangan yang cepat:
 ```bash
-cargo serve
+cargo serve                        # Menjalankan server (Auto-Reload)
+cargo rustbasic make:model Name -m # Membuat model & migration (Sea-ORM)
+cargo rustbasic migrate            # Menjalankan migrasi manual
 ```
 
 ---
 
-*Dokumentasi ini diperbarui Mei 2026 mencerminkan arsitektur Modular, Dukungan MySQL, Desain Premium Splitscreen, dan Fitur Auto-Reload.*
+*Dokumentasi ini diperbarui Mei 2026 mencerminkan arsitektur Modular, Dukungan MySQL, Desain Premium Splitscreen, Fitur Auto-Reload, dan Sea-ORM Migration.*

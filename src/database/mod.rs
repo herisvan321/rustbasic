@@ -10,5 +10,5 @@ pub mod session_manager;
 
 // Re-export untuk akses mudah
 pub use connection::connect;
-pub use migrations::run_migrations_any;
+pub use migrations::run_migrations;
 pub use session::init_sessions;

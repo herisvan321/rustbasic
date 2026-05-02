@@ -1,11 +1,7 @@
-mod app;
-mod routes;
-mod config;
-mod database;
-
 use tower_http::services::ServeDir;
 use dotenvy::dotenv;
-use crate::config::Config;
+use rustbasic::{config, database};
+use rustbasic::config::Config;
 
 #[tokio::main]
 async fn main() {

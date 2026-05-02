@@ -1,5 +1,4 @@
 use crate::config::Config;
-use crate::database::migrations;
 
 pub async fn init_sessions(cfg: &Config) {
     let db_url = if cfg.session_driver == "file" {
@@ -14,8 +13,8 @@ pub async fn init_sessions(cfg: &Config) {
     };
 
     sqlx::any::install_default_drivers();
-    let pool = sqlx::AnyPool::connect(&db_url).await.expect("Gagal terhubung ke database session");
+    let _pool = sqlx::AnyPool::connect(&db_url).await.expect("Gagal terhubung ke database session");
 
-    // Jalankan migrasi otomatis
-    migrations::run_migrations_any(&pool).await;
+    // Jalankan migrasi secara manual: cargo rustbasic migrate
+    // migrations::run_migrations_any(&pool).await;
 }
