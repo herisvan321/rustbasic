@@ -37,6 +37,7 @@ Aplikasi menerapkan standar keamanan produksi:
     - Terminal: Output berwarna untuk visibilitas instan.
     - File: Log bersih (tanpa kode warna ANSI) di `storage/logs/` untuk audit.
 - **Cache:Clear**: Perintah `cargo rustbasic cache:clear` sekarang memotong (truncate) file log tanpa menghapusnya, menjaga kompatibilitas dengan server yang sedang berjalan.
+- **Hidden Assets & Binary Embedding**: Library HTMX dan File CSS utama kini tidak lagi berada di folder `public`. Keduanya dipindahkan ke `resources/` dan ditanam ke dalam file eksekusi (binary) aplikasi. Hal ini mencegah akses langsung ke source code asset dan mempercepat loading karena tidak ada I/O disk saat request asset tersebut.
 
 ---
 

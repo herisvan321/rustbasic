@@ -16,6 +16,17 @@ use crate::config::requests::Request as AppRequest;
 use crate::config::Config;
 use serde_json::{json, Value};
 
+// 1. Load Static Assets into Memory (Hidden from Public)
+static HTMX_SRC: LazyLock<String> = LazyLock::new(|| {
+    // Gunakan include_str! agar file masuk ke dalam binary saat kompilasi
+    include_str!("../../resources/js/htmx.min.js").to_string()
+});
+
+static CSS_SRC: LazyLock<String> = LazyLock::new(|| {
+    include_str!("../../resources/css/style.css").to_string()
+});
+
+
 // 1. Setup Engine Template (Minijinja)
 pub static JINJA: LazyLock<Environment<'static>> = LazyLock::new(|| {
     let mut env = Environment::new();
@@ -52,6 +63,16 @@ pub static JINJA: LazyLock<Environment<'static>> = LazyLock::new(|| {
         let tz: Tz = tz_str.parse().unwrap_or(chrono_tz::UTC);
         
         chrono::Utc::now().with_timezone(&tz).to_rfc3339()
+    });
+
+    // Global Function: {{ htmx_js() }} - Injeksi script htmx langsung
+    env.add_function("htmx_js", || -> String {
+        HTMX_SRC.clone()
+    });
+
+    // Global Function: {{ app_css() }} - Injeksi style CSS langsung
+    env.add_function("app_css", || -> String {
+        CSS_SRC.clone()
     });
 
     env

@@ -84,4 +84,29 @@ Di file halaman (misal `home.html`):
 {% block content %}
   <h1>Hello World</h1>
 {% endblock %}
+
+---
+
+# Asset Management (Hidden Assets)
+
+RustBasic memiliki sistem unik di mana asset inti (CSS & JS) disembunyikan dari folder publik dan ditanam langsung ke dalam binary aplikasi.
+
+## Keuntungan
+- **Keamanan**: User tidak bisa mendownload file `.css` atau `.js` secara langsung via URL.
+- **Performa**: Asset diload langsung dari memori (RAM), nol disk I/O.
+- **Standalone**: Aplikasi tidak bergantung pada file eksternal di folder publik untuk asset inti.
+
+## Cara Penggunaan
+Asset ini dikelola melalui komponen `assets.html`.
+
+Di layout utama (`app.html`):
+```html
+{% from "components/assets.html" import styles, htmx %}
+{{ styles() }}
+{{ htmx() }}
+```
+
+File asli disimpan di:
+- `resources/css/style.css`
+- `resources/js/htmx.min.js`
 ```

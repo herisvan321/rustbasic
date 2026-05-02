@@ -14,11 +14,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
     
-    <!-- 2. File CSS Utama -->
-    <link rel="stylesheet" href="/public/css/style.css?v=1.4">
+    <!-- 2. File CSS Utama (Injected Local) -->
+    {% from "components/assets.html" import styles, htmx %}
+    {{ styles() }}
     
-    <!-- 3. Library Frontend (HTMX SAJA) -->
-    <script src="https://unpkg.com/htmx.org@1.9.10" crossorigin="anonymous"></script>
+    <!-- 3. Library Frontend (HTMX Local Macro) -->
+    {{ htmx() }}
 </head>
 <body hx-boost="true" hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token }}"}'>
     {% from "components/feedback.html" import indicator %}

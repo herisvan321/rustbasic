@@ -1,0 +1,18 @@
+<!-- 
+  📑 LABEL: ASSETS COMPONENT (components/assets.html)
+  Komponen untuk menyuntikkan library JS & CSS lokal yang disembunyikan.
+-->
+
+{% macro styles() %}
+    <!-- Main Style Local (Hidden from Public, Injected by Backend) -->
+    <style>
+        {{ app_css() | safe }}
+    </style>
+{% endmacro %}
+
+{% macro htmx() %}
+    <!-- HTMX Local (Hidden from Public, Injected by Backend) -->
+    <script>
+        {{ htmx_js() | safe }}
+    </script>
+{% endmacro %}

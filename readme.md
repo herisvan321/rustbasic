@@ -18,6 +18,7 @@ Aplikasi web modern berbasis Rust dengan arsitektur **Clean Monolith**. Dirancan
 - **🔘 Smart Overlays**: Modal konfirmasi (seperti Logout) menggunakan teknik **CSS Checkbox Hack** (Zero-JS).
 - **🚀 Premium Splitscreen UI**: Desain layar terbagi yang modern dan mewah tanpa kartu (_cardless_).
 - **📊 Premium Dashboard**: Panel kendali modern dengan statistik real-time dan navigasi sisi kiri yang elegan.
+- **📦 Hidden Assets & Binary Embedding**: File CSS dan JS (HTMX) disembunyikan dari folder publik dan ditanam langsung ke dalam binary aplikasi menggunakan `include_str!` untuk performa maksimal dan keamanan ekstra.
 
 ---
 
@@ -64,6 +65,8 @@ rustbasic/
 ├── database/             # Lokasi database SQLite & SQL migrasi
 ├── public/               # File statis (CSS, Gambar) - ZERO JS
 ├── resources/
+│   ├── css/              # Asset CSS (Hidden/Embedded)
+│   ├── js/               # Asset JS (Hidden/Embedded)
 │   └── views/            # Template HTML (Minijinja)
 │       ├── auth/         # Halaman Login & Register
 │       ├── components/   # Modular UI Components
