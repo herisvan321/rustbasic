@@ -1,3 +1,3 @@
 [alias]
-serve = ["watch", "-c", "-q", "-x", "run", "-w", "src", "-w", "resources"]  
+serve = ["watch", "-c", "-q", "--no-ignore", "-i", "target", "-w", "src", "-w", "resources", "-w", ".env", "-x", "run"]  
 rustbasic = ["run", "-q", "--bin", "cli", "--"]

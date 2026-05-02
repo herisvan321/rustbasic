@@ -1,0 +1,51 @@
+2026-05-02T10:45:15.976812Z  INFO Request method=GET path=/login ip=127.0.0.1
+2026-05-02T10:45:15.979182Z DEBUG Rendering template: auth/login.html (APP_DEBUG: false)
+2026-05-02T10:45:16.836403Z  INFO Request method=GET path=/login ip=127.0.0.1
+2026-05-02T10:45:16.837016Z DEBUG Rendering template: auth/login.html (APP_DEBUG: false)
+2026-05-02T10:46:36.752848Z  WARN Port 4000 sedang digunakan oleh PID 4106. Membunuh proses...
+2026-05-02T10:46:36.955587Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T10:47:18.803425Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T10:48:14.309910Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T10:49:03.075977Z  INFO Request method=GET path=/login ip=127.0.0.1
+2026-05-02T10:49:03.076876Z DEBUG Rendering template: auth/login.html (APP_DEBUG: false)
+2026-05-02T10:49:03.305373Z  INFO Request method=GET path=/login ip=127.0.0.1
+2026-05-02T10:49:03.305710Z DEBUG Rendering template: auth/login.html (APP_DEBUG: false)
+2026-05-02T10:49:03.489388Z  INFO Request method=GET path=/login ip=127.0.0.1
+2026-05-02T10:49:03.489678Z DEBUG Rendering template: auth/login.html (APP_DEBUG: false)
+2026-05-02T10:49:03.667295Z  INFO Request method=GET path=/login ip=127.0.0.1
+2026-05-02T10:49:03.667593Z DEBUG Rendering template: auth/login.html (APP_DEBUG: false)
+2026-05-02T10:49:07.303707Z  INFO Request method=GET path=/ ip=127.0.0.1
+2026-05-02T10:49:07.304020Z DEBUG Rendering template: welcome.html (APP_DEBUG: false)
+2026-05-02T10:50:46.380399Z  WARN Port 4000 sedang digunakan oleh PID 4327. Membunuh proses...
+2026-05-02T10:50:46.583193Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T10:51:16.329116Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T10:51:23.814888Z  INFO Request method=GET path=/ ip=127.0.0.1
+2026-05-02T10:51:23.816073Z DEBUG Rendering template: welcome.html (APP_DEBUG: false)
+2026-05-02T10:51:24.622956Z  INFO Request method=GET path=/ ip=127.0.0.1
+2026-05-02T10:51:24.623267Z DEBUG Rendering template: welcome.html (APP_DEBUG: false)
+2026-05-02T10:51:35.172010Z  INFO Request method=GET path=/ ip=127.0.0.1
+2026-05-02T10:51:35.172296Z DEBUG Rendering template: welcome.html (APP_DEBUG: false)
+2026-05-02T10:51:35.875473Z  INFO Request method=GET path=/ ip=127.0.0.1
+2026-05-02T10:51:35.875796Z DEBUG Rendering template: welcome.html (APP_DEBUG: false)
+2026-05-02T10:52:32.280296Z  WARN Port 4000 sedang digunakan oleh PID 4554. Membunuh proses...
+2026-05-02T10:52:32.482920Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T10:53:32.201122Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T10:53:36.624641Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T10:53:52.829046Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T10:54:48.285374Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T10:54:53.194008Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T10:55:00.865374Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T10:55:03.572681Z  INFO Request method=GET path=/ ip=127.0.0.1
+2026-05-02T10:55:03.573679Z DEBUG Rendering template: welcome.html (APP_DEBUG: false)
+2026-05-02T10:55:10.758493Z  WARN Port 4000 sedang digunakan oleh PID 4719. Membunuh proses...
+2026-05-02T10:55:10.961240Z  INFO RustBasic berjalan di: http://0.0.0.0:4000
+2026-05-02T10:55:13.509795Z  INFO Request method=GET path=/ ip=127.0.0.1
+2026-05-02T10:55:13.510703Z DEBUG Rendering template: welcome.html (APP_DEBUG: true)
+2026-05-02T10:55:48.402590Z  INFO Request method=GET path=/ ip=127.0.0.1
+2026-05-02T10:55:48.402908Z DEBUG Rendering template: welcome.html (APP_DEBUG: true)
+2026-05-02T10:55:49.390381Z  INFO Request method=GET path=/ ip=127.0.0.1
+2026-05-02T10:55:49.390775Z DEBUG Rendering template: welcome.html (APP_DEBUG: true)
+2026-05-02T10:55:50.485960Z  INFO Request method=GET path=/ ip=127.0.0.1
+2026-05-02T10:55:50.486270Z DEBUG Rendering template: welcome.html (APP_DEBUG: true)
+2026-05-02T10:55:53.535194Z  INFO Request method=GET path=/register ip=127.0.0.1
+2026-05-02T10:55:53.535604Z DEBUG Rendering template: auth/register.html (APP_DEBUG: true)

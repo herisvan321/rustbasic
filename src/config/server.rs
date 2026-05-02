@@ -59,6 +59,7 @@ pub async fn start_server(
         .layer(GovernorLayer { config: governor_conf })
         .layer(middleware::from_fn(app::http::middleware::csrf::csrf_middleware))
         .layer(middleware::from_fn(app::http::middleware::security_headers::security_headers_middleware))
+        .layer(middleware::from_fn(app::http::middleware::logging::logging_middleware))
         .layer(SessionLayer::new(session_store))
         .fallback(app::http::controllers::error_controller::ErrorController::not_found)
         .with_state(state);

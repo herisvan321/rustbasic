@@ -6,7 +6,7 @@ use rustbasic::config::Config;
 #[tokio::main]
 async fn main() {
     // 1. Muat file .env & Inisialisasi Logger (Terminal + File)
-    dotenv().ok();
+    dotenv().expect("❌ Error: File .env tidak ditemukan! Silakan salin .env.example menjadi .env sebelum menjalankan server.");
     let _guard = config::logger::init();
 
     // 2. Muat Konfigurasi

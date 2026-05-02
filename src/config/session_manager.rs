@@ -1,6 +1,12 @@
 use axum_session::{DatabasePool, DatabaseError};
 use async_trait::async_trait;
 use sqlx::AnyPool;
+use dashmap::DashMap;
+use once_cell::sync::Lazy;
+
+/// Map global untuk melacak IP per Session ID secara sementara.
+/// Digunakan karena trait DatabasePool tidak memberikan akses ke request/IP secara langsung.
+pub static IP_TRACKER: Lazy<DashMap<String, String>> = Lazy::new(DashMap::new);
 
 #[derive(Clone, Debug)]
 pub struct RustBasicSessionStore {
@@ -26,6 +32,10 @@ impl DatabasePool for RustBasicSessionStore {
             .execute(&self.pool)
             .await
             .map_err(|e| DatabaseError::GenericDeleteError(e.to_string()))?;
+        
+        // Bersihkan tracker
+        IP_TRACKER.remove(id);
+        
         Ok(())
     }
 
@@ -44,11 +54,14 @@ impl DatabasePool for RustBasicSessionStore {
     }
 
     async fn store(&self, id: &str, session: &str, expires: i64, table_name: &str) -> Result<(), DatabaseError> {
+        // Ambil IP dari tracker (jika ada)
+        let ip = IP_TRACKER.get(id).map(|i| i.clone()).unwrap_or_else(|| "unknown".to_string());
+
         let delete_query = format!("DELETE FROM {} WHERE id = $1", table_name);
         sqlx::query(&delete_query).bind(id).execute(&self.pool).await.ok();
 
         let insert_query = format!(
-            "INSERT INTO {} (id, payload, last_activity) VALUES ($1, $2, $3)",
+            "INSERT INTO {} (id, payload, last_activity, ip_address) VALUES ($1, $2, $3, $4)",
             table_name
         );
 
@@ -56,6 +69,7 @@ impl DatabasePool for RustBasicSessionStore {
             .bind(id)
             .bind(session)
             .bind(expires)
+            .bind(ip)
             .execute(&self.pool)
             .await
             .map_err(|e| DatabaseError::GenericInsertError(e.to_string()))?;
@@ -73,6 +87,11 @@ impl DatabasePool for RustBasicSessionStore {
             .into_iter()
             .map(|r| r.0)
             .collect();
+
+        // Bersihkan tracker untuk ID yang expired
+        for id in &ids {
+            IP_TRACKER.remove(id);
+        }
 
         let delete_query = format!("DELETE FROM {} WHERE last_activity < $1", table_name);
         sqlx::query(&delete_query)
@@ -109,6 +128,9 @@ impl DatabasePool for RustBasicSessionStore {
             .execute(&self.pool)
             .await
             .map_err(|e| DatabaseError::GenericDeleteError(e.to_string()))?;
+        
+        IP_TRACKER.clear();
+        
         Ok(())
     }
 

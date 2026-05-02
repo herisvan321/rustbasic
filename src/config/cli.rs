@@ -12,7 +12,7 @@ use colored::*;
 
 #[tokio::main]
 async fn main() {
-    dotenv().ok();
+    dotenv().expect("❌ Error: File .env tidak ditemukan! Silakan salin .env.example menjadi .env sebelum menggunakan CLI.");
     let args: Vec<String> = env::args().collect();
 
     if args.len() < 2 {
@@ -193,11 +193,15 @@ async fn clear_cache() {
         for entry in entries.flatten() {
             let path = entry.path();
             if path.is_file() {
-                let _ = fs::remove_file(path);
+                // Mengosongkan isi file tanpa menghapus filenya
+                let _ = fs::OpenOptions::new()
+                    .write(true)
+                    .truncate(true)
+                    .open(&path);
                 count += 1;
             }
         }
-        println!("   {} {} ({} file dihapus)", "✅ Logs:".green(), "Folder storage/logs telah dibersihkan.", count);
+        println!("   {} {} ({} file dibersihkan)", "✅ Logs:".green(), "Folder storage/logs telah dikosongkan.", count);
     } else {
         println!("   {} {}", "⚠️  Logs:".yellow(), "Folder storage/logs tidak ditemukan.");
     }

@@ -12,6 +12,7 @@ enum Sessions {
     Id,
     Payload,
     LastActivity,
+    IpAddress,
 }
 
 pub async fn setup_session(cfg: &Config) -> SessionStore<RustBasicSessionStore> {
@@ -94,6 +95,7 @@ pub async fn init_sessions(cfg: &Config) {
         .col(ColumnDef::new(Sessions::Id).string_len(255).primary_key())
         .col(ColumnDef::new(Sessions::Payload).text().not_null())
         .col(ColumnDef::new(Sessions::LastActivity).big_integer().not_null())
+        .col(ColumnDef::new(Sessions::IpAddress).string_len(45))
         .to_owned();
 
     db.execute(builder.build(&table))
