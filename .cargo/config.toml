@@ -1,0 +1,2 @@
+[alias]
+serve = "watch -c -q -x \"run -q\" -w src -w resources"

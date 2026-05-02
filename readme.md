@@ -17,6 +17,28 @@ Aplikasi web modern berbasis Rust dengan arsitektur **Laravel-inspired**. Diranc
 
 ---
 
+## 🚀 Development
+
+Untuk mempermudah pengembangan, Anda dapat menggunakan fitur **Auto-Reload** (aplikasi otomatis restart saat ada perubahan file) dan **Port Cleaner** (otomatis mematikan proses lama yang menyangkut di port).
+
+### 1. Instalasi Tool (Sekali saja)
+Pastikan Anda memiliki `cargo-watch` terinstal di sistem Anda:
+```bash
+cargo install cargo-watch
+```
+
+### 2. Menjalankan Aplikasi dengan Auto-Reload
+Kini Anda bisa menggunakan perintah singkat berikut (mirip `php artisan serve`):
+```bash
+cargo serve
+```
+
+*Perintah ini secara otomatis menjalankan `cargo watch -x run -w src -w resources`.*
+
+---
+
+## 🛠️ Tech Stack
+
 ## 📂 Struktur Proyek Terbaru
 ```text
 rustbasic/
@@ -43,11 +65,18 @@ Salin file `.env.example` ke `.env` dan sesuaikan pengaturan Anda:
 cp .env.example .env
 ```
 
-### 2. Jalankan Aplikasi
+### 2. Jalankan Aplikasi (Mode Pengembangan)
+Gunakan perintah singkat berikut untuk fitur Auto-Reload dan Port Cleaner:
+```bash
+cargo serve
+```
+
+Atau perintah standar Rust:
 ```bash
 cargo run
 ```
-Setelah berjalan, akses di:
+
+Akses aplikasi di:
 👉 **[http://localhost:4000](http://localhost:4000)**
 
 ---

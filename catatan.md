@@ -98,4 +98,22 @@ Terminal telah dibersihkan dari log query SQL yang berulang-ulang. Hanya log pen
 
 ---
 
-*Dokumentasi ini diperbarui Mei 2026 mencerminkan arsitektur Modular, Dukungan MySQL, dan Desain Premium Splitscreen.*
+---
+
+## 🚀 7. Alat Pengembangan (Dev Tools)
+
+### Auto-Reload & Port Cleaning
+Aplikasi dilengkapi dengan fitur otomatis untuk mempermudah pengembangan:
+- **Auto-Reload**: Mendeteksi perubahan file (`.rs`, `.html`, `.css`) dan melakukan restart otomatis.
+- **Port Cleaner**: Otomatis mematikan proses lama yang menyangkut di port (misal 4000) saat aplikasi baru dimulai.
+- **Tidy Terminal**: Menggunakan fitur *clear screen* dan *quiet mode* agar log tetap bersih dan fokus pada informasi penting.
+
+### Shortcut Command
+Gunakan perintah singkat (mirip Laravel) untuk menjalankan server pengembangan:
+```bash
+cargo serve
+```
+
+---
+
+*Dokumentasi ini diperbarui Mei 2026 mencerminkan arsitektur Modular, Dukungan MySQL, Desain Premium Splitscreen, dan Fitur Auto-Reload.*
