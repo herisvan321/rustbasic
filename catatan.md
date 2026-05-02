@@ -1,141 +1,76 @@
-# 📘 Catatan Dokumentasi RustBasic
+# 📘 Catatan Dokumentasi RustBasic (Zero-JS Edition)
 
-Dokumentasi ini berisi panduan struktur folder, fitur, dan cara penggunaan framework **RustBasic** (Axum bergaya Monolith).
+Dokumentasi ini berisi panduan struktur folder, fitur, dan cara penggunaan framework **RustBasic** (Axum bergaya Monolith dengan filosofi Zero-JS).
 
 ---
 
-## 📂 1. Struktur Folder (Struktur Modular & Ultra-Clean)
+## 📂 1. Struktur Folder (Modular & Zero-JS)
 
 Aplikasi telah dipisahkan menjadi modul-modul kecil untuk skalabilitas tinggi:
 
 ```text
 rustbasic/
 ├── database/             # Lokasi database SQLite & SQL migrasi
-├── public/               # File statis (CSS, JS, Gambar)
+├── public/               # File statis (CSS, Gambar) - ZERO JS (No JS Libs)
 ├── resources/
 │   └── views/            # Template HTML (Minijinja)
+│       ├── components/   # Modular UI Library (Split by logic)
+│       └── ...
 ├── src/
-│   ├── main.rs           # Entry point (Ultra-Clean, hanya 30 baris)
-│   ├── app/              # Folder Inti Aplikasi
-│   │   ├── http/         # Logic HTTP (Controllers, Middleware)
-│   │   ├── providers/    # Service Providers (Database, View)
-│   │   └── mod.rs        # Helper global (seperti fungsi render)
-│   ├── config/           # Pusat Konfigurasi & Inisialisasi
-│   │   ├── app.rs        # Struct Config & Load .env
-│   │   ├── database.rs   # Setup DB, Koneksi (Sea-ORM) & Migrasi
-│   │   ├── session.rs    # Setup Session Store & Init Tabel
-│   │   ├── server.rs     # Setup Router & Run Server
-│   │   ├── logger.rs     # Setup Logging & Startup Banner
-│   │   ├── requests.rs   # Request Helper (RustBasic Style)
-│   │   ├── responses.rs  # Response Helper (RustBasic Style)
-│   │   └── mod.rs        # Re-export seluruh konfigurasi
-│   └── routes/           # Pengaturan rute (web.rs, mod.rs)
+│   ├── main.rs           # Entry point (Strict Config & Mandatory .env)
+│   ├── app/              # Folder Inti Aplikasi (Controllers, Middleware)
+│   ├── config/           # Pusat Konfigurasi (Server, Session, Logging)
+│   └── routes/           # Pengaturan rute
 ├── storage/              # Penyimpanan File & Log
-│   └── logs/             # Log Aktivitas Server (Daily Rotation)
-└── .env                  # Pengaturan environment (Port, DB, App Key)
+└── .env                  # Environment Variables (Wajib Ada)
 ```
 
 ---
 
-## ⚙️ 2. Konfigurasi (.env)
+## ⚙️ 2. Konfigurasi & Keamanan (Hardened)
 
-Gunakann file `.env` untuk mengatur perilaku aplikasi:
+Aplikasi menerapkan standar keamanan produksi:
 
-- `APP_NAME`: Nama aplikasi Anda.
-- `APP_KEY`: Kunci enkripsi (wajib diawali `base64:`).
-- `DB_CONNECTION`: `sqlite` atau `mysql`.
-- `SESSION_DRIVER`: `database` atau `file`.
-- `APP_DEBUG`: `true` untuk mode pengembang (detil error), `false` untuk produksi.
-- `APP_TIMEZONE`: Zona waktu aplikasi (misal: `Asia/Jakarta`).
-- `APP_LIMIT_REQUEST`: Batas request per menit (keamanan DDoS/Brute Force).
-
----
-
-## 🗄️ 3. Database Multi-Driver & Session
-
-### Multi-Database Support
-
-Aplikasi kini mendukung **SQLite** dan **MySQL** secara native melalui `sqlx::AnyPool`. Konfigurasi otomatis berubah hanya dengan mengganti variabel di `.env`.
-
-### RustBasicSessionStore
-
-Session manager khusus yang menyimpan data secara terenkripsi di database. Nama modul telah diperbarui menjadi `RustBasicSessionStore` untuk mencerminkan identitas framework.
+- **Mandatory .env**: Aplikasi akan `panic!` jika file `.env` tidak ditemukan untuk mencegah salah konfigurasi.
+- **Session-IP Binding**: Setiap sesi dikunci ke alamat IP pembuatnya. Jika IP berubah secara drastis saat sesi aktif, sistem akan menolak akses untuk mencegah pembajakan sesi.
+- **Dual Logging**: 
+    - Terminal: Output berwarna untuk visibilitas instan.
+    - File: Log bersih (tanpa kode warna ANSI) di `storage/logs/` untuk audit.
+- **Cache:Clear**: Perintah `cargo rustbasic cache:clear` sekarang memotong (truncate) file log tanpa menghapusnya, menjaga kompatibilitas dengan server yang sedang berjalan.
 
 ---
 
-## 🎨 4. Frontend & UI (Premium Splitscreen)
+## 🎨 3. Frontend & UI (Zero-JS Philosophy)
 
-Desain UI telah ditingkatkan ke level premium tanpa menggunakan kartu (_cardless_):
+RustBasic meninggalkan library JavaScript berat (seperti Alpine.js) dan beralih ke **Murni HTMX + CSS**:
 
-- **Splitscreen Layout**: Tampilan layar terbagi yang modern untuk halaman login, daftar, dan dashboard.
-- **Visual Excellence**: Menggunakan gradasi jernih, tipografi modern (Inter), dan mikro-animasi.
-- **SPA Experience**: Navigasi instan tanpa reload halaman menggunakan **HTMX** dan **Alpine.js**.
-
----
-
-## 📥 5. Request & Response (RustBasic Style)
-
-Kini helper Request & Response berada di dalam folder `config` untuk akses yang lebih terpusat:
-
-### Menggunakan Request
-
-```rust
-pub async fn controller(req: Request) -> impl IntoResponse {
-    let name = req.input_as_str("name").unwrap_or("Tamu");
-    let all = req.all();
-}
-```
-
-### Menggunakan Response
-
-```rust
-ResponseHelper::json(data);
-ResponseHelper::view(html);
-ResponseHelper::redirect_with_success("/home", "Berhasil!", req.session);
-```
+- **Modular UI Library**: Komponen dipisah menjadi file kecil:
+    - `forms.html`: Penanganan input dan validasi error.
+    - `buttons.html`: Tombol aksi dan navigasi.
+    - `display.html`: Alert (Floating Toast), Stat Cards, Card.
+    - `overlays.html`: Modal Konfirmasi menggunakan teknik **Checkbox Hack** (Tanpa JS).
+    - `feedback.html`: Loading indicators dan Skeleton loading.
+- **Floating Alerts**: Notifikasi tidak lagi mendorong konten, melainkan melayang di pojok kanan atas dengan animasi halus.
+- **SPA Experience**: Navigasi instan menggunakan `hx-boost` dan `hx-indicator` untuk feedback visual.
 
 ---
 
-## 🛡️ 6. Keamanan & Performa Terminal
+## 🗄️ 4. Database & Session Store
 
-### Keamanan Terintegrasi
-
-- **CSRF Protection**: Otomatis memvalidasi token pada request mutasi.
-- **CSP & Security Headers**: Terkonfigurasi untuk memblokir script inline berbahaya dan clickjacking.
-
-### Terminal Output (Tidy Logs)
-
-Terminal telah dibersihkan dari log query SQL yang berulang-ulang. Hanya log penting (Error, Warn, App Debug) yang ditampilkan. Dilengkapi dengan **Startup Banner** ASCII saat aplikasi dijalankan.
+- **Multi-Database**: Mendukung SQLite dan MySQL via `sqlx::AnyPool`.
+- **RustBasicSessionStore**: Menyimpan IP Address untuk setiap sesi guna keamanan ekstra.
 
 ---
 
----
-
-## 🚀 7. Alat Pengembangan (Dev Tools)
-
-### Auto-Reload & Port Cleaning
-
-Aplikasi dilengkapi dengan fitur otomatis untuk mempermudah pengembangan:
-
-- **Auto-Reload**: Mendeteksi perubahan file (`.rs`, `.html`, `.css`) dan melakukan restart otomatis.
-- **Port Cleaner**: Otomatis mematikan proses lama yang menyangkut di port (misal 4000) saat aplikasi baru dimulai.
-- **Tidy Terminal**: Menggunakan fitur _clear screen_ dan _quiet mode_ agar log tetap bersih dan fokus pada informasi penting.
-
-### Shortcut Command (Beautiful & Colorful CLI)
-
-Gunakan perintah singkat dengan tampilan terminal yang indah dan berwarna:
+## 🚀 5. Perintah Pengembangan (CLI)
 
 ```bash
-cargo serve                        # Menjalankan server (Auto-Reload)
-cargo rustbasic make:model Name -m # Membuat model & migration (Sea-ORM)
-cargo rustbasic make:controller Name # Membuat controller baru
-cargo rustbasic make:middleware Name # Membuat middleware baru
-cargo rustbasic cache:clear       # Membersihkan logs dan database sessions
-cargo rustbasic build              # Menu build interaktif (Native/Windows/Linux/Mac)
+cargo serve                        # Menjalankan server (Auto-Reload + Watch .env)
+cargo rustbasic cache:clear       # Truncate logs & clear sessions
 cargo rustbasic route:list         # Menampilkan daftar route dalam tabel
-cargo rustbasic migrate            # Menjalankan migrasi manual
+cargo rustbasic build              # Menu build interaktif
 ```
 
 ---
 
-_Dokumentasi ini diperbarui Mei 2026 mencerminkan arsitektur Modular, Dukungan MySQL, Desain Premium Splitscreen, Fitur Auto-Reload, dan Sea-ORM Migration._
+_Dokumentasi ini diperbarui Mei 2026 mencerminkan Arsitektur Zero-JS, Modular Components, Hardened Session Security, dan Dual Logging._

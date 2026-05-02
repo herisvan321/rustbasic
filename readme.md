@@ -1,20 +1,22 @@
-# 🚀 RustBasic (Axum SPA - Version 2026)
+# 🚀 RustBasic (Axum SPA - Zero-JS Edition 2026)
 
-Aplikasi web modern berbasis Rust dengan arsitektur **Clean Monolith**. Dirancang untuk performa maksimal, keamanan tinggi, dan pengalaman pengembang yang luar biasa.
+Aplikasi web modern berbasis Rust dengan arsitektur **Clean Monolith**. Dirancang untuk performa maksimal, keamanan tinggi, dan pengalaman pengembang yang luar biasa dengan filosofi **Zero-JS**.
 
 ---
 
 ## 💎 Fitur Unggulan
 
 - **⚡ Performa Axum**: Backend super cepat dengan framework Axum 0.8 dan Tokio.
-- **🎨 Premium Splitscreen UI**: Desain layar terbagi yang modern dan mewah tanpa kartu (_cardless_).
+- **🎨 Zero-JS UI Architecture**: Pengalaman Single Page Application (SPA) yang sangat ringan menggunakan **HTMX** dan **Pure CSS**. Tidak ada library JavaScript berat (Hapus Alpine.js & Vanilla JS).
+- **🧩 Modular Minijinja Macros**: UI yang dibangun dengan komponen reusable yang terbagi secara logis (`forms`, `buttons`, `display`, `overlays`, `feedback`).
+- **🔐 Hardened Security**: 
+    - **Session-IP Binding**: Sesi dikunci berdasarkan IP Address untuk mencegah hijacking.
+    - **Strict Env Enforcement**: Aplikasi tidak akan berjalan tanpa file `.env` yang valid.
+    - **CSRF Protection**: Proteksi otomatis pada semua request HTMX.
+- **📝 Production-Grade Logging**: Dual-output logging (Terminal berwarna & File bersih di `storage/logs/`).
+- **🔘 Smart Overlays**: Modal konfirmasi (seperti Logout) menggunakan teknik **CSS Checkbox Hack** (Zero-JS).
+- **🚀 Premium Splitscreen UI**: Desain layar terbagi yang modern dan mewah tanpa kartu (_cardless_).
 - **📊 Premium Dashboard**: Panel kendali modern dengan statistik real-time dan navigasi sisi kiri yang elegan.
-- **🐞 Smart Error Reporting**: Halaman debug detail saat pengembangan (Stack Trace, Template Info) dan halaman minimalis saat produksi.
-- **🗄️ Multi-Database Support**: Dukungan native untuk **SQLite** dan **MySQL** melalui SQLx & Sea-ORM.
-- **🔑 Session RustBasic**: Sistem session yang aman dan terenkripsi disimpan di database (RustBasicSessionStore).
-- **🛡️ CSRF & Security Ready**: Proteksi CSRF terintegrasi dan Security Headers (CSP) otomatis.
-- **🎨 Modern Monolith SPA**: Pengalaman Single Page Application (SPA) tanpa reload menggunakan HTMX dan Alpine.js.
-- **📂 Ultra-Clean Architecture**: `main.rs` yang sangat minimalis (30 baris) dengan konfigurasi modular.
 
 ---
 
@@ -38,54 +40,41 @@ Kini Anda bisa menggunakan perintah singkat berikut (mirip `php rustbasic serve`
 cargo serve
 ```
 
-_Perintah ini secara otomatis menjalankan `cargo watch -x run -w src -w resources`._
-
-### 3. Membuat Model, Migration & Controller
-
-Sama seperti framework modern lainnya, Anda dapat membuat komponen baru berbasis Rust (Sea-ORM/Axum) dengan mudah:
-
-```bash
-cargo rustbasic make:model Product -m
-cargo rustbasic make:controller Product
-cargo rustbasic make:middleware Logging
-```
-
-### 4. Menjalankan Migrasi
-
-Migrasi bersifat manual untuk keamanan data:
-
-```bash
-cargo rustbasic migrate
-```
-
-### 5. Fitur CLI Lainnya (Beautiful & Colorful)
-
-Nikmati pengalaman CLI yang indah dan berwarna:
-
-```bash
-cargo rustbasic route:list   # Menampilkan daftar route (Tabel)
-cargo rustbasic build        # Menu build interaktif (Native/Windows/Linux/Mac)
-```
+_Perintah ini secara otomatis menjalankan `cargo watch` yang juga memantau perubahan pada file `.env`._
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠️ Tech Stack & Components
+
+### UI Component Library
+Terletak di `resources/views/components/`:
+- **`forms.html`**: Input field, checkbox, dll.
+- **`buttons.html`**: Tombol aksi, link button, tombol kembali.
+- **`display.html`**: Card, Premium Alerts (Floating), Stat Cards.
+- **`overlays.html`**: Modal dinamis dan Konfirmasi Logout (Zero-JS).
+- **`feedback.html`**: Loading Spinners dan HTMX Indicators.
+
+---
 
 ## 📂 Struktur Proyek Terbaru
 
 ```text
 rustbasic/
 ├── database/             # Lokasi database SQLite & SQL migrasi
-├── public/               # File statis (CSS, JS, Gambar)
+├── public/               # File statis (CSS, Gambar) - ZERO JS
 ├── resources/
 │   └── views/            # Template HTML (Minijinja)
+│       ├── auth/         # Halaman Login & Register
+│       ├── components/   # Modular UI Components
+│       ├── errors/       # Template Error (404, 500, Debug)
+│       └── layouts/      # Layout Utama
 ├── src/
-│   ├── main.rs           # Entry point (Ultra-Clean)
-│   ├── app/              # Core Application Logic
-│   ├── config/           # Modular Configuration (DB Connection, Session, Server, Log)
+│   ├── main.rs           # Entry point (Strict Config)
+│   ├── app/              # Core Application Logic (Controllers, Middleware)
+│   ├── config/           # Modular Configuration (DB, Session, Server, Log)
 │   └── routes/           # Web Routes
 ├── storage/              # Storage (Logs, Uploads, etc.)
-└── .env                  # Environment Variables
+└── .env                  # Environment Variables (Mandatory)
 ```
 
 ---
@@ -100,18 +89,10 @@ Salin file `.env.example` ke `.env` dan sesuaikan pengaturan Anda:
 cp .env.example .env
 ```
 
-### 2. Jalankan Aplikasi (Mode Pengembangan)
-
-Gunakan perintah singkat berikut untuk fitur Auto-Reload dan Manual Migration dan Port Cleaner:
+### 2. Jalankan Aplikasi
 
 ```bash
 cargo serve
-```
-
-Atau perintah standar Rust:
-
-```bash
-cargo run
 ```
 
 Akses aplikasi di:
@@ -119,12 +100,11 @@ Akses aplikasi di:
 
 ---
 
-## 📝 Tips Pengembangan
+## 🛡️ Keamanan & Logging
 
-- **Tidy Terminal**: Log query database telah difilter agar terminal tetap bersih dan fokus pada log aplikasi.
-- **Debug Mode**: Aktifkan `APP_DEBUG=true` di `.env` untuk mendapatkan visualisasi error yang mendetail selama pengembangan.
-- **Splitscreen UI**: Gunakan utility class di `style.css` untuk membangun halaman baru dengan tema splitscreen yang konsisten.
+- **Session Security**: Sesi disimpan di database dan divalidasi silang dengan alamat IP pengguna pada setiap request.
+- **Log Management**: Gunakan `cargo rustbasic cache:clear` untuk membersihkan cache dan memotong (truncate) file log tanpa menghapusnya.
 
 ---
 
-_Dibuat dengan ❤️ untuk ekosistem Rust. Arsitektur Bersih, Desain Premium, Kecepatan Cahaya._
+_Dibuat dengan ❤️ untuk ekosistem Rust. Arsitektur Bersih, Zero-JS, Desain Premium, Kecepatan Cahaya._
