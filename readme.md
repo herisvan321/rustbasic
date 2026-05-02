@@ -20,7 +20,6 @@ Aplikasi web modern berbasis Rust dengan arsitektur **Laravel-inspired**. Diranc
 ## 📂 Struktur Proyek Terbaru
 ```text
 rustbasic/
-├── config/               # Modul konfigurasi (.env loader)
 ├── database/             # Lokasi database SQLite & SQL migrasi
 ├── public/               # File statis (CSS, JS, Gambar)
 ├── resources/

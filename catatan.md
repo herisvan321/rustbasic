@@ -10,7 +10,6 @@ Aplikasi telah dipisahkan menjadi modul-modul kecil untuk skalabilitas tinggi:
 
 ```text
 rustbasic/
-├── config/               # Modul konfigurasi (.env loader)
 ├── database/             # Lokasi database SQLite & SQL migrasi
 ├── public/               # File statis (CSS, JS, Gambar)
 ├── resources/
