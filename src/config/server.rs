@@ -46,7 +46,7 @@ pub async fn start_server(
     let governor_conf = Arc::new(
         GovernorConfigBuilder::default()
             .key_extractor(SmartIpKeyExtractor)
-            .period(Duration::from_secs(1))
+            .period(Duration::from_millis(1000 / cfg.app_limit_request))
             .burst_size(cfg.app_limit_request as u32)
             .error_handler(handle_governor_error)
             .finish()
