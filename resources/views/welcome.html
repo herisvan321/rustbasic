@@ -38,9 +38,12 @@
                         {{ link_button("/dashboard", "Buka Dashboard", class="w-100") }}
                         {% from "components/overlays.html" import logout_confirm_button %}
                         {{ logout_confirm_button(id="welcome-logout", label="Logout", variant="outline", class="w-100") }}
-                    {% else %}
+                    {% elif auth_installed %}
                         {{ link_button("/login", "Login ke Akun", class="w-100") }}
                         {{ link_button("/register", "Daftar Sekarang", variant="outline", class="w-100") }}
+                    {% else %}
+                        {{ link_button("https://github.com/herisvan321/rest-basic", "Pelajari Framework", class="w-100") }}
+                        {{ link_button("/dev", "Sistem Info", variant="outline", class="w-100") }}
                     {% endif %}
                 </div>
 

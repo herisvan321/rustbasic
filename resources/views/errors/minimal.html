@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ code }} | {{ title }}</title>
-    <link rel="stylesheet" href="/public/css/style.css?v=1.1">
+     {% from "components/assets.html" import styles, htmx %}
+    {{ styles() }}
+    
+    <!-- 3. Library Frontend (HTMX Local Macro) -->
+    {{ htmx() }}
 </head>
 <body>
     <div class="split-screen">

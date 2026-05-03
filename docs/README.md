@@ -1,47 +1,31 @@
-# Dokumentasi RustBasic
+# 📚 RustBasic Documentation Index
 
-Selamat datang di panduan resmi framework RustBasic. Framework ini dirancang untuk memberikan pengalaman pengembangan yang sangat efisien di ekosistem Rust yang cepat dan aman.
-
-## Daftar Isi
-
-### [1. Dasar-Dasar (Basics)](basics.md)
-- [Routing](basics.md#routing)
-- [Controllers](basics.md#controllers)
-- [Views & Template Engine](basics.md#views-template)
-
-### [2. HTTP & Security](http.md)
-- [Middleware](http.md#middleware)
-- [CSRF Protection](http.md#csrf-protection)
-- [HTTP Requests](http.md#http-requests)
-- [HTTP Responses](http.md#http-responses)
-
-### [3. Database & Persistence](database.md)
-- [Eloquent (Sea-ORM Entity)](database.md#database-eloquent-sea-orm-entity)
-- [Migrations](database.md#database-migrations)
-- [Query Builder](database.md#database-query-builder)
-
-### [4. Fitur Lanjutan (Advanced)](advanced.md)
-- [Validation](advanced.md#validation)
-- [HTTP Session](advanced.md#http-session)
-- [Logging](advanced.md#logging)
-- [Error Handling](advanced.md#error-handling)
-- [URL Generation](advanced.md#url-generation)
-
-### [5. View & Komponen (UI)](views.md)
-- [Modular Macros](views.md#struktur-komponen)
-- [Zero-JS Philosophy](views.md#filosofi-zero-js)
-- [HTMX Integration](views.md#htmx-integration)
-
-### [6. Command Line Interface (CLI)](cli.md)
-- [Generator Komponen](cli.md#-1-generator-komponen-scaffolding)
-- [Database & Cache](cli.md#-2-database--cache)
-- [Security Audit](cli.md#-3-monitoring--security)
-- [Build Manager](cli.md#-4-build-manager)
-
-### [7. Deployment (Produksi)](deployment.md)
-- [Persiapan Lingkungan](deployment.md#-1-persiapan-lingkungan-produksi)
-- [Build Release](deployment.md#-2-kompilasi-build)
-- [Systemd & Nginx](deployment.md#-4-menjalankan-aplikasi-systemd)
+Selamat datang di pusat dokumentasi **RustBasic Framework**. Di sini Anda akan menemukan panduan lengkap untuk setiap aspek framework.
 
 ---
-*Dibuat dengan ❤️ untuk ekosistem RustBasic.*
+
+## 🚀 Memulai (Basics)
+- **[Panduan Dasar](basics.md)**: Instalasi, konfigurasi awal, dan menjalankan server.
+- **[Manajemen Database](database.md)**: Dokumentasi Sea-ORM, migrasi, dan manajemen data.
+- **[Routing & HTTP](http.md)**: Detail mengenai request, response, dan middleware.
+
+## 🛠️ CLI & Scaffolding
+- **[CLI Reference](cli.md)**: Daftar perintah lengkap `cargo rustbasic`.
+- **[Premium Auth Scaffolding](auth_cli.md)**: **[BARU]** Panduan khusus sistem autentikasi premium otomatis.
+
+## 🎨 Frontend & Views
+- **[Minijinja Views](views.md)**: Panduan templating dan penggunaan UI macros.
+- **[HTMX Guide](../htmx.md)**: Filosofi Zero-JS dan interaksi Single Page Application.
+
+## ⚙️ Advanced & Production
+- **[Advanced Topics](advanced.md)**: Optimasi performa dan fitur tingkat lanjut.
+- **[Deployment Guide](deployment.md)**: Panduan rilis ke server produksi (Nginx, Systemd).
+
+---
+
+## 📝 Catatan Tambahan
+- **[Standard Operating Procedure](../agents.md)**: Manual untuk pengembang/agent.
+- **[AI System Prompt](../AI_PROMPT.md)**: Konfigurasi asisten AI.
+
+---
+*Gunakan `cargo rustbasic route:list` untuk memantau endpoint yang aktif secara real-time.*

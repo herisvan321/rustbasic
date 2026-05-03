@@ -49,6 +49,21 @@ Membuat Middleware Axum baru di `src/app/http/middleware/` dan otomatis mendafta
 
 ---
 
+## 🔐 2. Authentication Scaffolding
+
+### `auth` / `make:auth`
+Membangun sistem autentikasi lengkap secara otomatis.
+- **Fitur**: Membuat Login, Register, dan Dashboard dengan desain premium.
+- **Logic**: Mengintegrasikan Sea-ORM, Bcrypt, dan validasi secara otomatis.
+- **Contoh**: `cargo rustbasic auth`
+
+### `auth back` / `auth:back`
+Menghapus seluruh sistem autentikasi dan mengembalikan project ke kondisi bersih.
+- **Fungsi**: Menghapus controller, route, dan view yang tergenerasi serta merapikan router utama.
+- **Contoh**: `cargo rustbasic auth back`
+
+---
+
 ## 🗄️ 2. Database & Cache
 
 ### `migrate`
