@@ -13,7 +13,6 @@ async fn main() {
     let cfg = Config::load();
 
     // 3. Setup Database & Sea-ORM
-    config::database::setup_database(&cfg).await;
     let db = config::database::connect(&cfg).await;
     config::database::run_migrations(&db).await; // <-- Jalankan migrasi otomatis
     

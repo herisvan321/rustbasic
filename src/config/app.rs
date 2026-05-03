@@ -40,7 +40,7 @@ impl Config {
             app_debug: env::var("APP_DEBUG").unwrap_or_else(|_| "false".to_string()) == "true",
             app_timezone: env::var("APP_TIMEZONE").unwrap_or_else(|_| "UTC".to_string()),
             app_limit_request: env::var("APP_LIMIT_REQUEST")
-                .unwrap_or_else(|_| "100".to_string())
+                .unwrap_or_else(|_| "20".to_string())
                 .parse()
                 .expect("APP_LIMIT_REQUEST harus berupa angka"),
             

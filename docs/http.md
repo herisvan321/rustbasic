@@ -25,9 +25,9 @@ Aplikasi menyertakan perlindungan otomatis terhadap DDoS dan Brute Force menggun
 ## Konfigurasi
 Atur batas request di file `.env`:
 ```env
-APP_LIMIT_REQUEST=100
+APP_LIMIT_REQUEST=20
 ```
-Ini akan membatasi setiap IP maksimal 100 request per menit.
+Ini akan membatasi setiap IP maksimal 20 request per detik.
 
 ## Tampilan Error
 Jika batas terlampaui, aplikasi akan otomatis menampilkan halaman error **429 Too Many Requests** dengan sisa waktu tunggu yang dinamis.

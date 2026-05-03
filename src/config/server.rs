@@ -42,11 +42,11 @@ pub async fn start_server(
         config: Arc::new(cfg.clone()),
     };
 
-    // 1.5 Konfigurasi Rate Limiting (100 request per menit)
+    // 1.5 Konfigurasi Rate Limiting (20 request per detik)
     let governor_conf = Arc::new(
         GovernorConfigBuilder::default()
             .key_extractor(SmartIpKeyExtractor)
-            .period(Duration::from_secs(60))
+            .period(Duration::from_secs(1))
             .burst_size(cfg.app_limit_request as u32)
             .error_handler(handle_governor_error)
             .finish()
