@@ -77,12 +77,16 @@ rustbasic/
 │   ├── js/               # Asset JS (Hidden/Embedded)
 │   └── views/            # Template HTML (Minijinja)
 │       ├── auth/         # Halaman Login & Register
+│       ├── emails/       # Template Email (Reset Password, dll)
 │       ├── components/   # Modular UI Components
 │       ├── errors/       # Template Error (404, 500, Debug)
 │       └── layouts/      # Layout Utama
 ├── src/
 │   ├── main.rs           # Entry point (Strict Config)
-│   ├── app/              # Core Application Logic (Controllers, Middleware)
+│   ├── app/              # Core Application Logic
+│   │   ├── controllers/  # Logika Request-Response
+│   │   ├── models/       # Definisi Tabel & Entity
+│   │   └── services/     # Layanan Pendukung (MailService, dll)
 │   ├── config/           # Modular Configuration (DB, Session, Server, Log)
 │   └── routes/           # Web Routes
 ├── storage/              # Storage (Logs, Uploads, etc.)
@@ -112,32 +116,56 @@ Akses panduan lengkap untuk setiap aspek framework RustBasic:
 
 ---
 
-## 🚀 Cara Menjalankan
+## 📥 Instalasi & Setup
 
-### 1. Persiapan Lingkungan
+Pilih metode instalasi yang paling sesuai dengan alur kerja Anda:
 
-Salin file `.env.example` ke `.env` dan sesuaikan pengaturan Anda:
+### 1. Metode Git Clone (Direkomendasikan)
+Cocok jika Anda ingin tetap mendapatkan pembaruan framework terbaru.
+- **Kelebihan**: Mudah melakukan `git pull` untuk update fitur dan perbaikan bug.
+- **Kekurangan**: Folder `.git` tetap ada, membawa riwayat framework induk.
 
-```bash
-cp .env.example .env
-```
-
-### 2. Jalankan Aplikasi
-
-```bash
-cargo serve
-```
-
-Akses aplikasi di:
-👉 **[http://localhost:4000](http://localhost:4000)**
+### 2. Metode Download ZIP
+Cocok untuk memulai proyek baru yang benar-benar terpisah dari framework asli.
+- **Kelebihan**: File bersih, tidak perlu Git, langsung siap pakai.
+- **Kekurangan**: Sulit untuk menyinkronkan fitur baru dari framework di masa depan.
 
 ---
 
-## 🛡️ Keamanan & Logging
+## 🛠️ Langkah Memulai (Urutan Kerja)
 
-- **Session Security**: Sesi disimpan di database dan divalidasi silang dengan alamat IP pengguna pada setiap request.
-- **Log Management**: Gunakan `cargo rustbasic cache:clear` untuk membersihkan cache dan memotong (truncate) file log tanpa menghapusnya.
-- **Key Generation**: Gunakan `cargo rustbasic key:generate` untuk membuat kunci aplikasi (`APP_KEY`) baru yang aman di file `.env`.
+Ikuti urutan ini agar aplikasi berjalan sempurna tanpa hambatan:
+
+1.  **Environment**: Salin `.env.example` menjadi `.env`.
+    ```bash
+    cp .env.example .env
+    ```
+2.  **App Key**: Generate kunci keamanan unik untuk aplikasi Anda.
+    ```bash
+    cargo rustbasic key:generate
+    ```
+3.  **Database**: Jalankan migrasi untuk menyiapkan struktur tabel.
+    ```bash
+    cargo rustbasic migrate
+    ```
+4.  **Auth (Opsional)**: Pasang sistem autentikasi siap pakai jika dibutuhkan.
+    ```bash
+    cargo rustbasic auth
+    ```
+5.  **Serve**: Jalankan server pengembangan.
+    ```bash
+    cargo serve
+    ```
+
+Akses aplikasi di: 👉 **[http://localhost:4000](http://localhost:4000)**
+
+---
+
+## 🛡️ Keamanan & Pemeliharaan
+
+- **Session Security**: Sesi divalidasi silang dengan alamat IP pengguna.
+- **Log Management**: Gunakan `cargo rustbasic cache:clear` untuk membersihkan log dan sesi tanpa mengganggu server.
+- **Key Security**: Jangan pernah membagikan `APP_KEY` Anda di repositori publik.
 
 ---
 
