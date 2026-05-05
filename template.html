@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RetroAdmin - Dashboard Klasik</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Variabel Warna Retro */
+        :root {
+            --bg-dark: #120458;
+            --bg-darker: #0b0233;
+            --neon-pink: #ff00ff;
+            --neon-cyan: #00f2ff;
+            --neon-yellow: #fff200;
+            --text-color: #ffffff;
+            --grid-line: rgba(255, 0, 255, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Space Mono', monospace;
+        }
+
+        body {
+            background-color: var(--bg-darker);
+            color: var(--text-color);
+            background-image: 
+                linear-gradient(var(--grid-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+            background-size: 40px 40px;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* --- NAVIGATION TOP --- */
+        .nav-top {
+            height: 70px;
+            background: var(--bg-dark);
+            border-bottom: 3px solid var(--neon-pink);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 0 15px var(--neon-pink);
+        }
+
+        .logo {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.2rem;
+            color: var(--neon-cyan);
+            text-shadow: 3px 3px var(--neon-pink);
+            text-decoration: none;
+            letter-spacing: -1px;
+        }
+
+        .nav-search {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--neon-cyan);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            width: 300px;
+        }
+
+        .nav-search input {
+            background: transparent;
+            border: none;
+            color: white;
+            outline: none;
+            width: 100%;
+            font-size: 0.9rem;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .avatar-box {
+            width: 35px;
+            height: 35px;
+            background: var(--neon-yellow);
+            border: 2px solid var(--text-color);
+            box-shadow: 2px 2px 0 var(--neon-pink);
+        }
+
+        /* --- SIDEBAR --- */
+        .sidebar {
+            width: 240px;
+            background: var(--bg-dark);
+            height: calc(100vh - 70px);
+            position: fixed;
+            left: 0;
+            top: 70px;
+            border-right: 2px solid var(--neon-cyan);
+            padding: 2rem 1rem;
+        }
+
+        .menu-item {
+            display: block;
+            padding: 12px 15px;
+            color: var(--text-color);
+            text-decoration: none;
+            margin-bottom: 10px;
+            border: 1px solid transparent;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .menu-item:hover, .menu-item.active {
+            background: var(--neon-pink);
+            border-color: var(--neon-cyan);
+            box-shadow: 4px 4px 0 var(--neon-cyan);
+            transform: translate(-2px, -2px);
+            color: white;
+        }
+
+        /* --- MAIN CONTENT --- */
+        .main-content {
+            margin-left: 240px;
+            margin-top: 70px;
+            padding: 2rem;
+        }
+
+        .header-content {
+            margin-bottom: 2rem;
+        }
+
+        .header-content h1 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.5rem;
+            color: var(--neon-yellow);
+            text-shadow: 2px 2px var(--neon-pink);
+        }
+
+        /* --- GRID CARDS --- */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .card {
+            background: rgba(11, 2, 51, 0.8);
+            border: 2px solid var(--neon-cyan);
+            padding: 1.5rem;
+            position: relative;
+            box-shadow: 6px 6px 0 rgba(0, 242, 255, 0.2);
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            width: 10px;
+            height: 10px;
+            background: var(--neon-pink);
+        }
+
+        .card-title {
+            font-size: 0.75rem;
+            color: var(--neon-pink);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .card-value {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.2rem;
+            color: var(--text-color);
+        }
+
+        /* --- DATA TABLE --- */
+        .table-container {
+            background: var(--bg-dark);
+            border: 2px solid var(--neon-pink);
+            overflow-x: auto;
+            box-shadow: 8px 8px 0 rgba(255, 0, 255, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th {
+            background: var(--neon-pink);
+            color: white;
+            padding: 12px 15px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--grid-line);
+            font-size: 0.85rem;
+        }
+
+        tr:hover {
+            background: rgba(255, 0, 255, 0.1);
+        }
+
+        .status-badge {
+            padding: 4px 8px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            border: 1px solid;
+        }
+
+        .status-online { color: var(--neon-cyan); border-color: var(--neon-cyan); }
+        .status-offline { color: var(--neon-pink); border-color: var(--neon-pink); }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 70px;
+            }
+            .sidebar .menu-item span {
+                display: none;
+            }
+            .main-content {
+                margin-left: 70px;
+            }
+            .nav-search {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation -->
+    <nav class="nav-top">
+        <a href="#" class="logo">RETRO_OS</a>
+        
+        <div class="nav-search">
+            <input type="text" placeholder="Cari data system...">
+        </div>
+
+        <div class="nav-actions">
+            <div class="user-profile">
+                <span style="font-size: 0.8rem;">ADMIN_USER</span>
+                <div class="avatar-box"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <a href="#" class="menu-item active"><span>> DASBOR</span></a>
+        <a href="#" class="menu-item"><span>> PENGGUNA</span></a>
+        <a href="#" class="menu-item"><span>> DATA_LOG</span></a>
+        <a href="#" class="menu-item"><span>> STATISTIK</span></a>
+        <a href="#" class="menu-item"><span>> SETELAN</span></a>
+        <div style="margin-top: 50px;">
+            <a href="#" class="menu-item" style="color: var(--neon-pink);"><span>[ KELUAR ]</span></a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="header-content">
+            <h1>SISTEM KONTROL PUSAT</h1>
+            <p style="color: var(--neon-cyan); font-size: 0.8rem; margin-top: 5px;">Status: Online | Versi: 1.9.84</p>
+        </div>
+
+        <!-- Statistik Cepat -->
+        <div class="stats-grid">
+            <div class="card">
+                <div class="card-title">Total Memori</div>
+                <div class="card-value">640 KB</div>
+            </div>
+            <div class="card">
+                <div class="card-title">User Aktif</div>
+                <div class="card-value">1,204</div>
+            </div>
+            <div class="card">
+                <div class="card-title">Uptime System</div>
+                <div class="card-value">99.9%</div>
+            </div>
+            <div class="card">
+                <div class="card-title">Ancaman</div>
+                <div class="card-value">0</div>
+            </div>
+        </div>
+
+        <!-- Tabel Data -->
+        <h2 style="margin-bottom: 1rem; font-size: 1rem; color: var(--neon-pink);">LOG AKTIVITAS TERBARU</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID_PROSES</th>
+                        <th>PENGGUNA</th>
+                        <th>AKSI</th>
+                        <th>WAKTU</th>
+                        <th>STATUS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>#PX-001</td>
+                        <td>NeonRider</td>
+                        <td>Login ke System</td>
+                        <td>12:45:01</td>
+                        <td><span class="status-badge status-online">BERHASIL</span></td>
+                    </tr>
+                    <tr>
+                        <td>#PX-002</td>
+                        <td>CyberPunk88</td>
+                        <td>Update Database</td>
+                        <td>12:50:22</td>
+                        <td><span class="status-badge status-online">BERHASIL</span></td>
+                    </tr>
+                    <tr>
+                        <td>#PX-003</td>
+                        <td>Stranger_84</td>
+                        <td>Akses Ilegal</td>
+                        <td>13:05:10</td>
+                        <td><span class="status-badge status-offline">DITOLAK</span></td>
+                    </tr>
+                    <tr>
+                        <td>#PX-004</td>
+                        <td>System_Admin</td>
+                        <td>Backup Selesai</td>
+                        <td>13:15:45</td>
+                        <td><span class="status-badge status-online">BERHASIL</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <footer style="margin-top: 3rem; text-align: center; color: rgba(255,255,255,0.3); font-size: 0.7rem;">
+            &copy; 1984 RETRO_OS CORP. SEMUA HAK DILINDUNGI.
+        </footer>
+    </main>
+
+</body>
+</html>
