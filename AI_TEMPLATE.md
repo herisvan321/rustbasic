@@ -6,8 +6,8 @@ Dokumen ini mendefinisikan standar kerja bagi AI Agent saat melakukan porting at
 
 ## 📥 1. INPUT (Analisis & Persiapan)
 Sebelum melakukan modifikasi file, AI harus mengumpulkan data berikut:
-- **Nama Template**: Tanyakan nama template kepada user (contoh: `argon_dashboard`, `retro`). Nama ini akan menjadi nama folder utama.
-- **Source Code**: Minta user memberikan file `template.html` atau potongan kode yang ingin di-porting.
+- **Nama Template**: Nama ini akan menjadi nama folder utama.
+- **Source Code**: Gunakan `template.html` sebagai sumber utama. **DILARANG** mengubah atau menghapus file `template.html` ini.
 - **Identifikasi Aset**: Scan file source untuk menemukan blok `<style>`, `<script>`, dan struktur HTML utama.
 
 ---
@@ -20,12 +20,19 @@ Lakukan pemisahan kode secara sistematis berdasarkan folder mapping:
 - Pindahkan semua CSS dari tag `<style>` ke `resources/css/<template_name>/style.css`.
 - Jika ada file CSS eksternal, download/copy ke folder tersebut.
 
-### B. Ekstraksi HTML
+### B. Ekstraksi HTML & Layout
 - Buat folder: `resources/views/<template_name>/`.
-- Pindahkan struktur HTML ke `resources/views/<template_name>/index.html`.
-- Integrasikan dengan layout: Tambahkan `{% extends "layouts/app.html" %}` atau buat layout khusus di folder tersebut.
+- **Layout Baru**: Buat file `resources/views/<template_name>/layout.html` untuk menyimpan struktur dasar (head, nav, sidebar, footer).
+- **Index View**: Buat file `resources/views/<template_name>/index.html` yang melakukan `{% extends "<template_name>/layout.html" %}`.
+- **PENTING**: Dilarang mengubah file di folder `resources/views/layouts/` yang sudah ada.
 
-### C. Ekstraksi JavaScript
+### C. Ekstraksi Komponen
+- Identifikasi bagian UI yang berulang atau memiliki logika terpisah (contoh: Navbar, Sidebar, Card, Table, Footer).
+- Buat file baru: `resources/views/components/<template_name>.html`.
+- Pindahkan bagian-bagian tersebut ke dalam file ini menggunakan Jinja Macros (`{% macro ... %}`).
+- Panggil komponen di dalam View atau Layout menggunakan `{% from "components/<template_name>.html" import ... %}`.
+
+### D. Ekstraksi JavaScript
 - Buat folder: `resources/js/<template_name>/`.
 - Pindahkan script dari tag `<script>` ke `resources/js/<template_name>/script.js`.
 
@@ -47,16 +54,20 @@ resources/
 │   └── <template_name>/
 │       └── script.js
 └── views/
+    ├── components/
+    │   └── <template_name>.html (Berisi Macros)
     └── <template_name>/
-        ├── layout.html (opsional)
+        ├── layout.html
         └── index.html
 ```
 
 ---
 
 ## ⚠️ 4. LIMIT & RESTRICTIONS (Batasan)
+- **Source Protection**: Jangan pernah menghapus atau memodifikasi file `template.html`.
+- **No Overwrite**: Dilarang merubah layout lama atau file yang sudah ada di folder lain. Semua perubahan harus terisolasi di dalam folder `<template_name>`.
 - **No Inline**: Dilarang membiarkan inline CSS atau inline JS di dalam file HTML view.
-- **No CDN**: Semua aset harus bersifat lokal (Offline First). Gunakan `{{ asset('path') }}` atau helper yang sesuai untuk memanggil file.
+- **No CDN**: Semua aset harus bersifat lokal (Offline First).
 - **HTMX First**: Jika ada interaksi JS yang bisa digantikan dengan HTMX, AI wajib menyarankannya.
 
 ---
