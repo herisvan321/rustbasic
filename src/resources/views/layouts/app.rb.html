@@ -24,12 +24,47 @@
     <div id="indicator" class="htmx-indicator">Loading...</div>
     
     <main>
-        <!-- Flash Messages (Tanpa JS, dirender langsung) -->
-        {% if flash_success %}
-            <div class="alert alert-success">{{ flash_success }}</div>
-        {% endif %}
-        {% if flash_error %}
-            <div class="alert alert-error">{{ flash_error }}</div>
+        <!-- Flash Messages (Floating & Auto-dismiss via CSS) -->
+        {% if flash_success or flash_error %}
+        <style>
+            @keyframes toastIn {
+                0% { opacity: 0; transform: translateX(80px); }
+                100% { opacity: 1; transform: translateX(0); }
+            }
+            @keyframes toastOut {
+                0% { opacity: 1; max-height: 80px; padding: 1rem 1.5rem; margin-bottom: 10px; }
+                60% { opacity: 0; max-height: 80px; padding: 1rem 1.5rem; margin-bottom: 10px; }
+                100% { opacity: 0; max-height: 0; padding: 0 1.5rem; margin-bottom: 0; overflow: hidden; }
+            }
+            .toast-container {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                z-index: 9999;
+                pointer-events: none;
+            }
+            .toast {
+                min-width: 300px;
+                padding: 1rem 1.5rem;
+                border-radius: 8px;
+                box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+                color: white;
+                font-weight: 500;
+                margin-bottom: 10px;
+                overflow: hidden;
+                animation: toastIn 0.4s ease-out, toastOut 0.6s ease-in 3.4s forwards;
+            }
+            .toast.success { background: linear-gradient(135deg, #10b981, #059669); }
+            .toast.error { background: linear-gradient(135deg, #ef4444, #dc2626); }
+        </style>
+        <div class="toast-container">
+            {% if flash_success %}
+                <div class="toast success">✓ {{ flash_success }}</div>
+            {% endif %}
+            {% if flash_error %}
+                <div class="toast error">✕ {{ flash_error }}</div>
+            {% endif %}
+        </div>
         {% endif %}
 
         <!-- Konten dari file lain akan muncul di sini -->
