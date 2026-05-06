@@ -19,10 +19,10 @@ Sebelum melakukan modifikasi file, AI harus mengumpulkan data berikut:
 - Pindahkan semua CSS dari tag `<style>` ke `src/resources/css/<template_name>/style.css`.
 
 ### B. Ekstraksi HTML & Layout (RSX Syntax)
-- Buat file layout baru: `src/resources/views/layouts/<name>.rsx`.
+- Buat file layout baru: `src/resources/views/layouts/<template_name>.rsx`.
 - Gunakan tag `<Assets.Styles />` dan `<Assets.Htmx />` untuk menyertakan aset inti.
-- Buat file view di `src/resources/views/<name>/index.rsx`.
-- Gunakan `{% extends "layouts/<name>.rsx" %}`.
+- Buat file view di `src/resources/views/<template_name>/index.rsx`.
+- Gunakan `{% extends "layouts/<template_name>.rsx" %}`.
 
 ### C. Ekstraksi Komponen (Modular RSX)
 - Identifikasi bagian UI yang berulang (Navbar, Sidebar, Card, Table, Footer).
@@ -45,16 +45,16 @@ Sebelum melakukan modifikasi file, AI harus mengumpulkan data berikut:
 ```text
 src/resources/
 ├── css/
-│   └── <name>/style.css
+│   └── <template_name>/style.css
 ├── js/
-│   └── <name>/script.js
+│   └── <template_name>/script.js
 └── views/
     ├── components/
-    │   └── <name>.rsx (Namespace)
-    ├── <name>/
+    │   └── <template_name>.rsx (Namespace)
+    ├── <template_name>/
     │   └── index.rsx
     └── layouts/
-        └── <name>.rsx
+        └── <template_name>.rsx
 ```
 
 ---
@@ -76,3 +76,4 @@ src/resources/
 ---
 
 _Instruksi ini melengkapi `agents.md` khusus untuk bagian manajemen template UI._
+/Users/herisvanhendra/Desktop/Desktop new/project/belajar rust/rustmyadmin/AI_TEMPLATE.md
