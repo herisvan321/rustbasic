@@ -24,6 +24,9 @@ Menjalankan server dalam mode pengembangan dengan fitur:
 - **Live Reload**: Otomatis me-refresh browser saat Anda menyimpan perubahan template.
 - **Template Rendering**: Mengkompilasi dan merender file `.rb.html` secara otomatis.
 
+> [!TIP]
+> **Pintasan Cepat**: Gunakan `cargo serve` sebagai alternatif yang lebih singkat dan cepat untuk menjalankan perintah ini.
+
 ---
 
 ## 📂 1. Generator Komponen

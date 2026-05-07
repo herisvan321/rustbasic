@@ -20,4 +20,4 @@ Pusat dokumentasi resmi **RustBasic Framework**.
 
 ---
 
-_Gunakan perintah `cargo rustbasic serve` untuk pengalaman pengembangan terbaik dengan auto-refresh browser._
+_Gunakan perintah `cargo rustbasic serve` (atau pintasan cepat `cargo serve`) untuk pengalaman pengembangan terbaik dengan auto-refresh browser._

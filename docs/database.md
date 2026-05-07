@@ -21,8 +21,8 @@ let user = users::Entity::find_by_id(1).one(&db).await?;
 
 // Simpan data (Insert)
 let new_user = users::ActiveModel {
-    name: Set("Heris".to_owned()),
-    email: Set("heris@example.com".to_owned()),
+    name: Set("example".to_owned()),
+    email: Set("example@example.com".to_owned()),
     ..Default::default()
 };
 new_user.insert(&db).await?;

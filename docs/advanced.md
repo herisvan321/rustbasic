@@ -31,12 +31,12 @@ Session dikelola secara otomatis menggunakan `axum_session`.
 
 ## Menyimpan Data
 ```rust
-req.session.set("key", "value");
+req.session().set("key", "value");
 ```
 
 ## Mengambil Data
 ```rust
-let value: Option<String> = req.session.get("key");
+let value: Option<String> = req.session().get("key");
 ```
 
 ---

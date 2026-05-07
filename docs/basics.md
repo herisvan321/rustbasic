@@ -27,7 +27,7 @@ cargo rustbasic make:controller WelcomeController
 ### Contoh Logika
 ```rust
 pub async fn index(req: Request) -> impl IntoResponse {
-    view(&req, "welcome.rsx", context! { 
+    view(&req, "welcome.rb.html", context! { 
         title => "Home" 
     })
 }
@@ -36,18 +36,20 @@ pub async fn index(req: Request) -> impl IntoResponse {
 ---
 
 ## 🎨 Views
-Template RustBasic menggunakan ekstensi `.rsx` dan mendukung sintaks RSX.
+Template RustBasic menggunakan ekstensi `.rb.html` dan menggunakan sintaks **Minijinja** (mirip Jinja2/Django). **Sistem komponen RSX telah dihapus** untuk mendukung performa dan kesederhanaan.
 
-### Menggunakan Komponen
-Anda tidak perlu lagi mengimpor komponen secara manual. Gunakan sintaks tag:
+### Mewarisi Layout (Inheritance)
+Gunakan tag `{% extends %}` untuk mewarisi tata letak utama:
 
 ```html
-{% extends "layouts/app.rsx" %}
+{% extends "layouts/app.rb.html" %}
 
 {% block content %}
-    <Display.Card title="Halo Rust!">
-        <Buttons.Button label="Klik Saya" variant="primary" />
-    </Display.Card>
+    <div class="card">
+        <h1>Halo RustBasic!</h1>
+        <p>Selamat datang di framework monolith modern.</p>
+        <button class="btn btn-primary">Klik Saya</button>
+    </div>
 {% endblock %}
 ```
 
@@ -57,13 +59,15 @@ Seluruh template berada di `src/resources/views/`.
 ---
 
 ## 📦 Asset Management
-Asset inti (CSS & HTMX) ditanam langsung ke dalam binary aplikasi untuk keamanan dan performa maksimal.
+Asset inti (CSS & HTMX) ditanam langsung ke dalam binary aplikasi melalui sistem `rust-embed`.
 
 ### Penggunaan di Layout
-Cukup panggil komponen `Assets`:
+Gunakan helper global untuk memanggil CSS dan JS inti:
 ```html
-<Assets.Styles />
-<Assets.Htmx />
+<head>
+    {{ app_css() | safe }}
+    {{ htmx_js() | safe }}
+</head>
 ```
 
 File sumber asset berada di:

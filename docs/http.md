@@ -43,10 +43,18 @@ RustBasic secara otomatis menyertakan perlindungan CSRF untuk request yang mengu
 2. Jika tidak cocok, request akan ditolak (403 Forbidden).
 
 ## Penggunaan di Template
-Sertakan token di setiap form:
+Secara default, CSRF token dikirimkan melalui header `X-CSRF-TOKEN` untuk interaksi HTMX. Anda dapat menyisipkannya menggunakan helper:
+
+```html
+<body hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token() }}"}'>
+    <!-- Konten -->
+</body>
+```
+
+Untuk form tradisional:
 ```html
 <form method="POST">
-    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <input type="hidden" name="_token" value="{{ csrf_token() }}">
     <!-- input lainnya -->
 </form>
 ```
@@ -66,7 +74,7 @@ pub async fn store(Form(input): Form<MyStruct>) -> impl IntoResponse {
 
 ## Akses Session dari Request
 ```rust
-let user_id = req.session.get::<i32>("user_id");
+let user_id = req.session().get::<i32>("user_id");
 ```
 
 ---
@@ -77,7 +85,7 @@ RustBasic mendukung berbagai tipe response:
 
 ## Render View (HTML)
 ```rust
-view(&req, "file.rsx", context! { ... })
+view(&req, "file.rb.html", context! { ... })
 ```
 
 ## JSON Response
