@@ -84,3 +84,42 @@ let results = users::Entity::find()
     .all(&db)
     .await?;
 ```
+
+---
+
+# Database: Seeders
+
+Seeder digunakan untuk mengisi database dengan data awal (seperti admin user, data kategori, dll) secara otomatis.
+
+## Membuat Seeder
+Gunakan CLI untuk membuat file seeder baru:
+```bash
+cargo rustbasic make:seeder Name
+```
+File akan dibuat di `database/seeders/`. Secara default, RustBasic menyertakan **`DatabaseSeeder`** sebagai contoh utama.
+
+## Menjalankan Seeder
+Jalankan perintah berikut untuk mengeksekusi seluruh seeder yang terdaftar:
+```bash
+cargo rustbasic db:seed
+```
+
+## Cara Registrasi Seeder
+Setelah membuat file seeder, Anda harus mendaftarkannya di **`src/config/seeder.rs`** agar bisa dijalankan oleh framework. CLI `make:seeder` akan mencoba mendaftarkannya secara otomatis.
+
+## Contoh Struktur Seeder
+Setiap seeder harus mengimplementasikan `SeederTrait`:
+```rust
+use sea_orm::{DatabaseConnection, Set, ActiveModelTrait};
+use crate::config::seeder::SeederTrait;
+
+pub struct DatabaseSeeder;
+
+#[async_trait::async_trait]
+impl SeederTrait for DatabaseSeeder {
+    async fn run(&self, db: &DatabaseConnection) -> Result<(), sea_orm::DbErr> {
+        // Logika pengisian data Anda di sini
+        Ok(())
+    }
+}
+```

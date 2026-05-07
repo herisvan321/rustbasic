@@ -75,6 +75,12 @@ Membersihkan semua sesi di database dan file log lama.
 ### `key:generate`
 Membuat token `APP_KEY` unik di file `.env`.
 
+### `db:seed`
+Menjalankan seluruh database seeder yang terdaftar di `src/config/seeder.rs`.
+
+### `make:seeder`
+Membuat file seeder baru di `database/seeders/` dan mendaftarkannya secara otomatis.
+
 ---
 
 ## 🔍 4. Monitoring
