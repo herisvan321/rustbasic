@@ -20,10 +20,11 @@ rustbasic/
 │       └── layouts/      # Layout utama (app.rb.html)
 ├── src/
 │   ├── main.rs           # Entry point (Strict Config & Mandatory .env)
-│   ├── app/              # Folder Inti Aplikasi (Controllers, Middleware)
+│   ├── app/              # Folder Inti Aplikasi (Controllers, Models, Middleware)
 │   ├── config/           # Pusat Konfigurasi (Server, Session, View Engine)
 │   └── routes/           # Pengaturan rute
 ├── storage/              # Penyimpanan File & Log
+├── docs/                 # Dokumentasi Lengkap
 └── .env                  # Environment Variables (Wajib Ada)
 ```
 
@@ -32,9 +33,10 @@ rustbasic/
 ## 🛡️ Standar Penulisan Template (WAJIB)
 AI harus selalu menggunakan standar ini saat memodifikasi tampilan:
 1. **Ekstensi**: Selalu gunakan `.rb.html`.
-2. **Sintaks**: Gunakan tag HTML standar dan tag Minijinja (`{{ variable }}`, `{% block content %}`). Sistem komponen `<Namespace.Component />` telah **dihapus**.
-3. **No Component Magic**: Dilarang mencoba membuat atau memanggil komponen kustom bergaya RSX/JSX.
-4. **Source Protection**: Output HTML otomatis diminifikasi oleh server.
+2. **Sintaks**: Gunakan tag HTML standar dan tag Minijinja (`{{ variable }}`, `{% block content %}`). Sistem RSX telah **dihapus**.
+3. **Modern UI**: Wajib menggunakan estetika modern (Split-Screen, Glassmorphism, CSS Mesh Gradients) seperti pada modul Auth.
+4. **Hybrid Embedding**: Memahami bahwa template di-embed ke binary saat *Release* (via `rust-embed`) tapi tetap bisa di-edit secara live saat *Debug*.
+5. **Source Protection**: Output HTML otomatis diminifikasi oleh server.
 
 ---
 
@@ -96,7 +98,8 @@ Membuat Middleware Axum baru di `src/app/http/middleware/` dan otomatis mendafta
 
 ### `auth` / `make:auth`
 Membangun sistem autentikasi lengkap secara otomatis.
-- **Fitur**: Membuat Login, Register, dan Dashboard dengan **sintaks HTML standar**.
+- **Fitur**: Login, Register, Forgot Password, Reset, dan Dashboard premium.
+- **UI**: Desain Modern Split-Screen dengan Floating Toast Notifications.
 - **Logic**: Mengintegrasikan Sea-ORM, Bcrypt, dan validasi secara otomatis.
 - **Contoh**: `cargo rustbasic auth`
 

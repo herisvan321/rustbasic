@@ -40,19 +40,21 @@ Jika Anda men-deploy dari macOS ke server Linux, gunakan `cargo-zigbuild` atau `
 
 ## 🚢 3. Struktur Folder di Server
 
-Aplikasi RustBasic memerlukan file pendukung agar berjalan dengan benar. Berikut adalah struktur minimum yang harus ada di server:
+Berkat fitur **Hybrid Embedding**, aplikasi RustBasic kini benar-benar portabel. Seluruh template HTML (Views), CSS, dan JS utama sudah tertanam di dalam file binary saat Anda melakukan build release.
+
+Berikut adalah struktur folder minimum yang diperlukan di server:
 
 ```text
 /var/www/app/
 ├── rustbasic            # Binary aplikasi (hasil build release)
 ├── .env                 # Konfigurasi produksi (Wajib)
-├── database/            # Database SQLite & Migrasi
-├── public/              # File statis (Gambar, Favicon, dll)
-├── src/resources/           # Template HTML (Views)
+├── database/            # Database SQLite & Migrasi (Jika menggunakan SQLite)
+├── public/              # File statis tambahan (Gambar luar, Favicon, dll)
 └── storage/             # Log aplikasi & Upload file
 ```
 
-*Catatan: Meskipun file CSS dan JS (HTMX) utama sudah tertanam di dalam binary, folder `src/resources/views` tetap wajib ada karena template dimuat secara dinamis saat runtime.*
+> [!NOTE]
+> **Tidak ada folder `src/`**: Anda tidak perlu lagi menyertakan folder `src/resources/views` di server produksi. Binary Anda sudah mandiri (*self-contained*).
 
 ### 📦 Izin Tulis (Permissions)
 Pastikan user yang menjalankan aplikasi (misal: `www-data`) memiliki akses tulis ke folder berikut:

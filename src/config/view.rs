@@ -16,8 +16,14 @@ use crate::config::requests::Request as AppRequest;
 use crate::config::Config;
 use serde_json::{json, Value};
 use regex::Regex;
+use rust_embed::RustEmbed;
 
-// 1. Load Static Assets into Memory (Hidden from Public)
+// 1. Embedded Views (Templates)
+#[derive(RustEmbed)]
+#[folder = "src/resources/views/"]
+struct EmbeddedViews;
+
+// 2. Load Static Assets into Memory (Hidden from Public)
 static HTMX_SRC: LazyLock<String> = LazyLock::new(|| {
     include_str!("../resources/js/htmx.min.js").to_string()
 });
@@ -27,20 +33,28 @@ static CSS_SRC: LazyLock<String> = LazyLock::new(|| {
 });
 
 
-// 1. Setup Engine Template (Minijinja)
+// 3. Setup Engine Template (Minijinja)
 pub static JINJA: LazyLock<Environment<'static>> = LazyLock::new(|| {
     let mut env = Environment::new();
     
-    // Custom Loader untuk mendukung ekstensi .rb.html
+    // Custom Loader Hybrid (Disk for Debug, Memory for Release)
     env.set_loader(|name| {
-        let path = format!("src/resources/views/{}", name);
-        
-        if let Ok(content) = std::fs::read_to_string(&path) {
-            if name.ends_with(".rb.html") {
+        // 1. Cek di disk (hanya dalam mode debug untuk live-reload)
+        #[cfg(debug_assertions)]
+        {
+            let path = format!("src/resources/views/{}", name);
+            if let Ok(content) = std::fs::read_to_string(&path) {
                 return Ok(Some(content));
             }
-            return Ok(Some(content));
         }
+        
+        // 2. Cek di Embedded Memory (Fallback atau Mode Release)
+        if let Some(file) = EmbeddedViews::get(name) {
+            if let Ok(content) = std::str::from_utf8(file.data.as_ref()) {
+                return Ok(Some(content.to_string()));
+            }
+        }
+
         Ok(None)
     });
 

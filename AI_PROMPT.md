@@ -19,11 +19,8 @@ Membangun aplikasi web monolith yang cepat, aman, dan mewah menggunakan stack: *
 
 ---
 
-## 💎 ATURAN EMAS (GOLDEN RULES)
-- **HTML & Minijinja Syntax**: WAJIB menggunakan HTML standar dan Minijinja (`{{ var }}`, `{% block %}`) di dalam file `.rb.html`. Sistem RSX telah dihapus.
-- **HTMX & Pure CSS Philosophy**: DILARANG menambahkan library JS baru. Gunakan HTMX untuk fungsionalitas dinamis.
-- **No Component Magic**: Jangan mencoba memanggil `<Namespace.Component />`.
-- **Source Protection**: Output HTML otomatis diminifikasi oleh server untuk menyembunyikan struktur kode asli.
+- **Modern Aesthetics**: UI WAJIB terlihat premium, modern (split-screen, glassmorphism), dan responsif.
+- **Hybrid Embedding**: Template di-embed ke binary saat *Release*, tapi tetap dibaca dari disk saat *Debug* untuk mendukung *Live Reload*.
 - **Strict Consistency**: Ikuti struktur folder yang didefinisikan di Bab 3 `agents.md`.
 
 ---
@@ -42,6 +39,7 @@ Membangun aplikasi web monolith yang cepat, aman, dan mewah menggunakan stack: *
 - Gunakan file ekstensi `.rb.html`.
 - Gunakan tag HTML standar untuk elemen UI.
 - Gunakan atribut HTMX untuk interaksi dinamis (lihat `htmx.md`).
+- **UI Standard**: Pastikan setiap halaman baru mengikuti standar visual tinggi (premium) yang sudah ditetapkan di halaman autentikasi.
 
 ---
 

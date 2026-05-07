@@ -10,11 +10,12 @@ Aplikasi web modern berbasis Rust dengan arsitektur **Clean Monolith**. Dirancan
 - **⚡ Performa Axum**: Backend super cepat dengan framework Axum 0.8 dan Tokio.
 - **🎨 Template System**: Menulis template dengan sintaks HTML murni dan tag Minijinja (`.rb.html`).
 - **🛡️ Source Protection**: Otomatis melakukan **Minifikasi HTML** pada output untuk menyembunyikan struktur kode asli dari "View Source".
+- **📦 Hybrid Embedding**: Menggunakan `rust-embed` untuk menanam seluruh template ke dalam binary saat rilis, menghasilkan file executable mandiri yang sangat portabel.
 - **🔄 Live Reload**: Browser otomatis refresh saat mengubah file kode atau template `.rb.html` (aktif saat `cargo serve`).
 
 ### 🎨 UI/UX Architecture
 - **🪄 HTMX SPA Experience**: Pengalaman Single Page Application yang ringan tanpa library JavaScript berat.
-- **🚀 Premium Design System**: Desain modern menggunakan utility CSS khusus dan komponen HTML standar.
+- **🚀 Premium Design System**: Estetika modern kelas atas (Split-Screen, Glassmorphism) menggunakan utility CSS khusus dan komponen HTML standar.
 
 ### 🔐 Hardened Security
 - **🛡️ Security First**: Proteksi CSRF otomatis, *Strict Env Enforcement*, dan *Bcrypt Password Hashing*.

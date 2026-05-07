@@ -39,6 +39,8 @@ Aplikasi menerapkan standar keamanan produksi:
 - **Flexible Assets & Binary Embedding**: Library HTMX dan File CSS inti dapat ditanam ke dalam file eksekusi (binary) aplikasi untuk performa maksimal. Namun, framework kini juga mendukung penggunaan **CDN eksternal** secara fleksibel, memudahkan integrasi library pihak ketiga tanpa harus meng-host file tersebut secara lokal.
 - **Browser Live Reload**: Menggunakan `tower-livereload` yang hanya aktif jika `APP_DEBUG=true`. Fitur ini memungkinkan browser melakukan refresh otomatis setiap kali server melakukan restart atau ada perubahan pada file template/aset.
 - **Source Minification**: Output HTML secara default diminifikasi oleh server (spasi/komentar dihapus) untuk melindungi struktur source code.
+- **Hybrid Embedding (rust-embed)**: Seluruh folder template (`src/resources/views`) kini di-embed ke dalam binary saat kompilasi rilis. Saat pengembangan (debug), aplikasi tetap membaca dari disk untuk mendukung *Live Reload*.
+- **Modern Premium UI**: Framework kini mewajibkan standar desain tinggi (Split-Screen, Glassmorphism) untuk semua modul inti seperti Autentikasi dan Dashboard.
 
 ---
 

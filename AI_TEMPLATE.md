@@ -9,6 +9,7 @@ Sebelum melakukan modifikasi file, AI harus mengumpulkan data berikut:
 - **Nama Template**: Nama ini akan menjadi nama folder utama.
 - **Source Code**: Gunakan file sumber (misal `template.html`) sebagai referensi utama.
 - **Identifikasi Aset**: Scan file source untuk menemukan blok `<style>`, `<script>`, dan struktur HTML utama.
+- **Premium Aesthetics**: Wajib mengadaptasi desain menjadi modern, premium, dan responsif sesuai standar RustBasic.
 
 ---
 
@@ -59,6 +60,7 @@ src/resources/
 ## ⚠️ 4. LIMIT & RESTRICTIONS (Batasan)
 - **Ekstensi RB.HTML**: Semua file template WAJIB menggunakan ekstensi `.rb.html`.
 - **Standar HTML**: Gunakan HTML murni. Sistem komponen bergaya JSX (seperti `<Buttons.Button />`) **sudah dihapus**.
+- **Hybrid Embedding**: Ingat bahwa template di-embed via `rust-embed` namun mendukung live-reload di mode debug.
 - **Minification Aware**: Sadari bahwa output akhir akan diminifikasi oleh server (spasi/komentar dihapus) untuk perlindungan source code.
 - **No Inline**: Usahakan tidak membiarkan inline CSS atau inline JS di dalam file HTML view. Pisahkan ke file tersendiri.
 

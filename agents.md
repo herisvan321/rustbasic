@@ -9,7 +9,8 @@ Dokumen ini mendefinisikan standar kerja bagi AI Agent (seperti Antigravity, Cur
 2. **HTMX & Pure CSS Philosophy**: DILARANG menambahkan library JS baru untuk interaktivitas sederhana. Semua interaksi dinamis menggunakan **HTMX** dan UI menggunakan **Pure CSS**.
 3. **No Component Magic**: Jangan mencoba menggunakan `<Namespace.Component />`. Gunakan HTML standar (misal `<button class="btn">`) atau buat macro Jinja standar jika perlu penggunaan ulang.
 4. **Source Protection**: Output HTML otomatis diminifikasi oleh server (spasi dihapus, komentar dibuang) untuk menyembunyikan struktur kode asli dari "View Source".
-5. **Consistency**: Ikuti pola penamaan (snake_case untuk file, CamelCase untuk struct) dan lokasi folder yang sudah ada.
+6. **Modern Aesthetics**: UI WAJIB terlihat premium, modern (split-screen, glassmorphism), dan responsif. Gunakan variabel CSS di `style.css` untuk konsistensi warna dan efek.
+7. **Hybrid Embedding**: Framework menggunakan `rust-embed` untuk template. Saat pengembangan (Debug), template dibaca dari disk untuk *Live Reload*. Saat produksi (Release), template dibaca dari memory.
 
 ---
 
@@ -44,6 +45,7 @@ pub async fn name(req: Request) -> impl IntoResponse {
 2. Gunakan tag HTML standar untuk elemen UI (form, input, button) dengan class CSS yang sesuai dari `style.css`.
 3. Gunakan atribut HTMX untuk interaksi: `hx-post`, `hx-target`, `hx-indicator`.
 4. Pastikan memanggil `{{ app_css() | safe }}` dan `{{ htmx_js() | safe }}` pada template minimal jika membuat layout baru di luar `app.rb.html`.
+5. **Auth UI**: Saat memodifikasi halaman auth, pertahankan layout *Split-Screen* dan estetika modern yang sudah ada di generator CLI (`src/config/cli/auth.rs`).
 
 ---
 

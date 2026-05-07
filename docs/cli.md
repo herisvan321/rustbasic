@@ -45,9 +45,9 @@ Membuat Middleware Axum baru di `src/app/http/middleware/` dan mendaftarkannya.
 ## 🔐 2. Authentication Scaffolding
 
 ### `auth` / `make:auth`
-Memasang sistem autentikasi lengkap:
-- **Views**: Membuat halaman Login, Register, Reset Password menggunakan **sintaks HTML standar**.
-- **Email**: Menghasilkan template email premium di `src/resources/views/emails/`.
+Memasang sistem autentikasi lengkap dengan standar visual premium:
+- **Views**: Membuat halaman Login, Register, dan Dashboard menggunakan **Modern Split-Screen UI** (Glassmorphism & CSS Mesh Gradient).
+- **Floating Toasts**: Mengintegrasikan sistem notifikasi melayang yang elegan dengan auto-dismiss.
 - **Logic**: Mengintegrasikan sistem Session, Bcrypt, dan Middleware secara otomatis.
 
 ### `auth:back`
