@@ -201,7 +201,7 @@ use bcrypt::{hash, verify, DEFAULT_COST};
 use uuid::Uuid;
 use serde::Deserialize;
 use validator::Validate;
-use crate::app::services::mail_service::MailService;
+use crate::config::mail::MailService;
 use minijinja::context;
 use sea_orm::{EntityTrait, ColumnTrait, QueryFilter, Set};
 

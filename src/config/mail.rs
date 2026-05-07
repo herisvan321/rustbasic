@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------
- * 📑 LABEL: MAIL SERVICE (app/services/mail_service.rs)
+ * 📑 LABEL: MAIL SERVICE (config/mail.rs)
  * Menangani pengiriman email menggunakan SMTP (Lettre).
  * --------------------------------------------------------- */
 
