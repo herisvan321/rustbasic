@@ -7,8 +7,9 @@ Routing dikelola di `src/routes/web.rs`. RustBasic menggunakan Axum sebagai engi
 ```rust
 use axum::{routing::get, Router};
 use crate::app::http::controllers::welcome_controller;
+use rustbasic_core::server::AppState;
 
-pub fn routes() -> Router<AppState> {
+pub fn router() -> Router<AppState> {
     Router::new()
         .route("/", get(welcome_controller::index))
 }
@@ -21,11 +22,16 @@ Controller disimpan di `src/app/http/controllers/`. Anda bisa menggunakan CLI un
 
 ### Membuat Controller
 ```bash
-cargo rustbasic make:controller WelcomeController
+cargo run --bin rustbasic-cli make:controller WelcomeController
 ```
 
 ### Contoh Logika
 ```rust
+use crate::app::view;
+use rustbasic_core::requests::Request;
+use axum::response::IntoResponse;
+use minijinja::context;
+
 pub async fn index(req: Request) -> impl IntoResponse {
     view(&req, "welcome.rb.html", context! { 
         title => "Home" 
@@ -36,22 +42,7 @@ pub async fn index(req: Request) -> impl IntoResponse {
 ---
 
 ## 🎨 Views
-Template RustBasic menggunakan ekstensi `.rb.html` dan menggunakan sintaks **Minijinja** (mirip Jinja2/Django). **Sistem komponen RSX telah dihapus** untuk mendukung performa dan kesederhanaan.
-
-### Mewarisi Layout (Inheritance)
-Gunakan tag `{% extends %}` untuk mewarisi tata letak utama:
-
-```html
-{% extends "layouts/app.rb.html" %}
-
-{% block content %}
-    <div class="card">
-        <h1>Halo RustBasic!</h1>
-        <p>Selamat datang di framework monolith modern.</p>
-        <button class="btn btn-primary">Klik Saya</button>
-    </div>
-{% endblock %}
-```
+Template RustBasic menggunakan ekstensi `.rb.html` dan menggunakan sintaks **Minijinja**.
 
 ### Folder Template
 Seluruh template berada di `src/resources/views/`.
@@ -59,7 +50,7 @@ Seluruh template berada di `src/resources/views/`.
 ---
 
 ## 📦 Asset Management
-Asset inti (CSS & HTMX) ditanam langsung ke dalam binary aplikasi melalui sistem `rust-embed`.
+Asset inti (CSS & HTMX) dikelola oleh library `rustbasic-core`.
 
 ### Penggunaan di Layout
 Gunakan helper global untuk memanggil CSS dan JS inti:
@@ -69,7 +60,3 @@ Gunakan helper global untuk memanggil CSS dan JS inti:
     {{ htmx_js() | safe }}
 </head>
 ```
-
-File sumber asset berada di:
-- `src/resources/css/style.css`
-- `src/resources/js/htmx.min.js`

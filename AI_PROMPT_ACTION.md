@@ -8,7 +8,7 @@ pastikan perpindah antar halaman tanpa reload/refresh menggunakan htmx, saya ing
 ## 📂 Struktur Folder (Modular & Clean)
 
 Aplikasi telah dipisahkan menjadi modul-modul kecil untuk skalabilitas tinggi:
-csrf protection pada htmx dengan menggunakan cargo-htmx, untuk input type=csrf wajib diubah menjadi token htmx
+csrf protection pada htmx dengan menggunakan cargo rustbasic, untuk input type=csrf wajib diubah menjadi token htmx
 
 ```text
 rustbasic/

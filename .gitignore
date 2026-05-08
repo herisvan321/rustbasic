@@ -1,4 +1,5 @@
 /target
+/crates
 .env
 !.env.example
 /database/*.sqlite

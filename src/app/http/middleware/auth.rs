@@ -9,7 +9,7 @@ use axum::{
     response::{IntoResponse, Redirect, Response},
 };
 use axum_session::Session;
-use crate::config::session_manager::RustBasicSessionStore;
+use rustbasic_core::session_manager::RustBasicSessionStore;
 
 pub async fn auth_middleware(
     session: Session<RustBasicSessionStore>,

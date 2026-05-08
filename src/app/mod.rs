@@ -5,6 +5,7 @@
 
 pub mod http;
 pub mod models;
+pub mod seeder;
 
 // Re-export view helpers dari config untuk backward compatibility
-pub use crate::config::view::{render, view};
+pub use rustbasic_core::view::{render, view};

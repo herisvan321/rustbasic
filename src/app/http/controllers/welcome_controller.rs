@@ -1,7 +1,7 @@
 use crate::app::view;
-use crate::config::requests::Request;
-use crate::config::responses::ResponseHelper;
-use crate::config::server::AppState;
+use rustbasic_core::requests::Request;
+use rustbasic_core::responses::ResponseHelper;
+use rustbasic_core::server::AppState;
 use axum::extract::State;
 use axum::response::IntoResponse;
 use minijinja::context;

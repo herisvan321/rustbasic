@@ -10,7 +10,7 @@ use axum::{
     response::Response,
 };
 use axum_session::Session;
-use crate::config::session_manager::RustBasicSessionStore;
+use rustbasic_core::session_manager::RustBasicSessionStore;
 use rand::distr::SampleString;
 
 pub async fn csrf_middleware(

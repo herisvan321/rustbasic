@@ -1,11 +1,7 @@
 use sea_orm::DatabaseConnection;
 use colored::*;
 use crate::seeders;
-
-#[async_trait::async_trait]
-pub trait SeederTrait {
-    async fn run(&self, db: &DatabaseConnection) -> Result<(), sea_orm::DbErr>;
-}
+use rustbasic_core::seeder::SeederTrait;
 
 pub async fn run(db: &DatabaseConnection) {
     println!("\n{}", "🌱 Menjalankan Seeder Database...".blue().bold());

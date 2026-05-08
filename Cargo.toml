@@ -1,68 +1,60 @@
-# ---------------------------------------------------------
-# 📑 LABEL: KONFIGURASI PROYEK (Cargo.toml)
-# File ini berisi daftar "bahan baku" atau library yang digunakan.
-# ---------------------------------------------------------
-
-[[bin]]
-name = "rustbasic" #ganti ini jika ingin merubah nama file utama
-path = "src/main.rs"
-
 [package]
 name = "rustbasic"
 version = "0.0.1"
 edition = "2024"
-default-run = "rustbasic" #ganti ini jika ingin merubah nama file utama
-
+default-run = "rustbasic"
 
 [[bin]]
-name = "cli"
-path = "src/config/cli/mod.rs"
+name = "rustbasic"
+path = "src/main.rs"
+
+[[bin]]
+name = "rustbasic-cli"
+path = "src/cli.rs"
 
 [dependencies]
-# 1. Framework Web & Server
+# Core Framework (Now from crates.io!)
+rustbasic_core = { package = "rustbasic-core", version = "0.0.1" }
+
+# Web & Server
 axum = "0.8.9"
 tokio = { version = "1.52.1", features = ["full"] }
+tower-http = { version = "0.6.8", features = ["fs", "set-header", "set-status"] }
+tower = { version = "0.5.2", features = ["full"] }
 
-# 2. Tampilan (Template HTML)
+# Template
 minijinja = { version = "2.19.0", features = ["loader"] }
 
-# 3. Pengolah Data & File Statis
+# Data & Utils
 serde = { version = "1.0.228", features = ["derive"] }
 serde_json = "1.0.140"
-tower-http = { version = "0.6.8", features = ["fs", "set-header", "set-status"] }
-# 5. Utilitas Waktu (Carbon-like)
 chrono = { version = "0.4.39", features = ["serde"] }
+chrono-tz = "0.10.0"
 chrono-humanize = "0.2.3"
-base64 = "0.22.1"
-rand = "0.10.1"
-sha2 = "0.11.0"
+dotenvy = "0.15.7"
+colored = "3.0"
+regex = "1.10"
+uuid = { version = "1.13.1", features = ["v4", "serde"] }
+async-trait = "0.1.86"
 bcrypt = "0.19.1"
 validator = { version = "0.20.0", features = ["derive"] }
+rand = "0.10.1"
+base64 = "0.22.1"
+lettre = { version = "0.11", default-features = false, features = ["tokio1-rustls-tls", "smtp-transport", "builder"] }
 
-# 4. Pencatatan Aktivitas (Logging) & Lingkungan (.env)
-tracing = "0.1.44"
-tracing-subscriber = { version = "0.3.23", features = ["env-filter"] }
-tracing-appender = "0.2.3"
-dotenvy = "0.15.7"
-async-trait = "0.1.86"
-# 5. Database (Sea-ORM & SQLx)
+# Database
 sea-orm = { version = "1.1.4", default-features = false, features = ["runtime-tokio-rustls", "sqlx-sqlite", "sqlx-mysql", "macros", "with-chrono"] }
 sqlx = { version = "0.8.3", default-features = false, features = ["runtime-tokio", "tls-rustls", "sqlite", "mysql", "any"] }
+sea-orm-migration = { version = "1.1.4", default-features = false, features = ["runtime-tokio-rustls", "sqlx-sqlite", "sqlx-mysql"] }
 
-# 6. Session Management
+# Session
 axum_session = { version = "0.20.0", features = ["key-store"] }
 dashmap = "6.1.0"
 once_cell = "1.19.0"
 
-# 7. Migrations (Sea-ORM)
-sea-orm-migration = { version = "1.1.4", default-features = false, features = ["runtime-tokio-rustls", "sqlx-sqlite", "sqlx-mysql"] }
-# 8. Utilities
-regex = "1.10"
-colored = "3.0"
-tower_governor = "0.8.0"
-chrono-tz = "0.10.0"
+# Logging
+tracing = "0.1.44"
+tracing-subscriber = { version = "0.3.23", features = ["env-filter"] }
+
+# Dev
 tower-livereload = "0.10.3"
-uuid = { version = "1.13.1", features = ["v4", "serde"] }
-lettre = { version = "0.11", default-features = false, features = ["tokio1-rustls-tls", "smtp-transport", "builder"] }
-tower = { version = "0.5.2", features = ["full"] }
-rust-embed = "8.11.0"

@@ -2269,6 +2269,44 @@ dependencies = [
  "once_cell",
  "rand 0.10.1",
  "regex",
+ "rustbasic-core",
+ "sea-orm",
+ "sea-orm-migration",
+ "serde",
+ "serde_json",
+ "sqlx",
+ "tokio",
+ "tower",
+ "tower-http",
+ "tower-livereload",
+ "tracing",
+ "tracing-subscriber",
+ "uuid",
+ "validator",
+]
+
+[[package]]
+name = "rustbasic-core"
+version = "0.0.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ba5b619438fde894e87e7b0f881ebaa6fb9014fca6aad03ef22ee1b14e5b5da2"
+dependencies = [
+ "async-trait",
+ "axum",
+ "axum_session",
+ "base64",
+ "bcrypt",
+ "chrono",
+ "chrono-humanize",
+ "chrono-tz",
+ "colored",
+ "dashmap",
+ "dotenvy",
+ "lettre",
+ "minijinja",
+ "once_cell",
+ "rand 0.10.1",
+ "regex",
  "rust-embed",
  "sea-orm",
  "sea-orm-migration",

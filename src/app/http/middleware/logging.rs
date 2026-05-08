@@ -12,7 +12,7 @@ use axum::{
 use std::net::SocketAddr;
 use colored::*;
 use axum_session::Session;
-use crate::config::session_manager::{RustBasicSessionStore, IP_TRACKER};
+use rustbasic_core::session_manager::{RustBasicSessionStore, IP_TRACKER};
 
 pub async fn logging_middleware(
     ConnectInfo(addr): ConnectInfo<SocketAddr>,

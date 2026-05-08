@@ -1,5 +1,5 @@
 use sea_orm::{DatabaseConnection, Set, ActiveModelTrait, EntityTrait, ColumnTrait, QueryFilter};
-use crate::config::seeder::SeederTrait;
+use rustbasic_core::seeder::SeederTrait;
 use crate::app::models::users;
 use bcrypt::{hash, DEFAULT_COST};
 use colored::Colorize;

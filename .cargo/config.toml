@@ -1,3 +1,4 @@
 [alias]
 serve = ["watch", "-c", "-q", "--no-ignore", "-i", "target", "-w", "src", "-w", ".env", "-w", "src/resources", "-x", "run"]
-rustbasic = ["run", "-q", "--bin", "cli", "--"]
+rb = ["run", "-q", "--bin", "rustbasic-cli", "--"]
+rustbasic = ["run", "-q", "--bin", "rustbasic-cli", "--"]

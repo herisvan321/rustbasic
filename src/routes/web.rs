@@ -1,6 +1,6 @@
 use axum::{Router, routing::get};
 use crate::app::http::controllers::welcome_controller;
-use crate::config::server::AppState;
+use rustbasic_core::server::AppState;
 
 pub fn router() -> Router<AppState> {
     Router::new()
