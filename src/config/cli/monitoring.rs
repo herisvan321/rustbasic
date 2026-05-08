@@ -4,8 +4,20 @@ use regex::Regex;
 use colored::*;
 
 pub fn list_routes() {
-    let routes_path = "src/routes/web.rs";
-    let content = fs::read_to_string(routes_path).expect("Gagal membaca src/routes/web.rs");
+    let routes_dir = "src/routes";
+    let mut all_content = String::new();
+
+    if let Ok(entries) = fs::read_dir(routes_dir) {
+        for entry in entries.flatten() {
+            let path = entry.path();
+            if path.is_file() && path.extension().and_then(|s| s.to_str()) == Some("rs") {
+                if let Ok(content) = fs::read_to_string(&path) {
+                    all_content.push_str(&content);
+                    all_content.push('\n');
+                }
+            }
+        }
+    }
 
     let re = Regex::new(r#"\.route\(\s*"([^"]+)"\s*,\s*([a-z]+)\(([^)]+)\)\)"#).unwrap();
 
@@ -13,14 +25,24 @@ pub fn list_routes() {
     println!("{}", "| METHOD         | PATH                 | HANDLER                                                  |".magenta().bold());
     println!("{}", "+----------------+----------------------+----------------------------------------------------------+".magenta());
 
-    for cap in re.captures_iter(&content) {
+    let mut found_routes = std::collections::HashSet::new();
+
+    for cap in re.captures_iter(&all_content) {
         let path = &cap[1];
         let method = cap[2].to_uppercase();
         let handler = &cap[3];
 
+        let route_key = format!("{}:{}", method, path);
+        if found_routes.contains(&route_key) {
+            continue;
+        }
+        found_routes.insert(route_key);
+
         let method_color = match method.as_str() {
             "GET" => method.green(),
             "POST" => method.blue(),
+            "PUT" => method.yellow(),
+            "DELETE" => method.red(),
             _ => method.white(),
         };
 
