@@ -2,6 +2,11 @@
 name = "rustbasic"
 version = "0.0.1"
 edition = "2024"
+description = "A powerful monolith web framework for Rust, inspired by the simplicity of Laravel."
+license = "MIT"
+repository = "https://github.com/herisvan321/rustbasic"
+keywords = ["web", "framework", "laravel-like", "axum", "orm"]
+categories = ["web-programming::http-server", "development-tools::scaffolding"]
 default-run = "rustbasic"
 
 [[bin]]
