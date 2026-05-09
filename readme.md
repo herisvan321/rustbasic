@@ -11,23 +11,16 @@
 
 ## 🚀 Instalasi Global (Semua Platform)
 
-Instal CLI RustBasic secara global untuk akses instan di folder mana saja.
+Instal CLI RustBasic secara global menggunakan Cargo. Pastikan Anda sudah menginstal Rust di sistem Anda.
 
-### Mac & Linux:
-Cukup jalankan script installer berikut:
+### Semua Platform (Mac, Linux, & Windows):
+Jalankan perintah berikut di terminal:
 ```bash
-sh rustbasic.sh
+cargo install --git https://github.com/herisvan321/rustbasic
 ```
-> [!NOTE]
-> Perintah `rustbasic` akan **langsung aktif**. Jika belum muncul, jalankan `source ~/.zshrc` atau `source ~/.bashrc`.
 
-### Windows (PowerShell):
-Buka PowerShell dan jalankan:
-```powershell
-.\rustbasic.ps1
-```
 > [!NOTE]
-> Silakan restart terminal PowerShell Anda setelah instalasi selesai.
+> Perintah `rustbasic` akan **langsung aktif**. Jika belum muncul setelah instalasi, silakan restart terminal Anda atau jalankan `source ~/.zshrc` (Mac/Linux).
 
 ---
 
