@@ -2628,6 +2628,7 @@ dependencies = [
 [[package]]
 name = "rustbasic-core"
 version = "0.0.5"
+source = "git+https://github.com/herisvan321/rustbasic-core?branch=main#0f2c53f48837a61452481159c3a1529141cabd65"
 dependencies = [
  "async-trait",
  "axum",
