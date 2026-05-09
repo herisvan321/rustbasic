@@ -34,7 +34,7 @@ cargo build --release
 Binary hasil build akan berada di: `target/release/rustbasic` (atau nama binary yang Anda tentukan).
 
 ### Cross-Compilation (Opsi)
-Jika Anda men-deploy dari macOS ke server Linux, gunakan `cargo-zigbuild` atau `cargo rustbasic build` untuk memilih target OS yang sesuai.
+Jika Anda men-deploy dari macOS ke server Linux, gunakan `cargo-zigbuild` atau `rustbasic build` untuk memilih target OS yang sesuai.
 
 ---
 
@@ -120,7 +120,7 @@ server {
 
 ## 🛡️ 6. Checklist Keamanan Produksi
 - [ ] `APP_DEBUG` diset ke `false`.
-- [ ] `APP_KEY` sudah diganti dengan yang baru (`cargo rustbasic key:generate`).
+- [ ] `APP_KEY` sudah diganti dengan yang baru (`rustbasic key:generate`).
 - [ ] Port aplikasi (4000) ditutup oleh firewall (hanya bisa diakses via Nginx).
 - [ ] Log di `storage/logs/` dipantau secara berkala.
 - [ ] File database SQLite tidak diletakkan di folder publik.

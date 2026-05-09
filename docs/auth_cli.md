@@ -10,7 +10,7 @@ Dokumentasi fitur *scaffolding* autentikasi otomatis pada framework RustBasic.
 Membangun sistem login, registrasi, forgot password, reset password, dan dashboard secara otomatis dengan desain premium.
 
 ```bash
-cargo rustbasic auth
+rustbasic auth
 ```
 
 **Fitur Unggulan:**
@@ -40,11 +40,11 @@ Setelah menjalankan `auth`, file-file berikut akan dibuat:
 Jika Anda ingin membersihkan alur auth dan memulai dari awal:
 
 ```bash
-cargo rustbasic auth back
+rustbasic auth back
 ```
 Atau:
 ```bash
-cargo rustbasic auth:back
+rustbasic auth:back
 ```
 
 **Proses Pembersihan:**
@@ -55,4 +55,4 @@ cargo rustbasic auth:back
 ---
 
 ## 🛠️ Kustomisasi
-Anda dapat memodifikasi logika di `src/app/http/controllers/auth/auth_controller.rs` dan memperbarui tampilan langsung di file `.rb.html` terkait. Setiap perubahan pada template akan memicu auto-refresh di browser jika `cargo rustbasic serve` sedang berjalan.
+Anda dapat memodifikasi logika di `src/app/http/controllers/auth/auth_controller.rs` dan memperbarui tampilan langsung di file `.rb.html` terkait. Setiap perubahan pada template akan memicu auto-refresh di browser jika `rustbasic serve` sedang berjalan.

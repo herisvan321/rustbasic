@@ -22,7 +22,7 @@ Controller disimpan di `src/app/http/controllers/`. Anda bisa menggunakan CLI un
 
 ### Membuat Controller
 ```bash
-cargo run --bin rustbasic-cli make:controller WelcomeController
+rustbasic make:controller WelcomeController
 ```
 
 ### Contoh Logika

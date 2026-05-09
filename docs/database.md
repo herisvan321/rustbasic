@@ -5,7 +5,7 @@ RustBasic menggunakan **Sea-ORM** sebagai ORM utama, yang memberikan pengalaman 
 ## Mendefinisikan Model
 Model disimpan di `src/app/models/`. Buat otomatis via CLI:
 ```bash
-cargo rustbasic make:model User
+rustbasic make:model User
 ```
 
 ## Operasi Dasar (CRUD)
@@ -36,28 +36,28 @@ Migrasi menggunakan **Sea-ORM Migration** (berbasis Rust) dan disimpan di `datab
 
 ## Membuat Migrasi
 ```bash
-cargo rustbasic make:model Name -m
+rustbasic make:model Name -m
 # atau
-cargo rustbasic make:migration Name
+rustbasic make:migration Name
 ```
 
 ## Menjalankan Migrasi
 ```bash
-cargo rustbasic migrate
+rustbasic migrate
 ```
 
 ## Refresh Migrasi
 Gunakan perintah ini untuk membatalkan semua migrasi dan menjalankannya kembali (meriset database):
 ```bash
-cargo rustbasic migrate:refresh
+rustbasic migrate:refresh
 ```
 
 ## Rollback Migrasi
 Gunakan perintah ini untuk membatalkan satu langkah migrasi terakhir:
 ```bash
-cargo rustbasic migrate:back
+rustbasic migrate:back
 # atau
-cargo rustbasic migrate:rollback
+rustbasic migrate:rollback
 ```
 
 ## Contoh File Migrasi (Rust)
@@ -100,14 +100,14 @@ Seeder digunakan untuk mengisi database dengan data awal (seperti admin user, da
 ## Membuat Seeder
 Gunakan CLI untuk membuat file seeder baru:
 ```bash
-cargo rustbasic make:seeder Name
+rustbasic make:seeder Name
 ```
 File akan dibuat di `database/seeders/`. Secara default, RustBasic menyertakan **`DatabaseSeeder`** sebagai contoh utama.
 
 ## Menjalankan Seeder
 Jalankan perintah berikut untuk mengeksekusi seluruh seeder yang terdaftar:
 ```bash
-cargo rustbasic db:seed
+rustbasic db:seed
 ```
 
 ## Cara Registrasi Seeder

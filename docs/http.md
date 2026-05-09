@@ -13,7 +13,7 @@ Router::new()
 ## Membuat Middleware
 Gunakan CLI untuk membuat file middleware baru secara otomatis:
 ```bash
-cargo rustbasic make:middleware Name
+rustbasic make:middleware Name
 ```
 
 ---

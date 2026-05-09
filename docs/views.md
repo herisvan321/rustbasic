@@ -82,7 +82,7 @@ Secara default, RustBasic melakukan **Minifikasi Otomatis** pada output HTML. Sa
 ## 📦 Template Embedding (rust-embed)
 Secara default, RustBasic menggunakan sistem **Hybrid Loading** untuk efisiensi maksimal:
 
-1.  **Mode Debug (Development)**: Template dibaca langsung dari folder `src/resources/views/`. Ini memungkinkan fitur **Live Reload** bekerja tanpa perlu kompilasi ulang setiap kali ada perubahan file `.rb.html` (aktif jika menjalankan `cargo rustbasic serve`).
+1.  **Mode Debug (Development)**: Template dibaca langsung dari folder `src/resources/views/`. Ini memungkinkan fitur **Live Reload** bekerja tanpa perlu kompilasi ulang setiap kali ada perubahan file `.rb.html` (aktif jika menjalankan `rustbasic serve`).
 2.  **Mode Release (Production)**: Seluruh file template di-embed ke dalam file binary menggunakan `rust-embed`. Hal ini membuat aplikasi Anda menjadi satu file executable tunggal yang portabel, lebih cepat, dan tidak lagi membutuhkan folder `src/resources/views/` di server produksi.
 
 ---
@@ -90,6 +90,6 @@ Secara default, RustBasic menggunakan sistem **Hybrid Loading** untuk efisiensi 
 ## 🔄 Hot Reload & Pengembangan
 Gunakan perintah berikut untuk pengembangan yang super cepat dengan auto-refresh browser:
 ```bash
-cargo rustbasic serve
+rustbasic serve
 ```
 Setiap kali file `.rb.html` di `src/resources/views/` disimpan, browser akan otomatis memuat ulang halaman.
