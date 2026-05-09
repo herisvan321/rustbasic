@@ -18,8 +18,8 @@ name = "rustbasic-cli"
 path = "src/cli.rs"
 
 [dependencies]
-# Core Framework (Everything is here!)
-rustbasic-core = "0.0.4"
+# Core Framework (Local Path)
+rustbasic-core = { path = "crates/rustbasic-core" }
 
 # Diperlukan untuk Procedural Macros (Derive) & Inti App
 axum = "0.8.9"
@@ -31,3 +31,17 @@ validator = { version = "0.20.0", features = ["derive"] }
 async-trait = "0.1.86"
 rand = "0.10.1"
 
+# Profile Optimizations
+[profile.dev]
+opt-level = 0
+debug = true
+split-debuginfo = "unpacked"
+
+[profile.dev.package."*"]
+opt-level = 3
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+panic = "abort"
