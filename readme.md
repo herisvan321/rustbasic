@@ -9,36 +9,37 @@
 - 🛡️ **Built-in CLI**: Generator kode (Controller, Model, Auth) otomatis.
 - 🔄 **Live Reload**: Refresh browser otomatis saat ada perubahan kode/template.
 
-## 🚀 Instalasi Global (Semua Platform)
+## 🚀 Smart Installer (Rekomendasi)
 
-Instal CLI RustBasic secara global menggunakan Cargo. Pastikan Anda sudah menginstal Rust di sistem Anda.
+Instal CLI RustBasic secara otomatis dengan satu perintah. Script ini akan menangani konfigurasi path dan dependensi sistem secara cerdas.
 
-### Semua Platform (Mac, Linux, & Windows):
-Jalankan perintah berikut di terminal:
+### 🍎 macOS & 🐧 Linux
 ```bash
-cargo install --git https://github.com/herisvan321/rustbasic
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/herisvan321/rustbasic-cli-install/main/rustbasic.sh)"
 ```
 
-> [!NOTE]
-> Perintah `rustbasic` akan **langsung aktif**. Jika belum muncul setelah instalasi, silakan restart terminal Anda atau jalankan `source ~/.zshrc` (Mac/Linux).
+### 🪟 Windows (PowerShell)
+```powershell
+powershell -ExecutionPolicy Bypass -Command "iwr -useb https://raw.githubusercontent.com/herisvan321/rustbasic-cli-install/main/rustbasic.ps1 | iex"
+```
+
+> [!TIP]
+> Script installer juga dapat digunakan untuk **Reinstall** (update) atau **Uninstall** RustBasic secara bersih dari sistem Anda.
 
 ---
 
 ## 🛠️ Penggunaan CLI (`rustbasic`)
 
-RustBasic menggunakan satu perintah utama `rustbasic` yang sangat cepat dan mudah digunakan:
+RustBasic menyediakan CLI yang powerful untuk mempercepat workflow pengembangan Anda:
 
-### Membuat Project Baru
+### Manajemen Project
 ```bash
-rustbasic new nama_project_anda
+rustbasic new nama_app        # Membuat project baru
+rustbasic serve               # Menjalankan server (Auto-Reload/Hot-Reload)
+rustbasic key:generate        # Generate APP_KEY baru di .env
 ```
 
-### Menjalankan Server (Auto-Reload)
-```bash
-rustbasic serve
-```
-
-### Scaffolding (Pembuatan Kode Otomatis)
+### Scaffolding (Generator Kode)
 ```bash
 rustbasic make:controller BlogController
 rustbasic make:model Post -m             # -m untuk otomatis membuat migration
@@ -66,5 +67,5 @@ rustbasic db:seed                        # Jalankan seeder database
 Framework ini bersifat open source. Silakan kirimkan Pull Request atau laporkan Issue di repositori GitHub kami.
 
 **Selamat membangun aplikasi hebat dengan RustBasic! 🚀**
-Ditenagai oleh [rustbasic-core](https://github.com/herisvan321/rustbasic-core).
+Ditenagai oleh [rustbasic-core](https://github.com/herisvan321/rustbasic-core) & [rustbasic-cli-install](https://github.com/herisvan321/rustbasic-cli-install).
 Dipersembahkan oleh Tim RustBasic.
