@@ -27,6 +27,3 @@ pub async fn dev_info(State(state): State<AppState>, _req: Request) -> impl Into
     }))
 }
 
-pub async fn test_rsx(req: Request) -> impl IntoResponse {
-    view(&req, "test_rsx.rb.html", context! { title => "Test RSX" })
-}
