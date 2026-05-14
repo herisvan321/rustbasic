@@ -5,19 +5,24 @@
 <div class="split-screen">
     <!-- Sisi Visual (Kiri/Besar) -->
     <div class="split-side-visual">
-        <div class="visual-inner">
-            <h1 style="font-size: 4rem; font-weight: 800; margin-bottom: 1rem; color: #fff;">RustBasic</h1>
-            <p style="font-size: 1.5rem; opacity: 0.9; font-weight: 500; max-width: 400px; margin: 0 auto;">
-                Framework Rust masa depan dengan kecepatan cahaya dan desain elegan.
+        <div class="visual-inner shadow-lg">
+            <h1 style="font-size: 4.5rem; font-weight: 900; letter-spacing: -0.03em; margin-bottom: 1rem; color: #fff;">RustBasic</h1>
+            <p style="font-size: 1.35rem; opacity: 0.95; font-weight: 500; max-width: 420px; margin: 0 auto; line-height: 1.6;">
+                Framework Rust berkinerja tinggi dengan arsitektur terotomatisasi dan ekosistem antarmuka premium.
             </p>
             
-            <div class="tech-stack" style="margin-top: 3rem; justify-content: center;">
-                <span class="badge" style="background: rgba(255,255,255,0.2); color: #fff; border: none;">Rust</span>
-                <span class="badge" style="background: rgba(255,255,255,0.2); color: #fff; border: none;">Axum</span>
-                <span class="badge" style="background: rgba(255,255,255,0.2); color: #fff; border: none;">Minijinja</span>
-                <span class="badge" style="background: rgba(255,255,255,0.2); color: #fff; border: none;">HTMX</span>
-                <span class="badge" style="background: rgba(255,255,255,0.2); color: #fff; border: none;">Pure Rust</span>
+            <div class="tech-stack" style="margin-top: 2.5rem; justify-content: center;">
+                <span class="badge">Rust</span>
+                <span class="badge">Bootstrap 5.3</span>
+                <span class="badge">Axum</span>
+                <span class="badge">Minijinja</span>
+                <span class="badge">HTMX</span>
             </div>
+        </div>
+        
+        <!-- Catatan Footer Visual -->
+        <div style="position: absolute; bottom: 1.5rem; left: 0; width: 100%; text-align: center; font-size: 0.85rem; opacity: 0.8;">
+            ✨ Diperkuat oleh **Bootstrap v5.3.8** & Sistem Interseptor Global
         </div>
     </div>
 
@@ -26,28 +31,39 @@
         <div class="content-container">
             <div class="text-center">
 
-                <h2 class="title" style="font-size: 2.5rem; margin-bottom: 1rem;">Mulai Sekarang</h2>
-                <p class="text-muted mb-5">
-                    Bangun aplikasi web yang tangguh dan modern tanpa hambatan.
+                <h2 class="title" style="font-size: 2.75rem; margin-bottom: 0.5rem;">Mulai Sekarang</h2>
+                <p class="text-muted" style="font-size: 1.05rem; margin-bottom: 2.5rem;">
+                    Bangun aplikasi web *full-stack* tangguh dengan antarmuka yang sangat responsif dan memukau.
                 </p>
 
-                <div style="display: flex; flex-direction: column; gap: 1.25rem;">
-                    {% if auth %}
-                        <a href="/dashboard" class="btn btn-primary w-100">Buka Dashboard</a>
-                        <form action="/logout" method="POST">
-                            <button type="submit" class="btn btn-outline w-100">Logout</button>
-                        </form>
-                    {% elif auth_installed %}
-                        <a href="/login" class="btn btn-primary w-100">Login ke Akun</a>
-                        <a href="/register" class="btn btn-outline w-100">Daftar Sekarang</a>
-                    {% else %}
-                        <a href="https://github.com/herisvan321/rest-basic" class="btn btn-primary w-100">Pelajari Framework</a>
-                        <a href="/dev" class="btn btn-outline w-100">Sistem Info</a>
-                    {% endif %}
+                <!-- Panel Opsi Aksi Utama -->
+                <div class="card border-0 shadow-sm rounded-4 p-4 mb-4 bg-light">
+                    <div class="d-flex flex-column gap-3">
+                        {% if auth %}
+                            <a href="/dashboard" class="btn btn-primary w-100">BUKA DASHBOARD</a>
+                            <br><br>
+                            <form action="/logout" method="POST" class="m-0">
+                                <button type="submit" class="btn btn-outline w-100">LOGOUT SISTEM</button>
+                            </form>
+                        {% elif auth_installed %}
+                            <a href="/login" class="btn btn-primary w-100">LOGIN KE AKUN</a>
+                            <br><br>
+                            <a href="/register" class="btn btn-outline w-100">DAFTAR SEKARANG</a>
+                        {% else %}
+                            <a href="https://github.com/herisvan321/rest-basic" class="btn btn-primary w-100">PELAJARI FRAMEWORK</a>
+                            <br><br>
+                            <a href="/dev" class="btn btn-outline w-100">SISTEM INFO</a>
+                        {% endif %}
+                    </div>
                 </div>
 
-                <div style="margin-top: 4rem; border-top: 1px solid var(--glass-border); padding-top: 2rem;">
-                    <p style="font-size: 0.85rem; color: var(--text-muted);">
+                <!-- Info Sekunder -->
+                <div class="alert alert-info border-0 rounded-4 p-3 text-start fs-7 mb-4" style="background-color: #e1f5fe; color: #01579b;">
+                    💡 **Integrasi Penuh:** Mendukung komponen dan utilitas Bootstrap 5 secara mulus di atas fondasi tema Frutiger Aero / Y2K cerah.
+                </div>
+
+                <div style="margin-top: 3rem; border-top: 1px solid var(--glass-border); padding-top: 1.5rem;">
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">
                         &copy; 2026 RustBasic Engine. All rights reserved.
                     </p>
                 </div>

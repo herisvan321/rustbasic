@@ -14,13 +14,18 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
     
+    <!-- Bootstrap 5.3.8 CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    
     <!-- 2. File CSS Utama (Injected Local) -->
     <style>{{ app_css() | safe }}</style>
     
     <!-- 3. Library Frontend (HTMX Local Macro) -->
     <script>{{ htmx_js() | safe }}</script>
+    <!-- Bootstrap 5.3.8 JS -->
+    <script src="/js/bootstrap.bundle.min.js"></script>
 </head>
-<body hx-boost="true" hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token }}"}'>
+<body class="bg-light" hx-boost="true" hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token }}"}'>
     <div id="indicator" class="htmx-indicator">Loading...</div>
     
     <main>
