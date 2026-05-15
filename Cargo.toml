@@ -15,7 +15,7 @@ path = "src/main.rs"
 
 [dependencies]
 # Core Framework (Local Path)
-rustbasic-core = { path = "../rustbasic-core" }
+rustbasic-core = "0.1.5"
 
 # Diperlukan untuk Procedural Macros (Derive) & Inti App
 axum = "0.8.9"
