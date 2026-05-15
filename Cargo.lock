@@ -2612,7 +2612,7 @@ dependencies = [
 
 [[package]]
 name = "rustbasic"
-version = "0.1.4"
+version = "0.1.5"
 dependencies = [
  "async-trait",
  "axum",
@@ -2621,13 +2621,14 @@ dependencies = [
  "sea-orm",
  "sea-orm-migration",
  "serde",
+ "serde_json",
  "tokio",
  "validator",
 ]
 
 [[package]]
 name = "rustbasic-core"
-version = "0.1.4"
+version = "0.1.5"
 dependencies = [
  "async-trait",
  "axum",

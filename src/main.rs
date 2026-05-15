@@ -1,5 +1,4 @@
 use rustbasic_core::tower_http::services::ServeDir;
-use rustbasic_core::sea_orm_migration::MigratorTrait;
 use rustbasic_core::dotenvy::dotenv;
 use rustbasic_core::Config;
 
@@ -14,25 +13,7 @@ async fn main() {
 
     // 2.1 Cek Command CLI (migrate, seed)
     let args: Vec<String> = std::env::args().collect();
-    if args.len() > 1 && (args[1].starts_with("migrate") || args[1] == "db:seed") {
-        let db = rustbasic_core::database::connect(&cfg).await;
-        let command = args[1].as_str();
-
-        match command {
-            "migrate" => {
-                let _ = rustbasic::migrations::Migrator::up(&db, None).await;
-            }
-            "migrate:refresh" => {
-                let _ = rustbasic::migrations::Migrator::fresh(&db).await;
-            }
-            "migrate:back" | "migrate:rollback" => {
-                let _ = rustbasic::migrations::Migrator::down(&db, Some(1)).await;
-            }
-            "db:seed" => {
-                rustbasic::app::seeder::run(&db).await;
-            }
-            _ => {}
-        }
+    if rustbasic::cli::handle(&cfg, &args).await {
         return;
     }
 
@@ -46,9 +27,15 @@ async fn main() {
     let session_store = rustbasic_core::session::setup_session(&cfg).await;
 
     // 5. Bangun Router Aplikasi
+    let api_router = rustbasic::routes::api::router()
+        .layer(rustbasic::app::http::middleware::cors::cors_middleware());
+
+    let web_router = rustbasic::routes::web::router()
+        .layer(rustbasic_core::axum::middleware::from_fn(rustbasic::app::http::middleware::csrf::csrf_middleware));
+
     let app_router: rustbasic_core::axum::Router<rustbasic_core::server::AppState> = rustbasic_core::axum::Router::new()
-        .merge(rustbasic::routes::web::router())
-        .layer(rustbasic_core::axum::middleware::from_fn(rustbasic::app::http::middleware::csrf::csrf_middleware))
+        .nest("/api", api_router)
+        .merge(web_router)
         .layer(rustbasic_core::axum::middleware::from_fn(rustbasic::app::http::middleware::security_headers::security_headers_middleware))
         .layer(rustbasic_core::axum::middleware::from_fn(rustbasic::app::http::middleware::logging::logging_middleware));
 

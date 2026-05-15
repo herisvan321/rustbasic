@@ -1,9 +1,4 @@
-/* ---------------------------------------------------------
- * 📑 LABEL: MODULE MIDDLEWARE (app/http/middleware/mod.rs)
- * Menampung semua middleware keamanan dan utilitas.
- * --------------------------------------------------------- */
-
+pub mod logging;
 pub mod csrf;
 pub mod security_headers;
-
-pub mod logging;
+pub mod cors;
