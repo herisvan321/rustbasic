@@ -2617,6 +2617,7 @@ dependencies = [
  "async-trait",
  "axum",
  "rand 0.10.1",
+ "rustbasic-cli",
  "rustbasic-core",
  "sea-orm",
  "sea-orm-migration",
@@ -2627,10 +2628,27 @@ dependencies = [
 ]
 
 [[package]]
+name = "rustbasic-cli"
+version = "0.0.3"
+dependencies = [
+ "async-trait",
+ "base64",
+ "chrono",
+ "colored",
+ "dotenvy",
+ "rand 0.10.1",
+ "regex",
+ "rustbasic-core",
+ "sea-orm",
+ "sea-orm-migration",
+ "serde",
+ "serde_json",
+ "tokio",
+]
+
+[[package]]
 name = "rustbasic-core"
 version = "0.1.7"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "beffc3ab480a25d494c04ce9f0fb392ccbccb50774ab6c29a97a49034568d50f"
 dependencies = [
  "async-trait",
  "axum",

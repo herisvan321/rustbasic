@@ -11,9 +11,9 @@ async fn main() {
     // 2. Muat Konfigurasi
     let cfg = Config::load();
 
-    // 2.1 Cek Command CLI (migrate, seed)
+    // 2.1 Cek Command CLI (migrate, seed, storage:link)
     let args: Vec<String> = std::env::args().collect();
-    if rustbasic::cli::handle(&cfg, &args).await {
+    if rustbasic_cli::handle::<rustbasic::migrations::Migrator>(&cfg, &args).await {
         return;
     }
 
@@ -35,12 +35,7 @@ async fn main() {
 
     let app_router: rustbasic_core::axum::Router<rustbasic_core::server::AppState> = rustbasic_core::axum::Router::new()
         .nest("/api", api_router)
-        .merge(web_router)
-        .nest_service("/css", ServeDir::new("public/css"))
-        .nest_service("/js", ServeDir::new("public/js"))
-        .nest_service("/img", ServeDir::new("public/img"))
-        .layer(rustbasic_core::axum::middleware::from_fn(rustbasic::app::http::middleware::security_headers::security_headers_middleware))
-        .layer(rustbasic_core::axum::middleware::from_fn(rustbasic::app::http::middleware::logging::logging_middleware));
+        .merge(web_router);
 
     // 6. Setup Statics & Jalankan Server
     let static_files = ServeDir::new("public");

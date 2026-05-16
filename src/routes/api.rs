@@ -18,7 +18,7 @@ async fn health_check() -> Json<Value> {
 async fn version_info() -> Json<Value> {
     Json(json!({
         "framework": "RustBasic",
-        "version": "0.1.5",
+        "version": "0.1.7",
         "engine": "Axum"
     }))
 }

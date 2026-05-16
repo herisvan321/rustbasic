@@ -1,7 +1,6 @@
 pub use rustbasic_core::*;
 pub mod app;
 pub mod routes;
-pub mod cli;
 
 #[path = "../database/migrations/mod.rs"]
 pub mod migrations;
