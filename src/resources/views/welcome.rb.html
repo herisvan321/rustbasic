@@ -41,17 +41,14 @@
                     <div class="d-flex flex-column gap-3">
                         {% if auth %}
                             <a href="/dashboard" class="btn btn-primary w-100">BUKA DASHBOARD</a>
-                            <br><br>
                             <form action="/logout" method="POST" class="m-0">
                                 <button type="submit" class="btn btn-outline w-100">LOGOUT SISTEM</button>
                             </form>
                         {% elif auth_installed %}
                             <a href="/login" class="btn btn-primary w-100">LOGIN KE AKUN</a>
-                            <br><br>
                             <a href="/register" class="btn btn-outline w-100">DAFTAR SEKARANG</a>
                         {% else %}
                             <a href="https://github.com/herisvan321/rest-basic" class="btn btn-primary w-100">PELAJARI FRAMEWORK</a>
-                            <br><br>
                             <a href="/dev" class="btn btn-outline w-100">SISTEM INFO</a>
                         {% endif %}
                     </div>

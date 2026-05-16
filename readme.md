@@ -75,6 +75,13 @@ Pastikan Anda telah mengonfigurasi file `.env` sebelum menjalankan aplikasi:
    - `src/routes/web.rs`: Untuk rute web (dengan CSRF).
    - `src/routes/api.rs`: Untuk rute API (dengan CORS).
 5. **Aset Statis**: Berkas statis publik diletakkan di folder `public/`.
+   - Secara *default*, file statis tidak diekspos secara otomatis ke root URL untuk mencegah kebocoran file penting dan melindungi Custom Error 404 milik framework.
+   - Gunakan `.nest_service()` di `src/main.rs` untuk mendaftarkan folder yang ingin diakses ke publik. Contoh:
+     ```rust
+     .nest_service("/css", ServeDir::new("public/css"))
+     .nest_service("/js", ServeDir::new("public/js"))
+     ```
+   - Dengan konfigurasi di atas, file `public/css/style.css` dapat diakses di HTML via `<link href="/css/style.css">`.
 6. **CLI Handler**: Logika perintah CLI delegasi berada di `src/cli.rs`.
 
 ---

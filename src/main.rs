@@ -36,6 +36,9 @@ async fn main() {
     let app_router: rustbasic_core::axum::Router<rustbasic_core::server::AppState> = rustbasic_core::axum::Router::new()
         .nest("/api", api_router)
         .merge(web_router)
+        .nest_service("/css", ServeDir::new("public/css"))
+        .nest_service("/js", ServeDir::new("public/js"))
+        .nest_service("/img", ServeDir::new("public/img"))
         .layer(rustbasic_core::axum::middleware::from_fn(rustbasic::app::http::middleware::security_headers::security_headers_middleware))
         .layer(rustbasic_core::axum::middleware::from_fn(rustbasic::app::http::middleware::logging::logging_middleware));
 
