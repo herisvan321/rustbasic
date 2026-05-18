@@ -15,7 +15,7 @@ path = "src/main.rs"
 
 [dependencies]
 # Core Framework (Local Path)
-rustbasic-core = "0.1"
+rustbasic-core = { path = "../rustbasic-core", version = "0.1" }
 rustbasic-cli = "0.0"
 
 # Diperlukan untuk Procedural Macros (Derive) & Inti App
@@ -28,6 +28,7 @@ validator = { version = "0.20.0", features = ["derive"] }
 async-trait = "0.1.86"
 rand = "0.10.1"
 serde_json = "1.0.140"
+rust-embed = "8.11.0"
 
 # Profile Optimizations
 [profile.dev]
@@ -43,3 +44,6 @@ opt-level = 3
 lto = true
 codegen-units = 1
 panic = "abort"
+
+[patch.crates-io]
+rustbasic-core = { path = "../rustbasic-core" }

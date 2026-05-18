@@ -1,6 +1,14 @@
 use rustbasic_core::dotenvy::dotenv;
 use rustbasic_core::Config;
 
+#[derive(rust_embed::RustEmbed)]
+#[folder = "public/"]
+struct EmbeddedPublic;
+
+#[derive(rust_embed::RustEmbed)]
+#[folder = "src/resources/views/"]
+struct EmbeddedTemplates;
+
 #[tokio::main]
 async fn main() {
     // 1. Muat file .env & Inisialisasi Logger (Terminal + File)
@@ -35,6 +43,10 @@ async fn main() {
     let app_router: rustbasic_core::axum::Router<rustbasic_core::server::AppState> = rustbasic_core::axum::Router::new()
         .nest("/api", api_router)
         .merge(web_router);
+
+    // Inject embedded files
+    rustbasic_core::view::set_embedded_templates(EmbeddedTemplates::get);
+    rustbasic_core::server::set_embedded_public(EmbeddedPublic::get);
 
     // 6. Jalankan Server
     rustbasic_core::server::start_server(cfg, session_store, db, app_router).await;

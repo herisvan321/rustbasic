@@ -49,12 +49,12 @@ pub fn get_vite_assets() -> String {
         // Mode Development: Hubungkan ke Vite Dev Server (localhost:5173)
         r#"
         <!-- Vite Dev Server Integration -->
-        <script type="module">
-          import RefreshRuntime from 'http://localhost:5173/@react-refresh'
-          RefreshRuntime.injectIntoGlobalHook(window)
-          window.$RefreshReg$ = () => {}
-          window.$RefreshSig$ = () => (type) => type
-          window.__vite_plugin_react_preamble_installed__ = true
+         <script type="module">
+          import RefreshRuntime from 'http://localhost:5173/@react-refresh';
+          RefreshRuntime.injectIntoGlobalHook(window);
+          window.$RefreshReg$ = () => {};
+          window.$RefreshSig$ = () => (type) => type;
+          window.__vite_plugin_react_preamble_installed__ = true;
         </script>
         <script type="module" src="http://localhost:5173/src/resources/js/main.jsx"></script>
         "#.to_string()
