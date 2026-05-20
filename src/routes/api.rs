@@ -1,6 +1,6 @@
 use rustbasic_core::axum::{Router, routing::get, response::Json};
 use rustbasic_core::server::AppState;
-use serde_json::{json, Value};
+use rustbasic_core::serde_json::{json, Value};
 
 pub fn router() -> Router<AppState> {
     Router::new()

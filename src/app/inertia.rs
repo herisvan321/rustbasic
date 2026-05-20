@@ -1,7 +1,7 @@
 use rustbasic_core::requests::Request;
 use rustbasic_core::axum::response::{IntoResponse, Response};
 use rustbasic_core::axum::http::{header, StatusCode};
-use serde_json::{json, Value};
+use rustbasic_core::serde_json::{json, Value};
 use std::fs;
 
 /// Helper untuk merender halaman SPA menggunakan React.js + Inertia.js
@@ -47,12 +47,12 @@ pub fn inertia(req: &Request, component: &str, props: Value) -> Response {
 
     if is_inertia {
         // Return JSON response untuk navigasi SPA Inertia
-        let body = serde_json::to_string(&page_object).unwrap_or_default();
+        let body = rustbasic_core::serde_json::to_string(&page_object).unwrap_or_default();
         Response::builder()
             .status(StatusCode::OK)
             .header(header::CONTENT_TYPE, "application/json")
             .header("X-Inertia", "true")
-            .body(axum::body::Body::from(body))
+            .body(rustbasic_core::axum::body::Body::from(body))
             .unwrap()
             .into_response()
     } else {
@@ -104,7 +104,7 @@ pub fn get_vite_assets() -> String {
             }
         }
         if !manifest_content.is_empty() {
-            if let Ok(manifest) = serde_json::from_str::<Value>(&manifest_content) {
+            if let Ok(manifest) = rustbasic_core::serde_json::from_str::<Value>(&manifest_content) {
                 if let Some(entry) = manifest.get("src/resources/js/main.jsx") {
                     let file = entry.get("file").and_then(|f| f.as_str()).unwrap_or("assets/main.js");
                     let mut assets_html = format!(r#"<script type="module" src="/build/{}"></script>"#, file);

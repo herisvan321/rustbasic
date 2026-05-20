@@ -1,14 +1,6 @@
 use rustbasic_core::dotenvy::dotenv;
 use rustbasic_core::Config;
 
-#[derive(rust_embed::RustEmbed)]
-#[folder = "public/"]
-struct EmbeddedPublic;
-
-#[derive(rust_embed::RustEmbed)]
-#[folder = "src/resources/views/"]
-struct EmbeddedTemplates;
-
 #[tokio::main]
 async fn main() {
     // 1. Muat file .env & Inisialisasi Logger (Terminal + File)
@@ -18,9 +10,9 @@ async fn main() {
     // 2. Muat Konfigurasi
     let cfg = Config::load();
 
-    // 2.1 Cek Command CLI (migrate, seed, storage:link)
+    // 2.1 Cek Command CLI (migrate, seed, storage:link, make:auth)
     let args: Vec<String> = std::env::args().collect();
-    if rustbasic_cli::handle::<rustbasic::migrations::Migrator>(&cfg, &args).await {
+    if rustbasic::config::cli::handle(&args, &cfg).await {
         return;
     }
 
@@ -45,8 +37,8 @@ async fn main() {
         .merge(web_router);
 
     // Inject embedded files
-    rustbasic_core::view::set_embedded_templates(EmbeddedTemplates::get);
-    rustbasic_core::server::set_embedded_public(EmbeddedPublic::get);
+    rustbasic_core::view::set_embedded_templates(rustbasic::config::app::EmbeddedTemplates::get);
+    rustbasic_core::server::set_embedded_public(rustbasic::config::app::EmbeddedPublic::get);
 
     // 6. Jalankan Server
     rustbasic_core::server::start_server(cfg, session_store, db, app_router).await;

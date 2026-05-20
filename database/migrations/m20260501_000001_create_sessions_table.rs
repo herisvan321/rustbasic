@@ -1,5 +1,5 @@
-use sea_orm_migration::prelude::*;
-use async_trait::async_trait;
+use rustbasic_core::sea_orm_migration::prelude::*;
+use rustbasic_core::async_trait;
 
 #[derive(Iden)]
 enum Sessions {

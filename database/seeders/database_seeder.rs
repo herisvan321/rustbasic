@@ -4,7 +4,7 @@ use crate::app::models::users;
 use rustbasic_core::bcrypt::{hash, DEFAULT_COST};
 use rustbasic_core::colored::Colorize;
 
-use async_trait::async_trait;
+use rustbasic_core::async_trait;
 
 pub struct DatabaseSeeder;
 

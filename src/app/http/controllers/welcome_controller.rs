@@ -4,7 +4,7 @@ use rustbasic_core::responses::ResponseHelper;
 use rustbasic_core::server::AppState;
 use rustbasic_core::axum::extract::State;
 use rustbasic_core::axum::response::IntoResponse;
-use serde_json::json;
+use rustbasic_core::serde_json::json;
 
 pub async fn index(req: Request) -> impl IntoResponse {
     // Cek apakah fitur Auth sudah terinstal (scaffolded)

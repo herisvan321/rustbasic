@@ -1,6 +1,6 @@
 [package]
 name = "rustbasic"
-version = "0.1.8"
+version = "0.1.9"
 edition = "2024"
 description = "The official starter template and CLI tool for the RustBasic Framework."
 license = "MIT"
@@ -16,19 +16,11 @@ path = "src/main.rs"
 [dependencies]
 # Core Framework (Local Path)
 rustbasic-core = "0.1"
-rustbasic-cli = "0.0"
 
-# Diperlukan untuk Procedural Macros (Derive) & Inti App
-axum = "0.8.9"
-tokio = { version = "1.52.1", features = ["full"] }
-serde = { version = "1.0.228", features = ["derive"] }
-sea-orm = { version = "1.1.4", features = ["macros", "with-chrono"] }
-sea-orm-migration = "1.1.4"
-validator = { version = "0.20.0", features = ["derive"] }
-async-trait = "0.1.86"
-rand = "0.10.1"
-serde_json = "1.0.140"
-rust-embed = "8.11.0"
+rustbasic-breeze = { version = "0.0", optional = true }
+
+[features]
+breeze = ["dep:rustbasic-breeze"]
 
 # Profile Optimizations
 [profile.dev]
@@ -44,5 +36,4 @@ opt-level = 3
 lto = true
 codegen-units = 1
 panic = "abort"
-
 
