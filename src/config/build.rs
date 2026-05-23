@@ -7,11 +7,27 @@ fn main() {
 
     let mut detected_packages = HashSet::new();
 
+    let mut in_dependencies_section = false;
+
     if let Ok(toml_content) = fs::read_to_string("Cargo.toml") {
         for line in toml_content.lines() {
             let line = line.trim();
             // Ignore commented out lines
             if line.starts_with('#') {
+                continue;
+            }
+            
+            // Track sections
+            if line.starts_with('[') && line.ends_with(']') {
+                let section = &line[1..line.len() - 1];
+                in_dependencies_section = section == "dependencies" 
+                    || section.starts_with("dependencies.")
+                    || section == "dev-dependencies"
+                    || section == "build-dependencies";
+                continue;
+            }
+            
+            if !in_dependencies_section {
                 continue;
             }
             
