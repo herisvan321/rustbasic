@@ -60,7 +60,7 @@ async fn test_database_insert_and_query() {
 
     // Test all()
     let all_users = users::Model::all(&db).await.expect("Failed to get all users");
-    assert!(all_users.len() >= 1);
+    assert!(!all_users.is_empty());
 
     // Test find() using the ID retrieved from database
     let found_user = users::Model::find(&db, retrieved_user.id).await.expect("Failed to find user")
