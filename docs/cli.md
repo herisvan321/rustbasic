@@ -22,6 +22,11 @@ rustbasic make:controller ArticleController
 rustbasic route:list
 ```
 
+### D. Memulai Proses Build Produksi
+```bash
+rustbasic build
+```
+
 ---
 
 ## 🔄 Perbandingan Pemakaian Perintah Lokal vs Perintah Global
@@ -49,6 +54,7 @@ Berikut adalah daftar perintah baris teks yang sering digunakan dalam proses pen
 | **`key:generate`** | Membuat kunci enkripsi APP_KEY baru. | Kunci base64 baru tersimpan otomatis di berkas `.env`. |
 | **`storage:link`** | Menghubungkan folder privat ke publik. | Folder `public/storage` terhubung ke `storage/app/public`. |
 | **`route:list`** | Menampilkan daftar rute dan middleware.| Tabel rute tercetak rapi di terminal Anda. |
+| **`build`** | Mengompilasi kode program Rust & aset Frontend. | Folder `deploy/` yang berisi biner executable & aset teroptimasi. |
 
 ---
 

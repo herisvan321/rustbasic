@@ -26,6 +26,7 @@ After=network.target
 User=www-data
 Group=www-data
 WorkingDirectory=/var/www/app
+# Catatan: Sesuaikan nama biner "rustbasic" jika Anda mendefinisikan BUILD_NAME di file .env
 ExecStart=/var/www/app/rustbasic
 Restart=always
 
@@ -51,6 +52,29 @@ server {
 
 ---
 
+## 🛠️ Opsi Pilihan Build Produksi & Kompilasi Silang
+
+Dengan menggunakan perintah `rustbasic build`, Anda akan dipandu melalui antarmuka CLI interaktif untuk menentukan target build:
+
+1. **Pilihan Target OS**:
+   - Native (OS saat ini)
+   - Windows (`x86_64-pc-windows-msvc`)
+   - Linux GNU (`x86_64-unknown-linux-gnu` / `aarch64-unknown-linux-gnu`)
+   - Linux MUSL (`x86_64-unknown-linux-musl` / `aarch64-unknown-linux-musl`) - Sangat cocok untuk *static binary* mandiri.
+   - macOS ARM & Intel
+
+2. **Opsi Compiler**:
+   - Jika sistem Anda terpasang `cargo-zigbuild`, Anda dapat memilih menggunakan **Zigbuild** untuk kompilasi silang (*cross-compilation*) tanpa perlu memasang toolchain target secara lokal.
+
+3. **Penamaan Biner Kustom (`BUILD_NAME`)**:
+   Untuk mengganti nama file biner hasil build di dalam folder `deploy/`, Anda cukup menambahkan konfigurasi berikut pada file `.env` di root proyek Anda:
+   ```env
+   BUILD_NAME=nama_aplikasi_anda
+   ```
+   Setelah build selesai, biner di folder `deploy/` akan otomatis disalin dengan nama `nama_aplikasi_anda` (atau `nama_aplikasi_anda.exe` di Windows).
+
+---
+
 ## 🔄 Perbandingan Pemakaian (Traditional Node/PHP Deploy vs Rust Single-Binary Deploy)
 
 Berikut adalah perbandingan pemakaian antara deployment website dinamis konvensional dan deployment biner terkompilasi RustBasic:
@@ -70,7 +94,7 @@ Berikut adalah berkas penting yang wajib diletakkan di direktori `/var/www/app/`
 
 | Nama Berkas / Folder | Kebutuhan | Deskripsi Peran di Server |
 | :--- | :--- | :--- |
-| **`rustbasic`** | Wajib | Berkas biner executable utama hasil kompilasi produksi. |
+| **`rustbasic`** (atau nama kustom dari `BUILD_NAME`) | Wajib | Berkas biner executable utama hasil kompilasi produksi. |
 | **`.env`** | Wajib | Berkas teks konfigurasi port server, kunci keamanan, & info db produksi. |
 | **`storage/`** | Wajib | Folder untuk menampung rekaman log sistem (`storage/logs/`). |
 | **`database/`** | Opsional | Tempat file SQLite tersimpan jika menggunakan driver SQLite. |
