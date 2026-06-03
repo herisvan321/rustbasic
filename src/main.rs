@@ -10,19 +10,17 @@ async fn main() {
     // 2. Muat Konfigurasi
     let cfg = Config::load();
 
-    // 2.0 Otomatis jalankan make_auth jika breeze ditambahkan
-    #[cfg(breeze)]
+    // 2.0 Otomatis jalankan make_auth jika breeze ditambahkan (hanya di mode development/debug)
+    #[cfg(all(breeze, debug_assertions))]
     {
-        if !std::path::Path::new("src/routes/auth.rs").exists() {
+        if std::path::Path::new("Cargo.toml").exists() && !std::path::Path::new("src/routes/auth.rs").exists() {
             rustbasic_breeze::make_auth().await;
         }
     }
-
-
-
     // 2.1 Cek Command CLI (migrate, seed, storage:link)
     let args: Vec<String> = std::env::args().collect();
-    if rustbasic::config::cli::handle(&args, &cfg).await {
+    if args.len() > 1 {
+        let _ = rustbasic::config::cli::handle(&args, &cfg).await;
         return;
     }
 

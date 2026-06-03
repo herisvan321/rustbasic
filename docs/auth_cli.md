@@ -59,9 +59,23 @@ Berikut adalah berkas penting yang didelegasikan secara otomatis oleh Breeze ke 
 | :--- | :--- | :--- |
 | **Controller Auth** | `src/app/http/controllers/auth/auth_controller.rs` | Mengolah request masuk login, registrasi, logout, & reset sandi. |
 | **Middleware Auth** | `src/app/http/middleware/auth.rs` | Penjaga pintu rute yang membelokkan user tak dikenal ke `/login`. |
-| **Rute Auth** | `src/routes/auth.rs` | Rute web penanganan formulir login, daftar, & lupa kata sandi. |
+| **Rute Tamu** | `src/routes/auth.rs` | Rute web terpisah untuk penanganan login, daftar, & lupa kata sandi. |
+| **Rute Dashboard** | `src/routes/dashboard.rs` | Rute web terpisah terproteksi untuk dashboard utama. |
 | **Halaman React** | `src/resources/js/Pages/Auth/` | Kumpulan file UI React (.jsx) halaman login, register, & reset sandi. |
 | **Template Email** | `src/resources/views/emails/` | Template email HTML untuk ucapan selamat datang & reset link. |
+
+---
+
+## 🗑️ Otomatisasi Uninstall & Clean-Up Sistem
+
+Apabila Anda memutuskan untuk menghapus module autentikasi Breeze, Anda dapat menjalankan perintah uninstall berikut:
+```bash
+cargo run --package rustbasic-cli -- uninstall rustbasic-breeze
+```
+Perintah ini akan secara otomatis melakukan pembersihan total:
+* Menghapus seluruh file routing (`src/routes/auth.rs`, `src/routes/dashboard.rs`), controllers, models, middleware, views, dan email templates yang digenerate.
+* Mengupdate file `src/routes/web.rs` dan file mod deklarasi lainnya untuk melepas routing secara bersih tanpa meninggalkan *warning unused imports*.
+* Menghapus riwayat pencatatan migrasi tabel Breeze dari database secara otomatis.
 
 ---
 

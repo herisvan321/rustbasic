@@ -10,6 +10,7 @@ list.md
 /node_modules
 /public/build
 /dist
+/deploy
 !/dist/.gitkeep
 .rustbasic_session
 report*.md

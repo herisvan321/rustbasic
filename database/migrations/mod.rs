@@ -14,4 +14,3 @@ impl MigratorTrait for Migrator {
 
 pub mod m20260501_000001_create_sessions_table;
 pub mod m20260501_000002_create_users_table;
-

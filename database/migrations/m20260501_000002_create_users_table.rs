@@ -14,7 +14,7 @@ impl MigrationTrait for Migration {
             table.id();
             table.string("name").not_null();
             table.string("email").not_null().unique();
-            table.date_time("email_verified_at").nullable();
+            table.string("email_verified_at").nullable();
             table.string("password").not_null();
             table.string("remember_token").nullable();
         }).await

@@ -6,8 +6,8 @@ use rustbasic_core::{State, IntoResponse};
 use rustbasic_core::serde_json::json;
 
 pub async fn index(req: Request) -> impl IntoResponse {
-    // Cek apakah fitur Auth sudah terinstal (scaffolded)
-    let auth_installed = std::path::Path::new("src/app/http/controllers/auth").exists();
+    // Cek apakah fitur Auth sudah terinstal (scaffolded) menggunakan cfg flag compile-time
+    let auth_installed = cfg!(breeze);
     let user_id = req.session.get::<i32>("user_id").unwrap_or(0);
     let is_logged_in = user_id > 0;
 

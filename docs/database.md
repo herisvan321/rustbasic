@@ -68,6 +68,13 @@ impl MigrationTrait for Migration {
 }
 ```
 
+> [!NOTE]
+> **Kompatibilitas Multi-Engine (SQLite & MySQL)**
+> Blueprint builder secara otomatis menerjemahkan tipe kolom pada runtime:
+> * Kolom `text()` diterjemahkan menjadi `TEXT` di SQLite dan `VARCHAR(4000)` di MySQL.
+> * Kolom `long_text()` diterjemahkan menjadi `TEXT` di SQLite dan `VARCHAR(16383)` di MySQL.
+> Penyesuaian ini menjamin kestabilan driver SQLx Any untuk mencegah pembacaan data teks sebagai tipe binary/BLOB yang memicu error type mismatch.
+
 ---
 
 ## 🚀 Active Record ORM & Query Builder
@@ -260,7 +267,7 @@ let old_name = original.name; // "John"
 Di RustBasic, pembatasan atribut saat pengisian massal (*mass assignment*) dikonfigurasi langsung di dalam macro `model!`.
 
 1. **Whitelisting (`fillable`)**
-   Sama seperti properti `$fillable` pada Active Record, Anda mendefinisikan field mana saja yang boleh diisi secara massal:
+   Anda mendefinisikan field mana saja yang boleh diisi secara massal:
    ```rust
    model! {
        table: "flights",
@@ -481,7 +488,7 @@ Untuk memisahkan logika bisnis kompleks dari controller (Service Layer) dan memi
 
 ##### H. Eager Loading (dengan `with`)
 
-Untuk menghindari masalah kueri **N+1**, RustBasic menyediakan fitur *eager loading* relasi yang terintegrasi langsung ke dalam macro `model!`. Fitur ini memungkinkan Anda memuat relasi (seperti `belongs_to` dan `has_many`) secara massal dengan hanya **2 kueri database** (1 untuk data utama, 1 untuk data relasi menggunakan `where_in`), mirip dengan method `with` pada framework web modern.
+Untuk menghindari masalah kueri **N+1**, RustBasic menyediakan fitur *eager loading* relasi yang terintegrasi langsung ke dalam macro `model!`. Fitur ini memungkinkan Anda memuat relasi (seperti `belongs_to` dan `has_many`) secara massal dengan hanya **2 kueri database** (1 untuk data utama, 1 untuk data relasi menggunakan `where_in`).
 
 1. **Mendefinisikan Relasi di Model**
    Tambahkan blok konfigurasi `relations` di dalam makro `model!`:

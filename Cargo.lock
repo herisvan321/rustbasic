@@ -1574,9 +1574,7 @@ dependencies = [
 
 [[package]]
 name = "rustbasic-core"
-version = "0.1.19"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8de988261260e9551419e9f386d9d2788ec980705d8fa38fd95efc7d38d4da49"
+version = "0.1.20"
 dependencies = [
  "bcrypt",
  "chrono",
@@ -1600,8 +1598,6 @@ dependencies = [
 [[package]]
 name = "rustbasic-core-macro"
 version = "0.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "641516f9ebe484d1abe17ebff2059ac5240dccb37bb482ef19f36bc16d5d5d4c"
 dependencies = [
  "proc-macro2",
  "quote",

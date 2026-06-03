@@ -16,7 +16,7 @@ impl MigrationTrait for Migration {
             table.string("user_id").nullable();
             table.string("ip_address").nullable();
             table.text("user_agent").nullable();
-            table.text("payload").not_null();
+            table.long_text("payload").not_null();
             table.integer("last_activity").not_null();
         }).await
     }

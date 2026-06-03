@@ -1,5 +1,4 @@
 use rustbasic_core::model;
-use rustbasic_core::chrono::NaiveDateTime;
 
 model! {
     table: "users",
@@ -8,7 +7,7 @@ model! {
         pub id: i32,
         pub name: String,
         pub email: String,
-        pub email_verified_at: Option<NaiveDateTime>,
+        pub email_verified_at: Option<String>,
         pub password: String,
         pub remember_token: Option<String>,
     }
