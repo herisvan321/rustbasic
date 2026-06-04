@@ -1,7 +1,9 @@
-# 📚 Indeks Dokumentasi RustBasic SPA
+# 📚 Indeks Dokumentasi RustBasic Framework — Modern SPA Edition
 
 ## 📝 Kata Pengantar
-Selamat datang di indeks resmi **Dokumentasi RustBasic Framework — Modern SPA Edition**. Halaman indeks ini dirancang khusus untuk memandu pengembang menemukan materi pembelajaran teknis secara cepat dan sistematis. Mulai dari pemula yang baru mengenal konsep web SPA hingga arsitek sistem yang ingin melakukan kustomisasi tingkat lanjut, seluruh panduan disusun secara terstruktur di bawah ini.
+Selamat datang di indeks resmi **Dokumentasi RustBasic Framework — Modern SPA Edition**. Halaman indeks ini dirancang khusus untuk memandu pengembang menemukan materi pembelajaran teknis secara cepat, komprehensif, dan sistematis. 
+
+Mulai dari pemula yang baru mengenal konsep web SPA hingga arsitek sistem yang ingin melakukan kustomisasi tingkat lanjut, seluruh panduan disusun secara terstruktur di bawah ini.
 
 ---
 
@@ -29,9 +31,9 @@ Selamat datang di indeks resmi **Dokumentasi RustBasic Framework — Modern SPA 
 
 ---
 
-## 🛠️ Script Contoh
+## 🛠️ Script Contoh (Quick Start)
 
-Berikut adalah contoh skrip inisialisasi cepat (Quick Start) proyek baru menggunakan CLI global:
+Berikut adalah contoh skrip inisialisasi cepat proyek baru menggunakan CLI global:
 
 ```bash
 # 1. Menginstal CLI pembantu secara global

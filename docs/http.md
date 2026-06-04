@@ -3,11 +3,14 @@
 ## 📝 Kata Pengantar
 Selamat datang di panduan **HTTP Stack, CSRF, & Middleware**. Dokumentasi ini dirancang khusus untuk memandu Anda memahami cara server memproses permintaan request, menyaring akses melalui tumpukan middleware, menangani keamanan CSRF secara otomatis, dan mengembalikan respon yang ramah terhadap protokol komunikasi React SPA.
 
+Tumpukan HTTP engine RustBasic dibangun di atas performa tinggi yang disesuaikan secara khusus untuk menangani transisi asinkron Inertia.js secara mulus dan aman.
+
 ---
 
 ## 🛠️ Script Contoh
 
 ### A. Registrasi Middleware pada Rute (`src/routes/web.rs`)
+Mengamankan sekelompok rute menggunakan middleware kustom dengan bantuan fungsi `from_fn` dari framework:
 ```rust
 use rustbasic_core::{Router, get, from_fn, AppState};
 use crate::app::http::controllers::admin_controller;
@@ -17,33 +20,61 @@ pub fn router() -> Router<AppState> {
     Router::new()
         // Mengamankan rute dashboard menggunakan middleware kustom
         .route("/admin/dashboard", get(admin_controller::index))
+        // Seluruh rute di atas baris .layer() akan disaring oleh middleware tersebut
         .layer(from_fn(admin_auth_middleware))
 }
 ```
 
 ### B. Struktur Middleware Kustom (`src/app/http/middleware/auth.rs`)
+Menulis fungsi middleware asinkron dengan parameter `Request` dan `Next` chain:
 ```rust
 use rustbasic_core::{Request, Response, Next, IntoResponse, Redirect};
 
 pub async fn check_auth_middleware(req: Request, next: Next) -> Response {
-    // Mengecek apakah user session ID ada di memori sesi
+    // 1. Mengecek apakah user session ID ada di memori sesi
     if req.session.get::<i32>("user_id").is_none() {
+        // Jika tidak ada, batalkan request dan redirect ke halaman login
         return Redirect::to("/login").into_response();
     }
-    // Teruskan request jika lolos pengecekan
+    
+    // 2. Teruskan request ke middleware berikutnya atau ke controller handler
     next.run(req).await
 }
 ```
 
 ### C. Redirect 303 Khusus SPA di Controller
+Melakukan redirect yang kompatibel dengan alur transaksi data Inertia React SPA:
 ```rust
 use rustbasic_core::{IntoResponse, Redirect};
 
 pub async fn store_data() -> impl IntoResponse {
-    // Wajib status 303 agar browser React SPA Inertia melakukan reload data
+    // Wajib menggunakan status 303 agar browser React SPA Inertia melakukan reload data dengan aman
     Redirect::to("/dashboard")
 }
 ```
+
+---
+
+## 🛡️ Proteksi Keamanan CSRF (Cross-Site Request Forgery)
+
+Secara default, RustBasic menyertakan perlindungan CSRF otomatis untuk mengamankan data aplikasi Anda dari serangan manipulasi sesi pihak ketiga.
+
+### 1. Cara Kerja CSRF Middleware
+Setiap kali request masuk, middleware CSRF memeriksa status sesi:
+- **Penyediaan Token**: Jika sesi belum memiliki token CSRF, string alfanumerik acak sepanjang 40 karakter akan digenerate secara otomatis dan disimpan di session (`_token`). Token ini disematkan ke dalam tag `<meta name="csrf-token" content="...">` di template HTML utama (`app.rb.html`).
+- **Pengecekan Mutasi**: Untuk semua request yang bersifat mutasi (seperti POST, PUT, PATCH, DELETE), middleware akan membandingkan token yang dikirimkan oleh klien di header `x-csrf-token` dengan token yang tersimpan di session server.
+- **Respon Kegagalan**: Jika token tidak cocok atau tidak disertakan, server akan menolak request tersebut dan mengembalikan status HTTP **419 (Page Expired)**.
+
+### 2. Integrasi Otomatis dengan Axios Frontend
+Di dalam berkas bootstrap `main.tsx` frontend Anda, token CSRF dibaca dari meta tag dan secara otomatis disematkan sebagai header default untuk setiap request AJAX:
+```javascript
+const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+if (csrfToken) {
+  window.axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken;
+}
+```
+
+---
 
 ## 📡 HTTP Client (Fluent API Client)
 
@@ -125,11 +156,11 @@ if response.status().as_u16() == 201 {
 
 Berikut adalah perbandingan pemakaian kode status HTTP redirect untuk aplikasi Single Page Application (SPA):
 
-| Kode Status HTTP | Redirect 302 (Found) | Redirect 303 (See Other) |
+| Parameter | Redirect 302 (Found) | Redirect 303 (See Other) |
 | :--- | :--- | :--- |
-| **Deskripsi** | Standard HTTP Redirect biasa. | Redirect khusus untuk mereset metode HTTP request. |
-| **Respon Browser SPA** | Browser Inertia mendeteksi kegagalan karena metode request (POST/PUT) tetap dipertahankan. | Browser Inertia mendeteksi perubahan halaman dan meminta data JSON mentah baru (GET). |
-| **Kasus Penggunaan** | Redirect rute statis di luar request AJAX. | Redirect wajib setelah proses submit form (POST/PUT/DELETE). |
+| **Deskripsi** | Standar pengalihan HTTP tradisional. | Pengalihan khusus untuk mengubah metode HTTP request. |
+| **Dampak Pada Inertia Client**| Klien Inertia mendeteksi kegagalan karena browser berupaya menggunakan metode request asal (misal POST/PUT) pada URL tujuan redirect. | Klien Inertia mendeteksi redirect dengan benar, membatalkan request lama, lalu memicu request GET bersih ke URL tujuan. |
+| **Kasus Penggunaan** | Pengalihan rute statis biasa (bukan hasil pemrosesan form POST/PUT/DELETE). | **Wajib digunakan** setelah pemrosesan input formulir di controller yang mengubah data. |
 
 ---
 
