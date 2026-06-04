@@ -63,9 +63,29 @@ Berikut adalah ringkasan mekanisme pertahanan dan audit keamanan yang diimplemen
 | **Dual Logging** | Log konsol berwarna, log file `storage/logs/` tanpa warna. | Membantu peninjauan error visual & audit log terstruktur. |
 | **CSRF Verifier** | Melakukan verifikasi token otomatis pada request POST/PUT/DELETE. | Melindungi aplikasi dari ancaman eksploitasi lintas situs. |
 | **Live Reload Watcher** | Mengaktifkan `tower-livereload` hanya pada mode debug. | Membantu pengembangan lokal tanpa membebani server rilis. |
+| **CSP Frame Policy** | Mengizinkan frame dari domain tertentu (seperti YouTube) dan memblokir domain lainnya. | Mencegah pembajakan frame (Clickjacking) sekaligus mendukung embed media eksternal yang aman. |
+
+---
+
+## 🔧 Catatan Pembaruan Framework (Juni 2026)
+
+Berikut adalah beberapa perbaikan dan optimalisasi terakhir yang telah diterapkan pada sistem core RustBasic:
+
+### 1. Perizinan Iframe YouTube pada Content Security Policy (CSP)
+*   **Akar Masalah**: Pemuatan video YouTube (`<iframe>`) di-block oleh browser secara bawaan karena ketiadaan direktif `frame-src` pada konfigurasi CSP, sehingga browser menggunakan kebijakan fallback `default-src 'self'`.
+*   **Perbaikan**: Menambahkan direktif `frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com;` pada header CSP di berkas `security_headers.rs` milik `rustbasic-core`.
+
+### 2. Penghapusan Minifikasi HTML Respons Sisi Server
+*   **Akar Masalah**: Logika minifikasi bawaan yang menggabungkan seluruh baris HTML hasil render menjadi satu baris rapat merusak tata letak spasi putih penting (seperti tag `<pre>`, elemen *inline-block* CSS), serta merusak inline JavaScript yang memakai komentar single-line `//`.
+*   **Perbaikan**: Mengubah logika render di berkas `view.rs` milik `rustbasic-core` agar langsung mengirimkan output asli HTML hasil render MiniJinja. Fungsi pembantu `strip_html_comments` dihapus.
+
+### 3. Cache Buster Favicon PNG
+*   **Akar Masalah**: Favicon tidak tampil di tab browser karena adanya cache favicon agresif pada browser (terutama di port `localhost:4000`).
+*   **Perbaikan**: Menambahkan query parameter versi `?v=1` ke tag `<link rel="icon" ...>` di seluruh berkas HTML template (`app.rb.html`, `minimal.rb.html`, dan `debug.rb.html`).
 
 ---
 
 ## 🏁 Penutup
 
-Catatan dokumentasi ini diperbarui pada Mei 2026 untuk mencerminkan implementasi React SPA Edition, Standalone CLI biner global, serta Blueprint Migration Schema. Dengan memahami catatan sistem ini, pengembang dapat menjaga efisiensi dan keamanan aplikasi web yang dibangun di atas framework RustBasic.
+Catatan dokumentasi ini diperbarui pada Juni 2026 untuk mencerminkan implementasi React SPA Edition, Standalone CLI biner global, Blueprint Migration Schema, serta perbaikan sistem CSP dan HTML Rendering terbaru. Dengan memahami catatan sistem ini, pengembang dapat menjaga efisiensi dan keamanan aplikasi web yang dibangun di atas framework RustBasic.
+
