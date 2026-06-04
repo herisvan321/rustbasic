@@ -109,8 +109,7 @@ export default function Welcome({ title, auth_installed, is_logged_in }: Welcome
                 Secepat Kilat
               </span>
             </h1>
-
-            {/* Subtitle */}
+             {/* Subtitle */}
             <p style={{
               fontSize: '1.15rem',
               lineHeight: 1.7,
