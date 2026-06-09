@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, Head } from '@inertiajs/react';
 import { useTheme } from '../Layouts/AppLayout';
+import { useRoute } from '../route';
 
 interface AboutProps {
   title?: string;
@@ -13,6 +14,7 @@ interface AboutProps {
 export default function About({ title, description, backend, frontend, bridge }: AboutProps) {
   const [mounted, setMounted] = useState(false);
   const { colors, isDark } = useTheme();
+  const route = useRoute();
 
   useEffect(() => {
     setMounted(true);
@@ -235,7 +237,7 @@ export default function About({ title, description, backend, frontend, bridge }:
             transition: 'all 0.6s ease 0.4s',
           }}>
             <Link
-              href="/"
+              href={route('home')}
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',

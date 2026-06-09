@@ -9,9 +9,9 @@
 list.md
 /node_modules
 /public/build
-/dist
+/src/dist
 /deploy
-!/dist/.gitkeep
+!/src/dist/.gitkeep
 .rustbasic_session
 report*.md
 .rustbasic_packages.json

@@ -72,6 +72,7 @@ Struktur `Router<S>` di RustBasic menyediakan metode-metode berikut untuk mendef
 | :--- | :--- | :--- |
 | **`Router::new()`** | Membuat instansiasi router baru kosong. | `Router::new()` |
 | **`.route(path, method)`** | Mendaftarkan rute dengan method router tertentu (`get`, `post`, `put`, `delete`, dll). | `.route("/", get(welcome_controller::index))` |
+| **`.name(name)`** | Memberikan nama unik pada rute saat ini untuk pemanggilan dinamis di frontend. | `.route("/about", get(...)).name("about")` |
 | **`.get_json(path, data)`** | Shortcut untuk rute GET yang langsung mengembalikan data JSON serializable. | `.get_json("/status", json!({"status": "ok"}))` |
 | **`.get_redirect(path, to)`** | Shortcut rute GET untuk langsung mengarahkan (redirect) ke URL lain. | `.get_redirect("/old-path", "/new-path")` |
 | **`.get_view(path, tpl, ctx)`**| Shortcut rute GET untuk merender berkas HTML template (Minijinja) langsung. | `.get_view("/welcome", "welcome.html", json!({}))` |
@@ -114,7 +115,30 @@ pub fn router() -> Router<AppState> {
 
 ---
 
-### D. Rute Inline Cepat (Closure Routing)
+### D. Rute Bernama (Named Routes)
+
+Untuk menghindari penulisan tautan (URL) secara manual/hardcoded baik di backend maupun di frontend, Anda dapat menamai rute Anda dengan memanggil metode `.name()` pada Router:
+
+```rust
+Router::new()
+    .route("/about", get(welcome_controller::about)).name("about")
+    .route("/user/:id", get(welcome_controller::show)).name("user.show")
+```
+
+Di frontend React, Anda dapat menyelesaikan URL tersebut menggunakan hook `useRoute` secara dinamis:
+```tsx
+import { useRoute } from '../route';
+
+const route = useRoute();
+// Hasil: http://localhost:4000/about
+const aboutUrl = route('about'); 
+// Hasil: http://localhost:4000/user/42
+const userUrl = route('user.show', { id: 42 }); 
+```
+
+Untuk panduan selengkapnya mengenai rute bernama, silakan baca **[Panduan Rute Bernama (Named Routes)](named_routes.md)**.
+
+### E. Rute Inline Cepat (Closure Routing)
 Untuk prototyping cepat tanpa membuat file controller baru, Anda dapat mendefinisikan rute inline:
 ```rust
 Router::new()

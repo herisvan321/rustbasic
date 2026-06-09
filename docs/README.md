@@ -13,6 +13,7 @@ Mulai dari pemula yang baru mengenal konsep web SPA hingga arsitek sistem yang i
 *   **[Dasar-Dasar SPA](basics.md)**: Konsep SPA monolith, inisiasi routing web, controller, dan manajemen data.
 *   **[Views & JSX Komponen](views.md)**: Panduan membangun antarmuka premium dengan React, Tailwind CSS, Inertia form helper, dan asset embedding.
 *   **[Perutean Inline Cepat](inline_routing.md)**: Cara cepat mendefinisikan rute dan langsung mengembalikan respon secara inline menggunakan closure.
+*   **[Rute Bernama (Named Routes)](named_routes.md)**: Panduan lengkap mendaftarkan rute dengan nama unik di backend Rust dan menyelesaikannya secara dinamis di React SPA.
 *   **[Manajemen Database & Migrasi](database.md)**: Deklarasi model (`model!`), eksekusi kueri CRUD, skema migrasi tabel, serta pengisian data awal seeder.
 *   **[Pengolahan String & Fluent Stringable](strings.md)**: Manipulasi string static modular, pencarian karakter, casing generator, dan fluent string builder.
 *   **[Unit & Feature Testing](testing.md)**: Panduan lengkap pengujian unit terisolasi serta simulasi request HTTP secara in-memory.
@@ -70,6 +71,7 @@ Berikut adalah daftar lokasi berkas panduan penting di dalam direktori proyek An
 | :--- | :--- | :--- |
 | **basics.md** | `docs/basics.md` | Routing, Controller, dan Views. |
 | **views.md** | `docs/views.md` | React JSX, Tailwind CSS, & useForm. |
+| **named_routes.md** | `docs/named_routes.md` | Pendaftaran rute bernama di Rust dan penyelesaian URL dinamis di React. |
 | **database.md** | `docs/database.md` | Model, CRUD, Migrasi, & Seeder. |
 | **strings.md** | `docs/strings.md` | Helper manipulasi string static & fluent Stringable chaining. |
 | **http.md** | `docs/http.md` | Keamanan CSRF, Middleware kustom, & HTTP 303. |

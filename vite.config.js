@@ -19,7 +19,7 @@ export default defineConfig(({ mode }) => {
       },
     },
     build: {
-      outDir: 'dist',
+      outDir: 'src/dist',
       emptyOutDir: true,
       manifest: true, // Generates manifest.json in the build folder for versioned lookups in production
       rollupOptions: {

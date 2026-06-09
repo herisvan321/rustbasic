@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, Head } from '@inertiajs/react';
 import { useTheme } from '../Layouts/AppLayout';
+import { useRoute } from '../route';
 
 interface WelcomeProps {
   title?: string;
@@ -12,6 +13,7 @@ export default function Welcome({ title, auth_installed, is_logged_in }: Welcome
   const [count, setCount] = useState(0);
   const [mounted, setMounted] = useState(false);
   const { colors, isDark } = useTheme();
+  const route = useRoute();
 
   useEffect(() => {
     setMounted(true);
@@ -137,7 +139,7 @@ export default function Welcome({ title, auth_installed, is_logged_in }: Welcome
               transition: 'all 0.6s ease 0.3s',
             }}>
               <Link
-                href="/about"
+                href={route('about')}
                 style={{
                   padding: '16px 32px',
                   borderRadius: '16px',
@@ -217,7 +219,7 @@ export default function Welcome({ title, auth_installed, is_logged_in }: Welcome
                 )
               )}
               <a
-                href="/dev"
+                href={route('dev')}
                 style={{
                   padding: '16px 32px',
                   borderRadius: '16px',
@@ -233,6 +235,42 @@ export default function Welcome({ title, auth_installed, is_logged_in }: Welcome
                 }}
               >
                 Cek JSON Config
+              </a>
+              <a
+                href={route('test.param', { id: '99', search: 'rustbasic', filter: 'active' })}
+                style={{
+                  padding: '16px 32px',
+                  borderRadius: '16px',
+                  background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.04)',
+                  fontWeight: 700,
+                  fontSize: '0.95rem',
+                  color: isDark ? '#ccc' : '#444',
+                  textDecoration: 'none',
+                  border: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
+                  transition: 'all 0.3s ease',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                }}
+              >
+                Test Route Parameter
+              </a>
+              <a
+                href={route('test.multi', { p1: 'apple', p2: 'banana', p3: 'orange', p4: 'grape', extra: 'juice' })}
+                style={{
+                  padding: '16px 32px',
+                  borderRadius: '16px',
+                  background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.04)',
+                  fontWeight: 700,
+                  fontSize: '0.95rem',
+                  color: isDark ? '#ccc' : '#444',
+                  textDecoration: 'none',
+                  border: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
+                  transition: 'all 0.3s ease',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                }}
+              >
+                Test Multi Parameter (4)
               </a>
             </div>
 

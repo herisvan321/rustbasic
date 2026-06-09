@@ -53,6 +53,20 @@ pub async fn store_data() -> impl IntoResponse {
 }
 ```
 
+#### Redirect Menggunakan Rute Bernama (Named Routes)
+Anda juga dapat melakukan pengalihan secara dinamis menggunakan rute bernama yang terdaftar di registry backend Rust:
+```rust
+pub async fn store_data_named() -> impl IntoResponse {
+    // Ambil path rute bernama "dashboard" dari registry global
+    let path = rustbasic_core::router::get_named_routes()
+        .get("dashboard")
+        .cloned()
+        .unwrap_or_else(|| "/".to_string());
+        
+    Redirect::to(&path)
+}
+```
+
 ---
 
 ## 🛡️ Proteksi Keamanan CSRF (Cross-Site Request Forgery)

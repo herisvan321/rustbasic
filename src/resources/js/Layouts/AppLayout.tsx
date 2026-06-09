@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { Link, usePage } from '@inertiajs/react';
+import { useRoute } from '../route';
 
 export interface ThemeColors {
   bg: string;
@@ -107,6 +108,7 @@ function AppLayoutInner({ children }: AppLayoutProps) {
   const { colors, isDark, toggleTheme, isFullscreen, toggleFullscreen } = useTheme();
   const { url } = usePage();
   const currentPath = url.split('?')[0];
+  const route = useRoute();
 
   return (
     <div style={{
@@ -167,7 +169,7 @@ function AppLayoutInner({ children }: AppLayoutProps) {
           height: '72px', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         }}>
           {/* Logo */}
-          <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '12px', textDecoration: 'none' }}>
+          <Link href={route('home')} style={{ display: 'flex', alignItems: 'center', gap: '12px', textDecoration: 'none' }}>
             <img
               src="/logo.png"
               alt="RustBasic Logo"
@@ -185,7 +187,7 @@ function AppLayoutInner({ children }: AppLayoutProps) {
           {/* Nav Links */}
           <nav style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
             <Link
-              href="/"
+              href={route('home')}
               style={{
                 fontSize: '0.875rem', fontWeight: 600, 
                 color: currentPath === '/' ? '#e8520e' : (isDark ? '#888' : '#555'),
@@ -195,7 +197,7 @@ function AppLayoutInner({ children }: AppLayoutProps) {
               Beranda
             </Link>
             <Link
-              href="/about"
+              href={route('about')}
               style={{
                 fontSize: '0.875rem', fontWeight: 600, 
                 color: currentPath === '/about' ? '#e8520e' : (isDark ? '#888' : '#555'),
@@ -205,7 +207,7 @@ function AppLayoutInner({ children }: AppLayoutProps) {
               Tentang
             </Link>
             <a
-              href="/dev"
+              href={route('dev')}
               style={{
                 fontSize: '0.875rem', fontWeight: 600, 
                 color: currentPath === '/dev' ? '#e8520e' : (isDark ? '#888' : '#555'),
@@ -220,7 +222,7 @@ function AppLayoutInner({ children }: AppLayoutProps) {
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
             {currentPath !== '/' && (
               <Link
-                href="/"
+                href={route('home')}
                 style={{
                   padding: '8px 20px',
                   borderRadius: '12px',

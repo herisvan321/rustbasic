@@ -1,7 +1,7 @@
 use rustbasic_core::rust_embed::RustEmbed;
 
 #[derive(RustEmbed)]
-#[folder = "dist/"]
+#[folder = "src/dist/"]
 pub struct EmbeddedPublic;
 
 #[derive(RustEmbed)]

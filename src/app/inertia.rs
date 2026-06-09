@@ -36,6 +36,10 @@ pub fn inertia(req: &Request, component: &str, props: Value) -> Response {
             "warning": warning,
             "info": info
         }));
+        let named_routes = rustbasic_core::router::get_named_routes();
+        map.insert("routes".to_string(), json!(named_routes));
+        let cfg = rustbasic_core::Config::load();
+        map.insert("app_url".to_string(), json!(cfg.app_url));
     }
 
     let page_object = json!({
@@ -102,7 +106,7 @@ pub fn get_vite_assets() -> String {
     } else {
         // Mode Production: Baca manifest.json dari build hasil compile Vite
         let mut manifest_content = String::new();
-        let paths = ["dist/.vite/manifest.json", "dist/manifest.json"];
+        let paths = ["src/dist/.vite/manifest.json", "src/dist/manifest.json"];
         for path in &paths {
             if let Ok(content) = fs::read_to_string(path) {
                 manifest_content = content;

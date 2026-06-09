@@ -40,3 +40,28 @@ pub async fn dev_info(State(state): State<AppState>, _req: Request) -> impl Into
         "rate_limit": state.config.app_limit_request
     }))
 }
+
+pub async fn test_param(req: Request) -> impl IntoResponse {
+    let id = req.params.get("id").cloned().unwrap_or_default();
+    ResponseHelper::json(json!({
+        "status": "success",
+        "received_id": id,
+        "query_params": req.inputs
+    }))
+}
+
+pub async fn test_multi_param(req: Request) -> impl IntoResponse {
+    let p1 = req.params.get("p1").cloned().unwrap_or_default();
+    let p2 = req.params.get("p2").cloned().unwrap_or_default();
+    let p3 = req.params.get("p3").cloned().unwrap_or_default();
+    let p4 = req.params.get("p4").cloned().unwrap_or_default();
+    ResponseHelper::json(json!({
+        "status": "success",
+        "p1": p1,
+        "p2": p2,
+        "p3": p3,
+        "p4": p4,
+        "query_params": req.inputs
+    }))
+}
+

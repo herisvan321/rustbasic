@@ -15,22 +15,24 @@ Layout persisten digunakan sebagai kerangka luar (header, sidebar, footer) agar 
 ```jsx
 import React from 'react';
 import { Link, usePage } from '@inertiajs/react';
+import { useRoute } from '../route';
 
 export default function AppLayout({ children }) {
   // Mengambil user login & flash message secara global dari backend Rust
   const { auth, flash } = usePage().props;
+  const route = useRoute();
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans">
       {/* Header Bar */}
       <header className="bg-slate-900/80 border-b border-slate-800 backdrop-blur-md sticky top-0 z-50 px-6 py-4 flex justify-between items-center">
-        <Link href="/" className="text-xl font-extrabold text-indigo-400 tracking-wide">
+        <Link href={route('home')} className="text-xl font-extrabold text-indigo-400 tracking-wide">
           RustBasic <span className="text-white text-sm font-normal">SPA</span>
         </Link>
         <nav className="flex items-center space-x-6">
-          <Link href="/" className="hover:text-indigo-400 transition">Beranda</Link>
-          <Link href="/about" className="hover:text-indigo-400 transition">Tentang</Link>
-          <Link href="/contact" className="hover:text-indigo-400 transition">Kontak</Link>
+          <Link href={route('home')} className="hover:text-indigo-400 transition">Beranda</Link>
+          <Link href={route('about')} className="hover:text-indigo-400 transition">Tentang</Link>
+          <Link href={route('contact')} className="hover:text-indigo-400 transition">Kontak</Link>
           {auth?.user ? (
             <div className="flex items-center space-x-3 bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700">
               <span className="text-sm font-medium">{auth.user.name}</span>
@@ -159,9 +161,10 @@ Ketika pertama kali dimuat, server memproses berkas HTML master (`app.rb.html`) 
 Berikut adalah beberapa API utama yang wajib Anda pahami untuk mengelola navigasi dan state halaman:
 
 ### 1. Komponen `<Link>`
-Komponen pengganti tag `<a>` biasa untuk memicu navigasi SPA tanpa reload.
+Komponen pengganti tag `<a>` biasa untuk memicu navigasi SPA tanpa reload. Sangat disarankan untuk memadukannya dengan hook `useRoute` agar link bersifat dinamis:
+- **Contoh**: `<Link href={route('about')}>Tentang</Link>`
 - **Atribut Utama**:
-  - `href`: URI tujuan rute.
+  - `href`: URL absolut atau relatif tujuan rute (gunakan `route('nama.rute')`).
   - `method`: Metode request (default `get`, bisa diisi `post`, `put`, `patch`, `delete`).
   - `data`: Objek data tambahan untuk dikirim.
   - `preserveScroll`: Menjaga posisi scroll halaman tetap di tempat setelah navigasi selesai (`true`/`false`).
@@ -224,9 +227,9 @@ Dalam proses pengembangan dan produksi, RustBasic mengelola penyajian aset visua
    - Server RustBasic terhubung ke **Vite Dev Server** yang berjalan pada port kustom (default: `5173`).
    - Mendukung **HMR (Hot Module Replacement)** secara instan. Setiap kali Anda menyimpan file JSX, browser akan meng-update visual tanpa refresh halaman.
 2. **Mode Produksi (App Debug: False)**:
-   - Vite mengompilasi seluruh aset menjadi file static teroptimasi ke dalam folder `dist/` (termasuk kompresi, minifikasi, dan cache-busting hashing).
-   - Menghasilkan berkas `manifest.json` yang berisi peta nama file asli ke nama file hasil kompilasi hash (contoh: `main.tsx` -> `assets/main-C9aD2e4f.js`).
-   - Server Rust membaca manifest tersebut untuk memuat file yang tepat secara dinamis. Biner final dapat mengemas seluruh berkas static tersebut langsung ke dalam memory executable (*embedded public assets*) untuk deployment satu file mandiri.
+   - Vite mengompilasi seluruh aset menjadi file static teroptimasi ke dalam folder `src/dist/` (termasuk kompresi, minifikasi, dan cache-busting hashing).
+   - Menghasilkan berkas `manifest.json` yang berisi peta nama file asli ke nama file hasil kompilasi hash (contoh: `main.tsx` -> `assets/main-C9aD2e4f.js`) di dalam folder `src/dist/`.
+   - Server Rust membaca manifest tersebut untuk memuat file yang tepat secara dinamis. Biner final dapat mengemas seluruh berkas static tersebut langsung ke dalam memory executable (*embedded public assets*) dari folder `src/dist/` untuk deployment satu file biner mandiri.
 
 ---
 
