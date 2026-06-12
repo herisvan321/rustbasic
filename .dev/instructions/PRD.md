@@ -19,7 +19,7 @@ Berikut adalah contoh draf pengisian PRD singkat untuk fitur **Sistem Manajemen 
 *   [x] CRUD data kontak (Nama, Telepon, Email).
 *   [x] Pencarian kontak real-time di frontend.
 
-### 📊 3. Struktur Data (Sea-ORM)
+### 📊 3. Struktur Data (SQLx)
 *   **Tabel**: `contacts`
     *   Fields: `id (int)`, `name (varchar)`, `phone (varchar)`, `email (varchar)`.
 
@@ -27,7 +27,7 @@ Berikut adalah contoh draf pengisian PRD singkat untuk fitur **Sistem Manajemen 
 *   Menggunakan layout Bento Grid, tema default dark mode, dan form submission instan via `useForm` Inertia helper.
 
 ### 🛣️ 5. Alur Pengguna & Routing
-*   `GET /contacts` -> Merender halaman `Contacts/Index.jsx`
+*   `GET /contacts` -> Merender halaman `Contacts/Index.tsx`
 *   `POST /contacts` -> Menyimpan data kontak baru di backend
 ```
 
@@ -54,10 +54,10 @@ Berikut adalah ringkasan parameter utama yang wajib diisi dalam setiap dokumen P
 | :--- | :--- | :--- |
 | **Ringkasan Proyek** | Mendefinisikan visi dan target aplikasi. | Nama aplikasi, tujuan utama, & segmen user. |
 | **Fitur Utama** | Menyusun daftar checklist fitur prioritas. | Sistem autentikasi, dashboard panel, CRUD produk. |
-| **Struktur Data** | Merancang skema tabel database (Sea-ORM). | Nama kolom, tipe data, relasi foreign key. |
+| **Struktur Data** | Merancang skema tabel database (SQLx). | Nama kolom, tipe data, relasi foreign key. |
 | **Antarmuka (UI/UX)** | Menetapkan tema dan interaktivitas SPA. | Dark mode, form helper `useForm`, layout bento. |
 | **Alur Pengguna** | Memetakan URL rute web dan responsnya. | `GET /profile`, `POST /profile/update`. |
-| **Batasan Teknis** | Menegaskan batasan teknologi yang wajib dipakai. | Komponen React `.jsx`, Tailwind styling, single biner build. |
+| **Batasan Teknis** | Menegaskan batasan teknologi yang wajib dipakai. | Komponen React `.tsx`, Tailwind styling, single biner build. |
 
 ---
 

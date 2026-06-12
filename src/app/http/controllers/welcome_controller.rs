@@ -1,8 +1,6 @@
 use crate::app::inertia;
 use rustbasic_core::requests::Request;
-use rustbasic_core::responses::ResponseHelper;
-use rustbasic_core::server::AppState;
-use rustbasic_core::{State, IntoResponse};
+use rustbasic_core::{IntoResponse};
 use rustbasic_core::serde_json::json;
 
 pub async fn index(req: Request) -> impl IntoResponse {
@@ -23,45 +21,10 @@ pub async fn about(req: Request) -> impl IntoResponse {
     // Render komponen "About" melalui Inertia dengan data props
     inertia(&req, "About", json!({
         "title": "Tentang RustBasic SPA",
-        "description": "Aplikasi ini telah sepenuhnya bermigrasi dari Multi-Page Application (MPA) tradisional berbasis template Minijinja menjadi Single Page Application (SPA) modern yang ditenagai oleh React.js dan Inertia.js pada backend kustom Rust!",
-        "version": "1.0.0",
+        "description": "Framework Full-stack modern berbasis Rust dengan React.js dan Inertia.js.",
+        "version": env!("CARGO_PKG_VERSION"),
         "backend": "Rust (Custom HTTP Engine)",
         "frontend": "React.js + Vite",
         "bridge": "Inertia.js"
     }))
 }
-
-pub async fn dev_info(State(state): State<AppState>, _req: Request) -> impl IntoResponse {
-    ResponseHelper::json(rustbasic_core::serde_json::json!({
-        "status": "success",
-        "app_name": state.config.app_name,
-        "environment": if state.config.app_debug { "development" } else { "production" },
-        "timezone": state.config.app_timezone,
-        "rate_limit": state.config.app_limit_request
-    }))
-}
-
-pub async fn test_param(req: Request) -> impl IntoResponse {
-    let id = req.params.get("id").cloned().unwrap_or_default();
-    ResponseHelper::json(json!({
-        "status": "success",
-        "received_id": id,
-        "query_params": req.inputs
-    }))
-}
-
-pub async fn test_multi_param(req: Request) -> impl IntoResponse {
-    let p1 = req.params.get("p1").cloned().unwrap_or_default();
-    let p2 = req.params.get("p2").cloned().unwrap_or_default();
-    let p3 = req.params.get("p3").cloned().unwrap_or_default();
-    let p4 = req.params.get("p4").cloned().unwrap_or_default();
-    ResponseHelper::json(json!({
-        "status": "success",
-        "p1": p1,
-        "p2": p2,
-        "p3": p3,
-        "p4": p4,
-        "query_params": req.inputs
-    }))
-}
-

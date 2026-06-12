@@ -2,13 +2,64 @@
 
 ## 📝 Kata Pengantar
 
-Selamat datang di **RustBasic Starter Kit — Modern SPA Edition**. RustBasic adalah framework Full-stack modern berkinerja tinggi untuk bahasa pemrograman Rust. Pada edisi **Modern SPA** ini, framework ini mendobrak batasan web tradisional dengan menyatukan ketangguhan backend **RustBasic** dan reaktivitas stateful **React.js** melalui jembatan elegan **Inertia.js**, serta dibekali teknologi **Single-Binary Asset Embedding** berbasis `rust-embed`. Starter kit ini dirancang untuk memberikan pengalaman pengembangan yang sangat cepat dengan performa produksi tingkat tinggi.
+Selamat datang di **RustBasic Starter Kit — Modern SPA Edition**. RustBasic adalah framework Full-stack modern berkinerja tinggi untuk bahasa pemrograman Rust. Pada edisi **Modern SPA** ini, framework ini mendobrak batasan web tradisional dengan menyatukan ketangguhan backend **RustBasic** dan reaktivitas stateful **React.js** melalui jembatan elegan **Inertia.js**, serta dibekali teknologi **Single-Binary Asset Embedding**. Starter kit ini dirancang untuk memberikan pengalaman pengembangan yang sangat cepat dengan performa produksi tingkat tinggi.
 
 ---
 
-## 🛠️ Script Contoh
+## ⚙️ Konfigurasi Database di `Cargo.toml`
+
+RustBasic menggunakan sistem **Cargo features** untuk memilih driver database secara eksplisit. Hanya driver yang Anda pilih yang akan dikompilasi, sehingga waktu kompilasi tetap singkat.
+
+### Pilih Database Anda
+
+```toml
+[dependencies]
+
+# Pilihan 1: SQLite (default, paling ringan — tidak perlu server database)
+rustbasic-core = { path = "../rustbasic-core" }
+
+# Pilihan 2: MySQL / MariaDB
+rustbasic-core = { path = "../rustbasic-core", features = ["mysql"] }
+
+# Pilihan 3: SQLite + MySQL (dua driver sekaligus)
+rustbasic-core = { path = "../rustbasic-core", features = ["mysql"] }
+# SQLite sudah aktif secara default, tidak perlu ditulis ulang
+
+# Pilihan 4: MySQL + Kirim Email
+rustbasic-core = { path = "../rustbasic-core", features = ["mysql", "mail"] }
+
+# Pilihan 5: Semua fitur
+rustbasic-core = { path = "../rustbasic-core", features = ["mysql", "mail", "http-client"] }
+```
+
+> ⚠️ **Penting:** Jika file `.env` Anda berisi `DB_CONNECTION=mysql`, **wajib** tambahkan `features = ["mysql"]` di `Cargo.toml`. Jika tidak, server akan panic saat startup dengan pesan error yang meminta Anda mengaktifkan fitur tersebut.
+
+### Tabel Fitur Tersedia
+
+| Feature | Aktif Default | Deskripsi |
+| :--- | :---: | :--- |
+| `sqlite` | ✅ Ya | Driver SQLite — cocok untuk development & aplikasi file-based. |
+| `sqlite-bundled` | ❌ Tidak | SQLite bundled tanpa ketergantungan `libsqlite3` di sistem operasi. |
+| `mysql` | ❌ Tidak | Driver MySQL/MariaDB dengan koneksi TLS. Aktifkan jika `DB_CONNECTION=mysql`. |
+| `mail` | ❌ Tidak | Pengiriman email SMTP. Aktifkan jika menggunakan `MailService`. |
+| `http-client` | ❌ Tidak | HTTP client untuk memanggil API eksternal. Aktifkan jika menggunakan `Http::get/post`. |
+
+### Dampak pada Waktu Kompilasi
+
+| Konfigurasi | Jumlah Crates | Estimasi Waktu Kompilasi |
+| :--- | :---: | :--- |
+| Default (SQLite saja) | ~63 | ⚡ Sangat cepat |
+| + MySQL | ~199 | 🕐 Sedang (pertama kali) |
+| + MySQL + Mail + HTTP Client | ~250+ | 🕑 Lebih lama (pertama kali) |
+
+> Setelah kompilasi pertama, recompile incremental tetap cepat karena dependensi sudah di-cache.
+
+---
+
+## 🛠️ Contoh Penggunaan
 
 ### A. Alur Pembangunan Kompilasi Produksi (Build Pipeline)
+
 ```bash
 # 1. Compile aset React.js + Inertia ke folder public/build/
 npm run build
@@ -17,8 +68,10 @@ npm run build
 cargo build --release
 ```
 
-### B. Menampilkan Halaman SPA dari Controller Rust (`src/app/http/controllers/welcome_controller.rs`)
+### B. Menampilkan Halaman SPA dari Controller Rust
+
 ```rust
+// src/app/http/controllers/welcome_controller.rs
 use rustbasic_core::{Request, Response, IntoResponse, serde_json::json};
 use crate::app::inertia::inertia;
 
@@ -31,8 +84,10 @@ pub async fn welcome(req: Request) -> impl IntoResponse {
 }
 ```
 
-### C. Navigasi Bebas Reload di React (`src/resources/js/Pages/Welcome.jsx`)
+### C. Navigasi Bebas Reload di React
+
 ```jsx
+// src/resources/js/Pages/Welcome.jsx
 import React from 'react';
 import { Link } from '@inertiajs/react';
 
@@ -54,8 +109,6 @@ export default function Welcome({ title, version }) {
 
 ## 🔄 Perbandingan Pemakaian (Debug Mode vs Production Mode)
 
-Berikut adalah tabel perbandingan perilaku framework RustBasic saat dijalankan dalam mode pengembangan (Debug) dan mode rilis (Production):
-
 | Karakteristik | Mode Pengembangan (Debug) | Mode Rilis (Production) |
 | :--- | :--- | :--- |
 | **Nilai `APP_DEBUG`** | `true` | `false` |
@@ -67,8 +120,6 @@ Berikut adalah tabel perbandingan perilaku framework RustBasic saat dijalankan d
 ---
 
 ## 📊 Tabel Ringkasan Struktur Folder Utama
-
-Berikut adalah panduan direktori utama di dalam proyek starter kit RustBasic:
 
 | Nama Direktori | Fungsi & Tanggung Jawab Utama | Deskripsi Berkas di Dalamnya |
 | :--- | :--- | :--- |
@@ -82,4 +133,4 @@ Berikut adalah panduan direktori utama di dalam proyek starter kit RustBasic:
 
 ## 🏁 Penutup
 
-Dengan memadukan kecepatan kompilasi backend RustBasic dan fleksibilitas React.js, RustBasic memberikan pengalaman pengembangan web modern monolitik yang andal, aman, serta sangat mudah untuk dideploy ke server VPS menggunakan file biner tunggal. Selamat membangun aplikasi SPA berskala besar yang kencang dan aman!
+Dengan memadukan kecepatan kompilasi backend RustBasic dan fleksibilitas React.js, RustBasic memberikan pengalaman pengembangan web modern monolitik yang andal, aman, serta sangat mudah untuk dideploy ke server VPS menggunakan file biner tunggal. Sistem **Cargo features** memastikan Anda hanya membayar (waktu kompilasi) untuk fitur yang benar-benar Anda gunakan. Selamat membangun aplikasi SPA berskala besar yang kencang dan aman!

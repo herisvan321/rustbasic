@@ -63,10 +63,10 @@ pub fn inertia(req: &Request, component: &str, props: Value) -> Response {
     } else {
         // Return layout root HTML "app.rb.html" untuk initial page load
         let vite_assets = get_vite_assets();
-        let ctx = rustbasic_core::minijinja::context! {
-            page => page_object,
-            vite_assets => vite_assets,
-        };
+        let ctx = rustbasic_core::serde_json::json!({
+            "page": page_object,
+            "vite_assets": vite_assets,
+        });
         
         let mut response = crate::app::view(req, "app.rb.html", ctx).into_response();
         response.headers_mut().insert(

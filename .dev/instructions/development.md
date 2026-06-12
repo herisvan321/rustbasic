@@ -21,7 +21,7 @@ npm run dev
 ### B. Langkah Kompilasi & Rilis Produksi (Build Pipeline)
 Satukan seluruh aset frontend dan template ke dalam satu file biner mandiri:
 ```bash
-# 1. Compile aset React.js + Inertia ke folder public/build/
+# 1. Compile aset React.js + Inertia ke folder src/dist/
 npm run build
 
 # 2. Compile biner Rust dengan kompresi release penuh
@@ -47,7 +47,7 @@ Berikut adalah perbandingan pemakaian dan perilaku sistem saat dijalankan dalam 
 | **Sumber Aset Web** | Dibaca dinamis langsung dari direktori disk lokal. | Dibaca super cepat dari RAM memori biner ter-embed. |
 | **Hot Reload (HMR)** | Aktif untuk React (Vite dev) & Rust (cargo watch). | Non-aktif. File visual tertanam permanen di dalam biner. |
 | **Keamanan Sistem** | Stack trace kesalahan visual ditampilkan rinci. | Menyembunyikan seluruh informasi detail error internal. |
-| **Folder Source Disk** | Folder `src/` & `public/` wajib dipertahankan. | Folder `src/` & `public/` bebas dihapus dari server. |
+| **Folder Source Disk** | Folder `src/` & `public/` wajib dipertahaman. | Folder `src/` & `public/` bebas dihapus dari server. |
 
 ---
 
@@ -60,7 +60,7 @@ Berikut adalah tabel rujukan berkas penting yang sering dimodifikasi dalam prose
 | **`main.rs`** | `src/main.rs` | Titik masuk utama backend. Menjalankan server RustBasic & memuat config. |
 | **`web.rs`** | `src/routes/web.rs` | Tempat mendaftarkan rute-rute URL web yang menyajikan Inertia. |
 | **`Controllers`** | `src/app/http/controllers/`| Logika bisnis kontroller RustBasic penyuplai data JSON props ke React. |
-| **`Pages`** | `src/resources/js/Pages/` | Kumpulan file komponen halaman React SPA (.jsx). |
+| **`Pages`** | `src/resources/js/Pages/` | Kumpulan file komponen halaman React SPA (.tsx). |
 | **`app.rb.html`** | `src/resources/views/app.rb.html`| HTML root container tempat aplikasi React SPA dihidrasi (*hydrated*). |
 
 ---

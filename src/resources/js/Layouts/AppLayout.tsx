@@ -206,16 +206,7 @@ function AppLayoutInner({ children }: AppLayoutProps) {
             >
               Tentang
             </Link>
-            <a
-              href={route('dev')}
-              style={{
-                fontSize: '0.875rem', fontWeight: 600, 
-                color: currentPath === '/dev' ? '#e8520e' : (isDark ? '#888' : '#555'),
-                textDecoration: 'none', transition: 'color 0.2s',
-              }}
-            >
-              API Dev
-            </a>
+           
           </nav>
 
           {/* Controls + Status Badge */}

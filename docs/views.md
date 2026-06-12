@@ -1,7 +1,7 @@
-# 🎨 Panduan Views, JSX Komponen, & Desain UI
+# 🎨 Panduan Views, TSX Komponen, & Desain UI
 
 ## 📝 Kata Pengantar
-Selamat datang di panduan pembangunan **Views & JSX Komponen**. Dokumentasi ini dirancang untuk memandu Anda merancang antarmuka pengguna (UI) modern yang reaktif, interaktif, dan ultra-premium menggunakan **React.js**, **Tailwind CSS**, dan jembatan **Inertia.js** pada framework **RustBasic**. 
+Selamat datang di panduan pembangunan **Views & TSX Komponen**. Dokumentasi ini dirancang untuk memandu Anda merancang antarmuka pengguna (UI) modern yang reaktif, interaktif, dan ultra-premium menggunakan **React.js (TypeScript)**, **Tailwind CSS**, dan jembatan **Inertia.js** pada framework **RustBasic**. 
 
 Melalui panduan ini, Anda akan memahami daur rendering SPA monolith, penggunaan persistent layouts untuk efisiensi render DOM, pemanfaatan Inertia form helper untuk validasi reaktif, hingga teknik penyajian aset dengan performa tinggi (HMR & production bundling).
 
@@ -12,14 +12,30 @@ Melalui panduan ini, Anda akan memahami daur rendering SPA monolith, penggunaan 
 ### A. Komponen Layout Persisten (`src/resources/js/Layouts/AppLayout.tsx`)
 Layout persisten digunakan sebagai kerangka luar (header, sidebar, footer) agar tidak merender ulang seluruh DOM visual saat berpindah halaman.
 
-```jsx
+```tsx
 import React from 'react';
 import { Link, usePage } from '@inertiajs/react';
 import { useRoute } from '../route';
 
-export default function AppLayout({ children }) {
-  // Mengambil user login & flash message secara global dari backend Rust
-  const { auth, flash } = usePage().props;
+interface AppLayoutProps {
+  children: React.ReactNode;
+}
+
+interface PageProps {
+  auth?: {
+    user?: {
+      name: string;
+    };
+  };
+  flash?: {
+    success?: string;
+  };
+  [key: string]: any;
+}
+
+export default function AppLayout({ children }: AppLayoutProps) {
+  // Mengambil user login & flash message secara global dari backend Rust dengan type-safe PageProps
+  const { auth, flash } = usePage<PageProps>().props;
   const route = useRoute();
 
   return (
@@ -62,22 +78,27 @@ export default function AppLayout({ children }) {
 }
 ```
 
-### B. Formulir Reaktif dengan Validasi Error (`src/resources/js/Pages/Contact.jsx`)
+### B. Formulir Reaktif dengan Validasi Error (`src/resources/js/Pages/Contact.tsx`)
 Menunjukkan penggunaan hook `useForm` dari `@inertiajs/react` untuk pengiriman data dan penanganan validasi asinkron.
 
-```jsx
-import React from 'react';
+```tsx
+import React, { FormEvent } from 'react';
 import { useForm, usePage } from '@inertiajs/react';
 
+interface PageProps {
+  title: string;
+  [key: string]: any;
+}
+
 export default function Contact() {
-  const { title } = usePage().props;
+  const { title } = usePage<PageProps>().props;
   const { data, setData, post, processing, errors, reset } = useForm({
     name: '',
     email: '',
     message: '',
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     post('/contact/submit', {
       onSuccess: () => reset(),
@@ -115,7 +136,7 @@ export default function Contact() {
           <textarea
             value={data.message}
             onChange={e => setData('message', e.target.value)}
-            rows="4"
+            rows={4}
             className="w-full bg-slate-950 border border-slate-800 focus:border-indigo-500 rounded-lg px-4 py-2 text-white outline-none resize-none"
           />
           {errors.message && <p className="text-red-500 text-xs mt-1">{errors.message}</p>}
@@ -172,8 +193,8 @@ Komponen pengganti tag `<a>` biasa untuk memicu navigasi SPA tanpa reload. Sanga
 
 ### 2. Hook `usePage()`
 Digunakan untuk mengakses properti yang dikirimkan oleh backend Rust secara global maupun lokal:
-```javascript
-const { props, url, component, version } = usePage();
+```typescript
+const { props, url, component, version } = usePage<PageProps>();
 // props.auth: Data autentikasi user
 // props.flash: Pesan flash status
 // props.errors: Object penampung pesan error validasi
@@ -181,7 +202,7 @@ const { props, url, component, version } = usePage();
 
 ### 3. Hook `useForm()`
 Helper tangguh untuk menangani status form secara ringkas dan bebas bug:
-```javascript
+```typescript
 const { data, setData, post, put, patch, delete: destroy, processing, errors, reset } = useForm({ ... });
 ```
 - `data`: Berisi properti nilai input formulir saat ini.
@@ -211,11 +232,59 @@ Berikut adalah direktori penting dan utilitas styling untuk merancang halaman pr
 
 | Direktori / Utilitas | Jalur Folder / Kode Tailwind | Deskripsi & Kegunaan |
 | :--- | :--- | :--- |
-| **Halaman Utama** | `src/resources/js/Pages/` | Folder berisi halaman visual utama (.jsx/.tsx) yang dipetakan oleh rute. |
+| **Halaman Utama** | `src/resources/js/Pages/` | Folder berisi halaman visual utama (.tsx) yang dipetakan oleh rute. |
 | **Tata Letak** | `src/resources/js/Layouts/` | Folder berisi persistent layout (header, sidebar, footer) aplikasi. |
 | **Komponen Reusable**| `src/resources/js/Components/` | Folder berisi modular UI kecil (Button, Modal, Card) yang digunakan berulang kali. |
 | **Glassmorphism** | `bg-slate-900/60 backdrop-blur-md border border-slate-800` | Efek visual kaca transparan blur modern yang elegan dan premium. |
 | **Mesh Gradient** | `bg-gradient-to-tr from-slate-950 via-slate-900 to-indigo-950/20` | Kombinasi gradien warna gelap premium untuk latar belakang. |
+
+---
+
+## 🎨 Integrasi & Konfigurasi Tailwind CSS v3
+
+RustBasic menggunakan **Tailwind CSS v3** secara langsung (*compile-time*) yang diintegrasikan melalui PostCSS dan Vite. Ini menggantikan penggunaan CDN statis untuk mengoptimalkan performa halaman dan meminimalkan ukuran file CSS yang dikirim ke browser.
+
+### 1. Struktur Konfigurasi Tailwind & PostCSS
+Terdapat dua berkas konfigurasi utama di direktori root proyek untuk mengelola kompilasi stylesheet:
+
+*   **`postcss.config.js`**: Mendaftarkan plugin `tailwindcss` dan `autoprefixer` agar diproses oleh Vite.
+    ```javascript
+    export default {
+      plugins: {
+        tailwindcss: {},
+        autoprefixer: {},
+      },
+    }
+    ```
+*   **`tailwind.config.js`**: Menentukan jalur pencarian kelas Tailwind agar kelas yang tidak digunakan dapat dieliminasi (*purged*) secara otomatis.
+    ```javascript
+    /** @type {import('tailwindcss').Config} */
+    export default {
+      content: [
+        "./src/resources/views/**/*.rb.html",
+        "./src/resources/js/**/*.{js,ts,jsx,tsx}",
+      ],
+      theme: {
+        extend: {},
+      },
+      plugins: [],
+    }
+    ```
+
+### 2. Cara Penyambungan CSS ke Aplikasi
+1.  **Direktif Tailwind**: Direktif utama `@tailwind` diletakkan di bagian paling atas berkas stylesheet utama [style.css](file:///Users/herisvanhendra/Desktop/Desktop%20new/project/belajar%20rust/rustbasic/src/resources/css/style.css):
+    ```css
+    @tailwind base;
+    @tailwind components;
+    @tailwind utilities;
+    
+    /* Custom styles lainnya */
+    ```
+2.  **Impor di Entrypoint**: Stylesheet tersebut kemudian diimpor secara langsung di dalam berkas React entrypoint [main.tsx](file:///Users/herisvanhendra/Desktop/Desktop%20new/project/belajar%20rust/rustbasic/src/resources/js/main.tsx):
+    ```typescript
+    import '../css/style.css';
+    ```
+3.  **Kompilasi Otomatis**: Saat menjalankan `npm run dev` atau melakukan build produksi `npm run build`, Vite akan secara otomatis mengompilasi seluruh utility classes Tailwind bersama gaya custom Anda menjadi satu file CSS terpadu yang siap disajikan ke client.
 
 ---
 
@@ -225,7 +294,7 @@ Dalam proses pengembangan dan produksi, RustBasic mengelola penyajian aset visua
 
 1. **Mode Pengembangan (App Debug: True)**:
    - Server RustBasic terhubung ke **Vite Dev Server** yang berjalan pada port kustom (default: `5173`).
-   - Mendukung **HMR (Hot Module Replacement)** secara instan. Setiap kali Anda menyimpan file JSX, browser akan meng-update visual tanpa refresh halaman.
+   - Mendukung **HMR (Hot Module Replacement)** secara instan. Setiap kali Anda menyimpan file TSX, browser akan meng-update visual tanpa refresh halaman.
 2. **Mode Produksi (App Debug: False)**:
    - Vite mengompilasi seluruh aset menjadi file static teroptimasi ke dalam folder `src/dist/` (termasuk kompresi, minifikasi, dan cache-busting hashing).
    - Menghasilkan berkas `manifest.json` yang berisi peta nama file asli ke nama file hasil kompilasi hash (contoh: `main.tsx` -> `assets/main-C9aD2e4f.js`) di dalam folder `src/dist/`.

@@ -9,16 +9,27 @@ Melalui panduan ini, Anda akan mempelajari siklus hidup request, proses hidrasi 
 
 ## 🛠️ Script Contoh
 
-### A. Mengakses Shared Page Props di React (`src/resources/js/Components/Navbar.jsx`)
+### A. Mengakses Shared Page Props di React (`src/resources/js/Components/Navbar.tsx`)
 Dalam arsitektur Inertia, data global yang dibagikan dari Rust (seperti info login user atau notifikasi) dapat langsung dibaca di komponen React mana pun menggunakan hook `usePage()`.
 
-```jsx
+```tsx
 import React from 'react';
 import { Link, usePage } from '@inertiajs/react';
+import { useRoute } from '../route';
+
+interface PageProps {
+  auth?: {
+    user?: {
+      name: string;
+    };
+  };
+  [key: string]: any;
+}
 
 export default function Navbar() {
-  // usePage().props otomatis berisi data global (auth, flash, dll) dari backend Rust
-  const { auth, flash } = usePage().props;
+  // usePage().props otomatis berisi data global (auth, flash, dll) dari backend Rust dengan tipe PageProps
+  const { auth } = usePage<PageProps>().props;
+  const route = useRoute();
 
   return (
     <nav className="p-4 bg-slate-900 border-b border-slate-800 text-white flex justify-between items-center">
@@ -82,7 +93,7 @@ graph TD
 ```
 
 ### 1. Layer 1: Routing & HTTP Stack
-Lapisan terdepan server yang menangani koneksi masuk, melakukan inisialisasi sesi, memvalidasi token CSRF, dan merutekan URI ke handler yang sesuai di `src/routes/web.rs` atau `src/routes/api.rs`.
+Lapisan terdepan server yang menangani koneksi masuk, melakukan inisialisasi sesi, memvalidasi token CSRF, dan merutekan URI ke handler yang sesuai di `src/routes/web.rs` or `src/routes/api.rs`.
 
 ### 2. Layer 2: Controller & Logic Layer
 Menerima request yang telah divalidasi, memproses logika bisnis utama, berinteraksi dengan database melalui ORM/Query Builder, dan menentukan data apa saja (props) yang akan dikirim ke antarmuka pengguna.
@@ -143,7 +154,7 @@ Berikut adalah perbandingan pemakaian arsitektur antarmuka aplikasi:
 
 | Aspek Arsitektur | Traditional MVC (Template Server) | Monolith SPA (React-Inertia) |
 | :--- | :--- | :--- |
-| **Bahasa Tampilan** | Menulis markup Jinja/HTML di sisi backend Rust. | Menulis komponen modern React (.jsx/.tsx) di frontend. |
+| **Bahasa Tampilan** | Menulis markup Jinja/HTML di sisi backend Rust. | Menulis komponen modern React (.tsx) di frontend. |
 | **Siklus Navigasi** | Browser memuat ulang seluruh halaman saat klik link. | Halaman dimuat instan tanpa reload (AJAX swap). |
 | **Metode Pengiriman Data** | Data digabungkan ke template sebelum HTML dikirim. | Data dikirim berupa props JSON mentah secara berkala. |
 | **Siklus Hidup State** | State JavaScript di client hilang setiap kali berpindah link. | State React global tetap terjaga sepanjang navigasi. |

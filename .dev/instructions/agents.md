@@ -34,12 +34,20 @@ pub async fn index(req: Request) -> impl IntoResponse {
 }
 ```
 
-### C. Contoh Penulisan Halaman React SPA (`src/resources/js/Pages/Welcome.jsx`)
-```jsx
+### C. Contoh Penulisan Halaman React SPA (`src/resources/js/Pages/Welcome.tsx`)
+```tsx
 import React from 'react';
 import { Link } from '@inertiajs/react';
 
-export default function Welcome({ welcomeMessage, stats }) {
+interface WelcomeProps {
+  welcomeMessage: string;
+  stats: {
+    users: number;
+    active: number;
+  };
+}
+
+export default function Welcome({ welcomeMessage, stats }: WelcomeProps) {
   return (
     <div className="min-h-screen bg-slate-950 text-white flex flex-col justify-center items-center font-sans">
       <h1 className="text-4xl font-extrabold tracking-tight mb-4">{welcomeMessage}</h1>
@@ -62,7 +70,7 @@ Berikut adalah perbandingan pemakaian antara arsitektur web tradisional (MPA) da
 | Karakteristik Arsitektur | Multi-Page Application (MPA) | Single Page Application (SPA) |
 | :--- | :--- | :--- |
 | **Pemuatan Halaman** | Memuat ulang seluruh halaman (full refresh). | Hanya menukar komponen secara dinamis (bebas refresh). |
-| **Bahasa Templating** | Menulis markup server template (Jinja/HTML). | Menulis komponen modern React (.jsx) di frontend. |
+| **Bahasa Templating** | Menulis markup server template (Jinja/HTML). | Menulis komponen modern React (.tsx) di frontend. |
 | **Pertukaran Data** | Mengirimkan kode HTML utuh dari server. | Hanya bertukar payload JSON mentah dari controller. |
 | **Keterjagaan State** | State visual browser hilang setiap navigasi. | State global React tetap terjaga di seluruh halaman. |
 
@@ -75,9 +83,9 @@ Berikut adalah tabel pemetaan folder wajib yang harus dipatuhi oleh AI Agent saa
 | Nama Komponen Proyek | Lokasi Penyimpanan Direktori | Deskripsi Fungsi Direktori |
 | :--- | :--- | :--- |
 | **Controller Logika** | `src/app/http/controllers/` | Tempat menyimpan berkas logika pengolahan request RustBasic. |
-| **Model Database** | `src/app/models/` | Definisi model entity database menggunakan Sea-ORM. |
+| **Model Database** | `src/app/models/` | Definisi model entity database menggunakan SQLx. |
 | **Rute & URL** | `src/routes/` | Berkas pendaftaran URL web (`web.rs`) & API (`api.rs`). |
-| **React Halaman SPA** | `src/resources/js/Pages/` | Komponen halaman React (.jsx) yang dipetakan oleh controller. |
+| **React Halaman SPA** | `src/resources/js/Pages/` | Komponen halaman React (.tsx) yang dipetakan oleh controller. |
 | **React Komponen Modular**| `src/resources/js/Components/` | Modular kecil reusable UI seperti Navbar, Sidebar, & Card. |
 | **HTML Root Container** | `src/resources/views/app.rb.html` | Satu-satunya file HTML root sebagai tempat hidrasi awal React. |
 | **Database Migrations** | `database/migrations/` | Berkas skema tabel database relasional. |

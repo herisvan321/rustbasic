@@ -1,4 +1,4 @@
-use rustbasic_core::sqlx::AnyPool;
+use rustbasic_core::sql::AnyPool;
 use rustbasic_core::colored::*;
 use crate::seeders;
 use rustbasic_core::seeder::SeederTrait;

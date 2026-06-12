@@ -1,8 +1,15 @@
 use rustbasic_core::dotenvy::dotenv;
 use rustbasic_core::Config;
 
-#[tokio::main]
-async fn main() {
+fn main() {
+    rustbasic_core::tokio::runtime::Builder::new_multi_thread()
+        .enable_all()
+        .build()
+        .unwrap()
+        .block_on(run());
+}
+
+async fn run() {
     // 1. Muat file .env & Inisialisasi Logger (Terminal + File)
     dotenv().expect("❌ Error: File .env tidak ditemukan! Silakan salin .env.example menjadi .env sebelum menjalankan server.");
     let _guard = rustbasic_core::logger::init();

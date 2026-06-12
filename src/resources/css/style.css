@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* ---------------------------------------------------------
  * 📑 LABEL: GAYA TAMPILAN RETRO & Y2K LIGHT (style.css)
  * Desain cerah bergaya milenium baru (Frutiger Aero vibes).

@@ -54,7 +54,7 @@ Berikut adalah peta struktur direktori modular yang wajib dipahami di dalam proy
 | Nama Direktori / Berkas | Fungsi & Peran Utama | Kategori Konten Berkas |
 | :--- | :--- | :--- |
 | **`src/app/http/controllers/`** | Pengolahan Logika Bisnis | Kontroller RustBasic yang memproses data request & props Inertia. |
-| **`src/resources/js/Pages/`**   | Tampilan Halaman SPA | Komponen halaman React (.jsx) yang dirender di browser. |
+| **`src/resources/js/Pages/`**   | Tampilan Halaman SPA | Komponen halaman React (.tsx) yang dirender di browser. |
 | **`src/routes/web.rs`**          | Pendaftaran Jalur URL | Memetakan URL aplikasi ke controller atau closure inline. |
 | **`database/migrations/`**      | Skema Struktur Tabel | Berkas migrasi blueprint pembangun skema tabel database. |
 | **`storage/logs/`**             | Rekam Jejak Sistem | Berkas log harian aktivitas & tracing error backend. |

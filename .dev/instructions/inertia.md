@@ -26,16 +26,16 @@ pub async fn show_profile(req: Request) -> Response {
 ```
 
 ### B. Contoh Form Submission Menggunakan Hook `useForm` di React
-```jsx
+```tsx
 import { useForm } from '@inertiajs/react';
-import React from 'react';
+import React, { FormEvent } from 'react';
 
 export default function EditProfile() {
   const { data, setData, post, processing, errors } = useForm({
     name: '',
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     post('/profile/update'); // Kirim form via POST request latar belakang
   };
@@ -53,12 +53,20 @@ export default function EditProfile() {
 ```
 
 ### C. Contoh Membaca Flash Message Global Menggunakan Hook `usePage`
-```jsx
+```tsx
 import { usePage } from '@inertiajs/react';
 import React from 'react';
 
+interface PageProps {
+  flash: {
+    success?: string;
+    error?: string;
+  };
+  [key: string]: any;
+}
+
 export default function Header() {
-  const { props } = usePage();
+  const { props } = usePage<PageProps>();
   const { flash } = props; // flash message disuplai otomatis dari backend
 
   return (

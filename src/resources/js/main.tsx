@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { createInertiaApp } from '@inertiajs/react';
 import axios from 'axios';
 import AppLayout from './Layouts/AppLayout';
+import '../css/style.css';
 
 // Extend the Window interface to typecheck window.axios
 declare global {

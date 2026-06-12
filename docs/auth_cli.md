@@ -103,7 +103,7 @@ Ketika fitur Breeze diaktifkan, generator CLI secara otomatis menyusun dan menye
 | **Middleware Auth** | `src/app/http/middleware/auth.rs` | Penjaga pintu rute yang membelokkan user tak dikenal ke halaman `/login`. |
 | **Rute Tamu** | `src/routes/auth.rs` | Rute web terpisah untuk penanganan login, daftar, & pemulihan kata sandi. |
 | **Rute Dashboard** | `src/routes/dashboard.rs` | Rute web terpisah terproteksi untuk dashboard utama. |
-| **Halaman React** | `src/resources/js/Pages/Auth/` | Kumpulan file UI React (.jsx) halaman login, register, forgot-password, & reset-password. |
+| **Halaman React** | `src/resources/js/Pages/Auth/` | Kumpulan file UI React (.tsx) halaman login, register, forgot-password, & reset-password. |
 | **Template Email** | `src/resources/views/emails/` | Template email HTML SMTP untuk reset link password. |
 
 ---

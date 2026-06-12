@@ -43,7 +43,7 @@ sequenceDiagram
 ### Penjelasan Langkah Alur Kerja:
 1. **Inisiasi Request**: Pengguna memicu request ke server, baik lewat penulisan URL langsung pada browser (load pertama) atau navigasi internal menggunakan komponen `<Link>` dari Inertia (SPA transition).
 2. **Routing & Middleware**: Request disaring oleh server RustBasic untuk memvalidasi sesi (session) dan memeriksa token CSRF jika metode request adalah mutasi data (POST, PUT, DELETE).
-3. **Controller & Logika Bisnis**: Route mencocokkan URL dan mengarahkannya ke fungsi *controller*. Di sini, Anda dapat memproses query, berinteraksi dengan database melalui ORM/Active Record, dan mengumpulkan data (props).
+3. **Controller & Logika Bisnis**: Route mencocokkan URL dan mengarahkannya ke fungsi *controller*. Di sini, Anda dapat memproses query, berinteraksi dengan database, dan mengumpulkan data (props).
 4. **Respon Inertia**: Controller memanggil fungsi pembantu `inertia`. Fungsi ini mendeteksi apakah request dikirim oleh engine client Inertia (adanya header `X-Inertia` bernilai `true`):
    - **Ya (Navigasi SPA)**: Server hanya mengembalikan JSON mentah yang berisi payload data props baru. Halaman React tidak dimuat ulang (no full reload), hanya state komponen halaman yang diperbarui secara instan.
    - **Tidak (Load Pertama)**: Server merender template HTML `app.rb.html` sebagai cangkang, menyematkan payload JSON di dalam atribut `data-page`, lalu mengirimkannya ke browser untuk inisialisasi awal.
@@ -201,7 +201,7 @@ pub async fn show_config(State(state): State<AppState>, req: Request) -> impl In
 
 ## 📌 Pilar 3: Tampilan (Views - React & Inertia)
 
-Views di RustBasic menggunakan React.js (.jsx / .tsx) yang diletakkan di direktori `src/resources/js/Pages/`.
+Views di RustBasic menggunakan React.js (.tsx) yang diletakkan di direktori `src/resources/js/Pages/`.
 
 ### A. Template Awal (Root Template HTML)
 Semua halaman SPA akan di-mount ke dalam file kontainer HTML utama `src/resources/views/app.rb.html`:
@@ -210,13 +210,19 @@ Semua halaman SPA akan di-mount ke dalam file kontainer HTML utama `src/resource
 ```
 Tag `{{ vite_assets | safe }}` digunakan untuk menyematkan aset hasil kompilasi Vite (JS/CSS) secara dinamis baik di mode development (Hot Module Replacement) maupun mode production.
 
-### B. Penulisan Halaman React (Welcome.jsx)
+### B. Penulisan Halaman React (Welcome.tsx)
 Komponen halaman React menerima data *props* yang dikirim oleh backend Rust secara langsung:
-```jsx
+```tsx
 import React from 'react';
 import { Link } from '@inertiajs/react';
 
-export default function Welcome({ title, auth_installed, is_logged_in }) {
+interface WelcomeProps {
+  title: string;
+  auth_installed: boolean;
+  is_logged_in: boolean;
+}
+
+export default function Welcome({ title, auth_installed, is_logged_in }: WelcomeProps) {
   return (
     <div className="p-8 bg-slate-950 text-white min-h-screen">
       <h1 className="text-3xl font-extrabold text-indigo-400">{title}</h1>
@@ -270,7 +276,7 @@ let all_users = users::Model::all(&db).await.unwrap_or_default();
 let user = users::Model::find(&db, 1).await.unwrap();
 ```
 > [!TIP]
-> Detail selengkapnya tentang CRUD, kueri kompleks (Fluent Query Builder), relasi, scopes, soft deletes, dan seeder dapat dibaca di **[Panduan Database & Migrasi](database.md)**.
+> Detail selengkapnya tentang CRUD, kueri kompleks, relasi, scopes, soft deletes, dan seeder dapat dibaca di **[Panduan Database & Migrasi](database.md)**.
 
 ---
 
@@ -324,16 +330,27 @@ pub async fn contact_submit(req: Request) -> impl IntoResponse {
 }
 ```
 
-### Langkah 3: Buat Halaman React (Contact.jsx)
-Buat berkas baru bernama `src/resources/js/Pages/Contact.jsx`. Di sini kita memanfaatkan hook `useForm` dari `@inertiajs/react` untuk mengelola input state dan memproses pengiriman data formulir.
+### Langkah 3: Buat Halaman React (Contact.tsx)
+Buat berkas baru bernama `src/resources/js/Pages/Contact.tsx`. Di sini kita memanfaatkan hook `useForm` dari `@inertiajs/react` untuk mengelola input state dan memproses pengiriman data formulir.
 
-```jsx
-import React from 'react';
+```tsx
+import React, { FormEvent } from 'react';
 import { useForm, usePage } from '@inertiajs/react';
 
-export default function Contact({ title }) {
+interface ContactProps {
+  title: string;
+}
+
+interface PageProps {
+  flash: {
+    success?: string;
+  };
+  [key: string]: any;
+}
+
+export default function Contact({ title }: ContactProps) {
   // Mengambil data flash session yang otomatis disuplai oleh RustBasic Inertia middleware
-  const { flash } = usePage().props;
+  const { flash } = usePage<PageProps>().props;
 
   const { data, setData, post, processing, reset } = useForm({
     name: '',
@@ -341,7 +358,7 @@ export default function Contact({ title }) {
     message: '',
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     post('/contact/submit', {
       onSuccess: () => {
@@ -390,7 +407,7 @@ export default function Contact({ title }) {
             value={data.message}
             onChange={e => setData('message', e.target.value)}
             required
-            rows="4"
+            rows={4}
             className="w-full px-4 py-2 bg-slate-950 border border-slate-800 rounded-lg focus:outline-none focus:border-indigo-500 text-white"
           ></textarea>
         </div>
@@ -421,7 +438,7 @@ Berikut adalah ringkasan berkas-berkas utama yang terlibat di dalam struktur apl
 | **Router Utama** | [`src/routes/web.rs`](file:///src/routes/web.rs) | Berkas untuk memetakan alamat URL halaman situs ke fungsi controller yang sesuai. |
 | **Controller** | [`src/app/http/controllers/`](file:///src/app/http/controllers/) | Direktori penampung berkas pengolah request bisnis, penyuplai props data, dan response. |
 | **Inertia Bridge** | [`src/app/inertia.rs`](file:///src/app/inertia.rs) | Helper internal backend untuk menangani negosiasi format data JSON Inertia atau HTML layout. |
-| **React Pages** | [`src/resources/js/Pages/`](file:///src/resources/js/Pages/) | Direktori berkas komponen React (.jsx/.tsx) sebagai penampil antarmuka halaman di browser. |
+| **React Pages** | [`src/resources/js/Pages/`](file:///src/resources/js/Pages/) | Direktori berkas komponen React (.tsx) sebagai penampil antarmuka halaman di browser. |
 | **Persistent Layout**| [`src/resources/js/Layouts/`](file:///src/resources/js/Layouts/) | Direktori layout kerangka halaman (Navbar, Sidebar, Footer) yang persistensinya terjaga saat navigasi. |
 | **Root Template** | [`src/resources/views/app.rb.html`](file:///src/resources/views/app.rb.html) | Berkas template HTML Minijinja utama tempat di-mount-nya aplikasi client React. |
 
@@ -446,6 +463,6 @@ Berikut adalah tabel perbandingan pemakaian antara arsitektur Multi-Page Applica
 Dengan memahami alur kerja dasar perutean (`Router`), pengolahan data (`Controller`), dan visualisasi halaman (`View` React), Anda kini siap untuk melangkah ke tingkat berikutnya.
 
 Rekomendasi langkah pembelajaran selanjutnya:
-1. **[Views & JSX Komponen](views.md)**: Pelajari teknik styling premium Tailwind CSS, layout persistent, dan form helper.
+1. **[Views & TSX Komponen](views.md)**: Pelajari teknik styling premium Tailwind CSS, layout persistent, dan form helper.
 2. **[Manajemen Database & Migrasi](database.md)**: Pelajari ORM, relasi antar tabel, soft-deletes, dan transaksi database.
 3. **[Routing & HTTP Stack](http.md)**: Pelajari cara kerja middleware kustom, proteksi CSRF, dan parsing request body.

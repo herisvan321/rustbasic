@@ -2,13 +2,13 @@
 
 ## 📝 Kata Pengantar
 
-Selamat datang di panduan **AI Template Workflow (React SPA Edition)**. Dokumen ini mendefinisikan alur kerja standar bagi AI Agent dan pengembang saat melakukan konversi atau ekspor aset visual dari berkas HTML statis (seperti `template.html`) ke dalam proyek berbasis **React.js + Inertia.js** pada framework **RustBasic**. Panduan ini memandu Anda memecah kerangka template statis ke dalam berkas-berkas halaman inti React, berkas CSS proyek, komponen modular, serta pendaftaran rute backend secara terstruktur dan terstandarisasi.
+Selamat datang di panduan **AI Template Workflow (React SPA Edition)**. Dokumen ini mendefinisikan alur kerja standar bagi AI Agent dan pengembang saat melakukan konversi atau ekspor aset visual dari berkas HTML statis (seperti `template.html`) ke dalam proyek berbasis **React.js + Inertia.js** pada framework **RustBasic**. Panduan ini memandu Anda memecah kerangka template statis ke dalam berkas-berkas halaman inti React (TypeScript), berkas CSS proyek, komponen modular, serta pendaftaran rute backend secara terstruktur dan terstandarisasi.
 
 ---
 
 ## 📁 Nama Project & Aturan Ekspor Struktur Project
 
-Sebelum melakukan ekspor dari `template.html`, Anda wajib menentukan **Nama Project** dan **Nama Template** yang akan diekspor (misal: `nama-template`). Nama template ini akan digunakan untuk menghasilkan berkas controller, halaman React, serta file stylesheet yang mewakili file inti tersebut di dalam struktur proyek.
+Sebelum melakukan ekspor dari `template.html`, Anda wajib menentukan **Nama Project** dan **Nama Template** yang akan diekspor (misal: `nama-template`). Nama template ini akan digunakan untuk menghasilkan berkas controller, halaman React (TypeScript), serta file stylesheet yang mewakili file inti tersebut di dalam struktur proyek.
 
 Berikut adalah peta struktur direktori proyek `<nama-project>` yang dihasilkan berdasarkan penamaan template `<nama-template>` yang diekspor:
 
@@ -16,6 +16,7 @@ Berikut adalah peta struktur direktori proyek `<nama-project>` yang dihasilkan b
 <nama-project>/
 ├── Cargo.toml                  # Nama project mewakili nama crate inti
 ├── package.json                # Konfigurasi dependensi npm frontend
+├── tsconfig.json               # Konfigurasi TypeScript compiler
 ├── vite.config.js              # Konfigurasi bundler Vite untuk SPA
 ├── src/
 │   ├── main.rs                 # Berkas utama inisialisasi server RustBasic
@@ -27,11 +28,11 @@ Berikut adalah peta struktur direktori proyek `<nama-project>` yang dihasilkan b
 │       └── web.rs              # Pendaftaran rute web & import controller <nama_template>
 ├── src/resources/
 │   ├── js/
-│   │   ├── Pages/              # Berkas halaman React utama (misal: <NamaTemplate>.jsx)
-│   │   ├── Components/         # Komponen modular pembantu visual terkait (misal: <NamaTemplate>Navbar.jsx)
-│   │   └── main.jsx            # Entry point rendering frontend React
+│   │   ├── Pages/              # Berkas halaman React utama (TypeScript, misal: <NamaTemplate>.tsx)
+│   │   ├── Components/         # Komponen modular pembantu visual terkait (TypeScript, misal: <NamaTemplate>Navbar.tsx)
+│   │   └── main.tsx            # Entry point rendering frontend React + TypeScript
 │   └── css/
-│       └── <nama-template>.css # Berkas stylesheet CSS khusus untuk template tersebut
+│       └── style.css           # Berkas stylesheet CSS utama proyek (termasuk directives Tailwind CSS)
 └── public/
     └── assets/                 # Folder penyimpanan gambar & file statis
 ```
@@ -40,7 +41,7 @@ Berikut adalah peta struktur direktori proyek `<nama-project>` yang dihasilkan b
 
 ## 🛠️ Script Contoh
 
-### A. Contoh Ekstraksi CSS dari `template.html` ke Proyek (`src/resources/css/app.css`)
+### A. Contoh Ekstraksi CSS dari `template.html` ke Proyek (`src/resources/css/style.css`)
 ```css
 /* Ekspor class styling khusus dari template.html ke folder css proyek */
 @tailwind base;
@@ -55,13 +56,18 @@ Berikut adalah peta struktur direktori proyek `<nama-project>` yang dihasilkan b
 }
 ```
 
-### B. Contoh Pembuatan Berkas Halaman Utama React SPA (`src/resources/js/Pages/Welcome.jsx`)
-```jsx
+### B. Contoh Pembuatan Berkas Halaman Utama React SPA (`src/resources/js/Pages/Welcome.tsx`)
+```tsx
 import React from 'react';
 import { Link } from '@inertiajs/react';
 import Navbar from '../Components/Navbar';
 
-export default function Welcome({ title, appVersion }) {
+interface WelcomeProps {
+  title: string;
+  appVersion: string;
+}
+
+export default function Welcome({ title, appVersion }: WelcomeProps) {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 font-sans">
       <Navbar />
@@ -100,7 +106,7 @@ pub fn router() -> Router<AppState> {
 
 Berikut adalah perbandingan pemakaian antara menggunakan visual HTML statis langsung dan mengekspornya ke komponen SPA React-Inertia:
 
-| Karakteristik | Direct HTML Rendering (`template.html`) | React-Inertia SPA Component (`Welcome.jsx`) |
+| Karakteristik | Direct HTML Rendering (`template.html`) | React-Inertia SPA Component (`Welcome.tsx`) |
 | :--- | :--- | :--- |
 | **Kecepatan Navigasi** | Memicu refresh halaman penuh yang lambat. | Navigasi instan bebas reload (AJAX swap). |
 | **Modul & Reusability** | Sulit memisahkan komponen berulang (Navbar, Footer).| Sangat mudah memisahkannya ke komponen re-usable. |
@@ -115,9 +121,9 @@ Saat memindahkan desain dari berkas HTML mentah (`template.html`), gunakan tabel
 
 | Elemen Asal (`template.html`) | Berkas Hasil Ekspor | Direktori Tujuan Ekspor | Deskripsi Fungsi |
 | :--- | :--- | :--- | :--- |
-| **Body Utama & Layout** | `Welcome.jsx` | `src/resources/js/Pages/` | Menjadi berkas halaman inti visual SPA. |
-| **CSS internal / external** | `app.css` | `src/resources/css/` | Berisi styling global & utility Tailwind. |
-| **Navbar & Sidebar** | `Navbar.jsx` | `src/resources/js/Components/`| Komponen modular navigasi terpisah. |
+| **Body Utama & Layout** | `Welcome.tsx` | `src/resources/js/Pages/` | Menjadi berkas halaman inti visual SPA. |
+| **CSS internal / external** | `style.css` | `src/resources/css/` | Berisi styling global & utility Tailwind. |
+| **Navbar & Sidebar** | `Navbar.tsx` | `src/resources/js/Components/`| Komponen modular navigasi terpisah. |
 | **Image & static assets** | `logo.png` | `public/assets/` | File statis yang diakses langsung dari web server. |
 
 ---

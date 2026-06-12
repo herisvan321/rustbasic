@@ -3,6 +3,8 @@
 .env
 !.env.example
 /database/*.sqlite
+/database/*.sqlite-shm
+/database/*.sqlite-wal
 /storage/
 # macOS junk files
 .DS_Store

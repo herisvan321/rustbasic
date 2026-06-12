@@ -50,7 +50,7 @@ use crate::app::inertia;
 
 pub fn router() -> Router<AppState> {
     Router::new()
-        // Langsung menyajikan komponen Welcome.jsx dengan props tersemat
+        // Langsung menyajikan komponen Welcome.tsx dengan props tersemat
         .route("/faq", get(|req: Request| async move {
             inertia(&req, "Welcome", json!({
                 "title": "FAQ Bantuan Aplikasi",

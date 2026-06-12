@@ -18,7 +18,7 @@ AI AGENT RESPONSE (Patuh Standar):
    `.route("/contact", get(contact_controller::index))`
 2. Membuat kontroller di `src/app/http/controllers/contact_controller.rs` yang mengembalikan response Inertia:
    `inertia(&req, "Contact", json!({ "title": "Hubungi Kami" }))`
-3. Membuat komponen React di `src/resources/js/Pages/Contact.jsx` menggunakan hook `useForm` dari `@inertiajs/react` dan class Tailwind CSS modern.
+3. Membuat komponen React di `src/resources/js/Pages/Contact.tsx` menggunakan hook `useForm` dari `@inertiajs/react` dan class Tailwind CSS modern.
 ```
 
 ---

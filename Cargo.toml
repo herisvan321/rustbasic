@@ -16,11 +16,7 @@ path = "src/main.rs"
 
 [dependencies]
 # Core Framework (Local Path)
-rustbasic-core = "0.1"
-# Shared dependencies with exact same versions as core to prevent redownload
-serde = { version = "1.0.228", features = ["derive"] }
-rust-embed = "8.11.0"
-tokio = { version = "1.52.1", features = ["full"] }
+rustbasic-core = { path = "../rustbasic-core", features = ["sqlite", "mysql"] }
 
 # Profile Optimizations
 [profile.dev]

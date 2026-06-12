@@ -6,6 +6,63 @@ Selamat datang di panduan **Manajemen Database RustBasic**. Dokumentasi ini dira
 
 ---
 
+## ⚙️ Pemilihan Driver Database (Cargo Features)
+
+RustBasic menggunakan sistem **Cargo features** untuk memilih driver database secara eksplisit. Ini memastikan Anda hanya mengkompilasi driver yang benar-benar dibutuhkan, sehingga waktu kompilasi tetap singkat.
+
+### Tabel Driver yang Tersedia
+
+| Feature | Aktif Default | Deskripsi |
+| :--- | :---: | :--- |
+| `sqlite` | ✅ Ya | Driver SQLite — cocok untuk development & aplikasi file-based. Tidak perlu server database. |
+| `sqlite-bundled` | ❌ Tidak | SQLite bundled tanpa ketergantungan `libsqlite3` di sistem operasi host. |
+| `mysql` | ❌ Tidak | Driver MySQL/MariaDB dengan koneksi asinkron + TLS. Aktifkan jika `DB_CONNECTION=mysql`. |
+
+### Cara Mengaktifkan Driver
+
+Edit file `Cargo.toml` di root project Anda:
+
+```toml
+[dependencies]
+
+# Pilihan 1: SQLite saja (default — tidak perlu tambahan)
+rustbasic-core = { path = "../rustbasic-core" }
+
+# Pilihan 2: MySQL / MariaDB
+rustbasic-core = { path = "../rustbasic-core", features = ["mysql"] }
+
+# Pilihan 3: SQLite bundled (tanpa libsqlite3 di sistem)
+rustbasic-core = { path = "../rustbasic-core", features = ["sqlite-bundled"] }
+```
+
+> ⚠️ **Penting:** Jika file `.env` berisi `DB_CONNECTION=mysql`, fitur `mysql` **wajib diaktifkan**. Jika tidak, server akan panic saat startup dengan pesan:
+> ```
+> DB_CONNECTION=mysql terdeteksi, tapi fitur mysql belum aktif.
+> Tambahkan features = ["mysql"] pada rustbasic-core di Cargo.toml project Anda
+> ```
+
+### Konfigurasi `.env` per Driver
+
+**SQLite:**
+```env
+DB_CONNECTION=sqlite
+DB_DATABASE=rustbasic
+```
+
+**MySQL / MariaDB:**
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=nama_database
+DB_USERNAME=root
+DB_PASSWORD=rahasia
+```
+
+---
+
+
+
 ## 🛠️ Script Contoh
 
 ### A. Definisi Model dengan Macro (`src/app/models/product.rs`)
