@@ -91,6 +91,19 @@ sequenceDiagram
    - `GET /reset-password/:token`: Halaman formulir pembuatan password baru.
    - `POST /reset-password`: Melakukan update password baru di database dan menghapus token pemulihan.
 
+### ⚙️ Konfigurasi Fitur Registrasi (AUTH_REGISTER)
+Breeze menyediakan opsi untuk mengaktifkan atau menonaktifkan rute registrasi (`/register`) secara dinamis melalui file `.env` tanpa perlu mengubah kode program:
+- **Mengaktifkan Registrasi (Default)**:
+  ```env
+  AUTH_REGISTER=true
+  ```
+- **Menonaktifkan Registrasi**:
+  Jika Anda ingin menutup registrasi publik (hanya mengizinkan login):
+  ```env
+  AUTH_REGISTER=false
+  ```
+Ketika `AUTH_REGISTER=false`, rute `/register` tidak akan didaftarkan ke server dan akan mengembalikan error 404 (Not Found) jika diakses oleh pengguna.
+
 ---
 
 ## 📊 Tabel Ringkasan Berkas Tergenerasi

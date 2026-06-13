@@ -62,7 +62,7 @@ pub fn inertia(req: &Request, component: &str, props: Value) -> Response {
             .into_response()
     } else {
         // Return layout root HTML "app.rb.html" untuk initial page load
-        let vite_assets = get_vite_assets();
+        let vite_assets = get_vite_assets(req);
         let ctx = rustbasic_core::serde_json::json!({
             "page": page_object,
             "vite_assets": vite_assets,
@@ -78,14 +78,30 @@ pub fn inertia(req: &Request, component: &str, props: Value) -> Response {
 }
 
 /// Helper untuk mendapatkan HTML tag asset Vite (JS/CSS) secara dinamis
-pub fn get_vite_assets() -> String {
+pub fn get_vite_assets(req: &Request) -> String {
     let cfg = rustbasic_core::Config::load();
     let debug = cfg.app_debug;
 
     if debug {
         let port = cfg.vite_port;
-        let host = &cfg.app_host;
-        let display_host = if host == "0.0.0.0" || host.is_empty() { "localhost" } else { host };
+        // Deteksi host secara dinamis dari header request 'host' agar support beda device (misal HP)
+        let mut display_host = "localhost".to_string();
+        if let Some(host_hdr) = req.headers.get("host") {
+            let parts: Vec<&str> = host_hdr.split(':').collect();
+            if !parts.is_empty() {
+                let ip_or_domain = parts[0];
+                if ip_or_domain != "localhost" && ip_or_domain != "127.0.0.1" && !ip_or_domain.is_empty() {
+                    display_host = ip_or_domain.to_string();
+                }
+            }
+        }
+        
+        if display_host == "localhost" {
+            let host = &cfg.app_host;
+            if host != "0.0.0.0" && !host.is_empty() {
+                display_host = host.clone();
+            }
+        }
 
         // Mode Development: Hubungkan ke Vite Dev Server kustom host dan port
         format!(
