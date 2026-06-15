@@ -26,6 +26,7 @@ Mulai dari pemula yang baru mengenal konsep web SPA hingga arsitek sistem yang i
 ### 🛠️ 3. Perkakas CLI & Scaffolding (Command Line)
 *   **[CLI Reference](cli.md)**: Daftar lengkap perintah utilitas `rustbasic` di terminal untuk inisiasi proyek & generator file otomatis.
 *   **[Auth Scaffolding (Breeze)](auth_cli.md)**: Dokumentasi setup sistem autentikasi otomatis yang premium.
+*   **[Platform Native (Mobile & Desktop)](native.md)**: Integrasi aplikasi Web dengan pembungkus Android (Kotlin) & Desktop (Wry) serta auto-signing rilis.
 
 ### 🚢 4. Produksi & Deployment (Production Ready)
 *   **[Panduan Deployment VPS](deployment.md)**: Alur pembangunan kompilasi produksi (*build pipeline*) dan rilis satu file biner mandiri (*zero-dependency deployment*).
@@ -83,6 +84,7 @@ Berikut adalah daftar lokasi berkas panduan penting di dalam direktori proyek An
 | **strings.md** | `docs/strings.md` | Helper manipulasi string static & fluent Stringable chaining. |
 | **http.md** | `docs/http.md` | Keamanan CSRF, Middleware kustom, & HTTP 303. |
 | **cli.md** | `docs/cli.md` | Pintasan terminal generator perintah. |
+| **native.md** | `docs/native.md` | Panduan lengkap platform Desktop & Mobile (Android), instalasi, JS Bridge, dan publishing. |
 | **testing.md** | `docs/testing.md` | Unit & Feature Testing (In-Memory). |
 | **auth_cli.md** | `docs/auth_cli.md` | Integrasi Breeze Authentication Scaffolding. |
 | **deployment.md** | `docs/deployment.md` | Deployment Systemd, VPS, & Nginx SSL. |

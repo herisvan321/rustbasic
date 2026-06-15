@@ -10,13 +10,21 @@ keywords = ["web", "framework", "starter", "sqlx"]
 categories = ["web-programming::http-server", "development-tools::scaffolding"]
 default-run = "rustbasic"
 
+
+[lib]
+name = "rustbasic"
+path = "src/lib.rs"
+crate-type = ["rlib", "cdylib", "staticlib"]
 [[bin]]
 name = "rustbasic"
 path = "src/main.rs"
 
 [dependencies]
 # Core Framework (Local Path)
-rustbasic-core = { version = "0.1", features = ["sqlite", "mysql"] }
+rustbasic-core = { version = "0.1", features = [
+    "sqlite",
+    "mysql"
+] }
 
 # Profile Optimizations
 [profile.dev]
@@ -35,3 +43,5 @@ panic = "abort"
 
 [lints.rust]
 unexpected_cfgs = "allow"
+
+[target.'cfg(any(target_os = "android", target_os = "ios"))'.dependencies]

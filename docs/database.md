@@ -609,6 +609,54 @@ Untuk menghindari masalah kueri **N+1**, RustBasic menyediakan fitur *eager load
    }
    ```
 
+##### I. Model Casting (Tipe Kolom Otomatis)
+
+Model Casting memungkinkan Anda mendefinisikan konversi otomatis tipe data saat kolom dibaca dari atau ditulis ke database (misalnya, mengonversi otomatis teks JSON di database ke `serde_json::Value` atau tipe `bool` di SQLite/MySQL).
+
+Casting ditangani secara modular dengan memanfaatkan integrasi anotasi `#[serde]` menggunakan utilitas pembungkus bawaan dari `rustbasic_core::support::casts`.
+
+1. **Cast Boolean (`deserialize_bool` / `serialize_bool`)**
+   Digunakan untuk memetakan kolom database bertipe `INTEGER` (0/1) atau `TINYINT` ke tipe `bool` di Rust secara otomatis dan aman:
+   ```rust
+   #[serde(default, deserialize_with = "rustbasic_core::support::casts::deserialize_bool", serialize_with = "rustbasic_core::support::casts::serialize_bool")]
+   pub is_admin: bool,
+   ```
+
+2. **Cast JSON (`deserialize_option_json` / `serialize_option_json`)**
+   Digunakan untuk memetakan kolom database bertipe `TEXT` yang menyimpan string JSON ke dalam objek `serde_json::Value` secara otomatis:
+   ```rust
+   #[serde(default, deserialize_with = "rustbasic_core::support::casts::deserialize_option_json", serialize_with = "rustbasic_core::support::casts::serialize_option_json")]
+   pub preferences: Option<rustbasic_core::serde_json::Value>,
+   ```
+
+3. **Contoh Deklarasi Model dengan Cast**
+   Berikut adalah cara menerapkan casting pada model Anda:
+   ```rust
+   // src/app/models/users.rs
+   use rustbasic_core::model;
+
+   model! {
+       table: "users",
+       fillable: [name, email, password, is_admin, preferences],
+       Model {
+           pub id: i32,
+           pub name: String,
+           pub email: String,
+           pub email_verified_at: Option<String>,
+           pub password: String,
+           pub remember_token: Option<String>,
+           
+           // Menerapkan casting boolean
+           #[serde(default, deserialize_with = "rustbasic_core::support::casts::deserialize_bool", serialize_with = "rustbasic_core::support::casts::serialize_bool")]
+           pub is_admin: bool,
+
+           // Menerapkan casting JSON
+           #[serde(default, deserialize_with = "rustbasic_core::support::casts::deserialize_option_json", serialize_with = "rustbasic_core::support::casts::serialize_option_json")]
+           pub preferences: Option<rustbasic_core::serde_json::Value>,
+       }
+   }
+   ```
+
 ---
 
 ## 🔄 Perbandingan Pemakaian (Raw SQL vs ORM Model)

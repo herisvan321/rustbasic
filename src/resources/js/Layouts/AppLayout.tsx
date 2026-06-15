@@ -206,7 +206,16 @@ function AppLayoutInner({ children }: AppLayoutProps) {
             >
               Tentang
             </Link>
-           
+            <Link
+              href={route('permission')}
+              style={{
+                fontSize: '0.875rem', fontWeight: 600, 
+                color: currentPath === '/permission' ? '#e8520e' : (isDark ? '#888' : '#555'),
+                textDecoration: 'none', transition: 'color 0.2s',
+              }}
+            >
+              Izin
+            </Link>
           </nav>
 
           {/* Controls + Status Badge */}
@@ -364,6 +373,60 @@ function AppLayoutInner({ children }: AppLayoutProps) {
         a:hover { color: #e8520e !important; }
         button:hover { transform: translateY(-2px); }
         button:active { transform: scale(0.97) !important; }
+
+        @media (max-width: 768px) {
+          /* Navbar adjustments */
+          header > div {
+            flex-direction: column !important;
+            height: auto !important;
+            padding: 16px 24px !important;
+            gap: 12px !important;
+          }
+          nav {
+            gap: 16px !important;
+          }
+          
+          /* Hero Content adjustments */
+          main {
+            padding: 40px 16px 40px !important;
+          }
+          main > div {
+            gap: 32px !important;
+            flex-direction: column !important;
+            align-items: stretch !important;
+          }
+          
+          /* Left hero column */
+          main > div > div:first-of-type {
+            flex: 1 1 auto !important;
+            align-items: center !important;
+            text-align: center !important;
+          }
+          
+          main > div > div:first-of-type h1 {
+            font-size: 2.2rem !important;
+          }
+          
+          main > div > div:first-of-type div {
+            justify-content: center !important;
+          }
+          
+          /* CTA Buttons */
+          main > div > div:first-of-type > div:nth-of-type(2) {
+            justify-content: center !important;
+            width: 100% !important;
+          }
+          
+          /* Right column widgets */
+          main > div > div:nth-of-type(2) {
+            max-width: 100% !important;
+          }
+
+          /* About flow diagram arrow layout */
+          .flow-arrow {
+            display: none !important;
+          }
+        }
       `}</style>
     </div>
   );

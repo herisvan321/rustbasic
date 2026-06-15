@@ -28,3 +28,5 @@ pub async fn about(req: Request) -> impl IntoResponse {
         "bridge": "Inertia.js"
     }))
 }
+
+

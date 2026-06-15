@@ -2,7 +2,7 @@ use rustbasic_core::model;
 
 model! {
     table: "users",
-    fillable: [name, email, password],
+    fillable: [name, email, password, is_admin, preferences],
     Model {
         pub id: i32,
         pub name: String,
@@ -10,6 +10,14 @@ model! {
         pub email_verified_at: Option<String>,
         pub password: String,
         pub remember_token: Option<String>,
+        
+        /// Cast: Integer (0/1) dari database dikonversi otomatis ke boolean di Rust
+        #[serde(default, deserialize_with = "rustbasic_core::support::casts::deserialize_bool", serialize_with = "rustbasic_core::support::casts::serialize_bool")]
+        pub is_admin: bool,
+
+        /// Cast: Kolom teks JSON di database dikonversi otomatis ke serde_json::Value di Rust
+        #[serde(default, deserialize_with = "rustbasic_core::support::casts::deserialize_option_json", serialize_with = "rustbasic_core::support::casts::serialize_option_json")]
+        pub preferences: Option<rustbasic_core::serde_json::Value>,
     }
 }
 

@@ -217,7 +217,7 @@ export default function About({ title, description, backend, frontend, bridge }:
                     </div>
                   </div>
                   {i < 2 && (
-                    <div style={{
+                    <div className="flow-arrow" style={{
                       color: '#e8520e',
                       fontWeight: 800,
                       fontSize: '1.2rem',

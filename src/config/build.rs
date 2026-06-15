@@ -65,4 +65,9 @@ fn main() {
     if !detected_packages.contains("breeze") {
         println!("cargo:rustc-check-cfg=cfg(breeze)");
     }
+
+    if let Ok(target) = std::env::var("TARGET") && target.contains("android") {
+        let manifest_dir = std::env::var("CARGO_MANIFEST_DIR").unwrap();
+        println!("cargo:rustc-link-search=native={}/target/{}/sqlite", manifest_dir, target);
+    }
 }

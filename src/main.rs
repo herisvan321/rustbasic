@@ -26,8 +26,7 @@ async fn run() {
     }
     // 2.1 Cek Command CLI (migrate, seed, storage:link)
     let args: Vec<String> = std::env::args().collect();
-    if args.len() > 1 {
-        let _ = rustbasic::config::cli::handle(&args, &cfg).await;
+    if args.len() > 1 && rustbasic::config::cli::handle(&args, &cfg).await {
         return;
     }
 
