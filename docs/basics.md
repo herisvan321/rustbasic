@@ -20,7 +20,7 @@ sequenceDiagram
     participant Router as Web Router (web.rs)
     participant Middleware as CSRF & Session Middleware
     participant Controller as welcome_controller.rs
-    participant Inertia as Inertia Engine (inertia.rs)
+    participant Inertia as Inertia Engine (Core Library)
     participant Model as Database Model (users.rs)
 
     Client->>Router: Mengirim HTTP Request (Awal: GET / atau Navigasi SPA: X-Inertia)
@@ -437,7 +437,7 @@ Berikut adalah ringkasan berkas-berkas utama yang terlibat di dalam struktur apl
 | **Engine Utama** | [`src/main.rs`](file:///src/main.rs) | Berkas utama inisialisasi logger, pemuatan state db, session store, dan booting HTTP server. |
 | **Router Utama** | [`src/routes/web.rs`](file:///src/routes/web.rs) | Berkas untuk memetakan alamat URL halaman situs ke fungsi controller yang sesuai. |
 | **Controller** | [`src/app/http/controllers/`](file:///src/app/http/controllers/) | Direktori penampung berkas pengolah request bisnis, penyuplai props data, dan response. |
-| **Inertia Bridge** | [`src/app/inertia.rs`](file:///src/app/inertia.rs) | Helper internal backend untuk menangani negosiasi format data JSON Inertia atau HTML layout. |
+| **Inertia Bridge** | Terintegrasi di dalam library `rustbasic-core` | Menangani negosiasi format data JSON Inertia atau HTML layout secara otomatis. |
 | **React Pages** | [`src/resources/js/Pages/`](file:///src/resources/js/Pages/) | Direktori berkas komponen React (.tsx) sebagai penampil antarmuka halaman di browser. |
 | **Persistent Layout**| [`src/resources/js/Layouts/`](file:///src/resources/js/Layouts/) | Direktori layout kerangka halaman (Navbar, Sidebar, Footer) yang persistensinya terjaga saat navigasi. |
 | **Root Template** | [`src/resources/views/app.rb.html`](file:///src/resources/views/app.rb.html) | Berkas template HTML Minijinja utama tempat di-mount-nya aplikasi client React. |

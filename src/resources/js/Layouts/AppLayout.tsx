@@ -206,16 +206,6 @@ function AppLayoutInner({ children }: AppLayoutProps) {
             >
               Tentang
             </Link>
-            <Link
-              href={route('permission')}
-              style={{
-                fontSize: '0.875rem', fontWeight: 600, 
-                color: currentPath === '/permission' ? '#e8520e' : (isDark ? '#888' : '#555'),
-                textDecoration: 'none', transition: 'color 0.2s',
-              }}
-            >
-              Izin
-            </Link>
           </nav>
 
           {/* Controls + Status Badge */}

@@ -140,7 +140,7 @@ Berikut adalah perbandingan pemakaian antara menulis sistem keamanan autentikasi
 Apabila Anda memutuskan untuk menghapus modul autentikasi Breeze dan ingin mengembalikan proyek ke status bersih tanpa autentikasi, Anda dapat menjalankan perintah uninstall berikut melalui CLI:
 
 ```bash
-cargo run --package rustbasic-cli -- uninstall rustbasic-breeze
+rustbasic uninstall rustbasic-breeze
 ```
 
 ### Tindakan Pembersihan yang Dilakukan CLI:

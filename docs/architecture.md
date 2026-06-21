@@ -98,10 +98,10 @@ Lapisan terdepan server yang menangani koneksi masuk, melakukan inisialisasi ses
 ### 2. Layer 2: Controller & Logic Layer
 Menerima request yang telah divalidasi, memproses logika bisnis utama, berinteraksi dengan database melalui ORM/Query Builder, dan menentukan data apa saja (props) yang akan dikirim ke antarmuka pengguna.
 
-### 3. Layer 3: Inertia Bridge Layer (`src/app/inertia.rs`)
+### 3. Layer 3: Inertia Bridge Layer (Core Library)
 Menjembatani backend Rust dan React. Berfungsi mendeteksi jenis request:
 - Jika request adalah **navigasi SPA internal** (adanya header `X-Inertia`), lapisan ini memformat data props, status flash session, dan error validasi menjadi JSON payload murni.
-- Jika request adalah **load pertama**, lapisan ini memformat data tersebut ke dalam kontainer HTML utama `app.rb.html` sebagai state awal.
+- Jika request adalah **load pertama**, lapisan ini memformat data tersebut ke dalam kontainer HTML utama `app.rb.html` as state awal.
 
 ### 4. Layer 4: React Hydration Layer (`src/resources/js/`)
 Menerima payload data dari server dan memetakan komponen halaman secara dinamis di browser klien. Menangani rendering visual, interaksi reaktif, dan navigasi instan tanpa memicu reload halaman penuh.
@@ -110,10 +110,10 @@ Menerima payload data dari server dan memetakan komponen halaman secara dinamis 
 
 ## 📊 Pengiriman Data Global (Shared Props)
 
-Salah satu keunggulan arsitektur RustBasic SPA adalah kemampuan membagikan data penting secara global ke seluruh halaman React secara otomatis. Konfigurasi ini dikelola di dalam helper **`src/app/inertia.rs`**:
+Salah satu keunggulan arsitektur RustBasic SPA adalah kemampuan membagikan data penting secara global ke seluruh halaman React secara otomatis. Konfigurasi ini dikelola secara terintegrasi di dalam library **`rustbasic-core`**:
 
 ```rust
-// Cuplikan logika di src/app/inertia.rs
+// Cuplikan logika di dalam rustbasic-core
 let errors: std::collections::HashMap<String, String> = req.session.get("errors").unwrap_or_default();
 req.session.remove("errors");
 

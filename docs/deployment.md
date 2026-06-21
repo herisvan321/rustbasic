@@ -77,6 +77,23 @@ Apabila Anda melakukan development di macOS atau Windows tetapi ingin merilis ke
 cargo zigbuild --target x86_64-unknown-linux-musl --release
 ```
 
+### 4. Pilihan Docker Container Build & Deploy
+Selain melakukan kompilasi biner secara langsung, Anda dapat mengemas aplikasi beserta seluruh dependensi dan aset visualnya ke dalam container Docker:
+
+#### A. Membuild Image Docker
+Jalankan perintah build dengan target Docker secara langsung:
+```bash
+rustbasic build --docker
+```
+Perintah ini akan menjalankan utilitas Docker BuildKit untuk mengompilasi program Rust dan aset static React SPA ke dalam sebuah image terisolasi.
+
+#### B. Melakukan Deployment Otomatis ke VPS (`deploy`)
+Untuk mengirimkan image Docker hasil build langsung ke server VPS Anda, jalankan:
+```bash
+rustbasic deploy
+```
+CLI secara interaktif akan menanyakan detail SSH VPS Anda (IP, port, username), mengekspor image Docker lokal ke file tar, mentransfer file ke server via SCP, dan langsung menyalakan container baru di port target server VPS Anda secara otomatis.
+
 ---
 
 ## ⚙️ Mengelola Service Systemd di Server VPS

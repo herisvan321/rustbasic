@@ -99,7 +99,7 @@ const url = route('test.param', {
 
 ## ⚙️ Detail Teknis Penyebaran Data
 
-Data rute dikirimkan sebagai properti global di berkas `src/app/inertia.rs` setiap kali method `inertia()` dieksekusi:
+Data rute dikirimkan sebagai properti global oleh helper `inertia()` secara otomatis setiap kali method `inertia()` dieksekusi:
 
 ```rust
 let named_routes = rustbasic_core::router::get_named_routes();

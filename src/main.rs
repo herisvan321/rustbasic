@@ -26,7 +26,7 @@ async fn run() {
     }
     // 2.1 Cek Command CLI (migrate, seed, storage:link)
     let args: Vec<String> = std::env::args().collect();
-    if args.len() > 1 && rustbasic::config::cli::handle(&args, &cfg).await {
+    if args.len() > 1 && rustbasic_core::cli::handle::<rustbasic::migrations::Migrator, rustbasic::app::seeder::SeederApp>(&args, &cfg, Some(rustbasic::app::seeder::SeederApp)).await {
         return;
     }
 
@@ -41,8 +41,8 @@ async fn run() {
     let app_router = rustbasic::routes::build_router();
 
     // Inject embedded files
-    rustbasic_core::view::set_embedded_templates(rustbasic::config::app::EmbeddedTemplates::get);
-    rustbasic_core::server::set_embedded_public(rustbasic::config::app::EmbeddedPublic::get);
+    rustbasic_core::view::set_embedded_templates(rustbasic::EmbeddedTemplates::get);
+    rustbasic_core::server::set_embedded_public(rustbasic::EmbeddedPublic::get);
 
     // 6. Jalankan Server
     rustbasic_core::server::start_server(cfg, session_store, db, app_router).await;

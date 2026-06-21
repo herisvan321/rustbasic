@@ -106,7 +106,22 @@ Digunakan untuk mengelola skema dan data database:
 - **`route:list`**:
   Menampilkan tabel visual seluruh rute, HTTP methods, alamat handler controller, dan tumpukan middleware yang memproteksinya.
 - **`build`**:
-  Mengompilasi program untuk rilis produksi (bundling Vite, cargo release build, stripping debug info) dan menyatukannya ke folder `deploy/`.
+  Membangun proyek RustBasic. Menjalankan menu interaktif jika tanpa argumen, atau langsung melalui flag:
+  - `--docker`: Membuild container image Docker produksi.
+  - `--desktop`: Membuild aplikasi wrapper desktop native.
+  - `--android`: Membuild paket aplikasi Android mobile (APK/AAB).
+- **`deploy`**:
+  Perintah interaktif untuk mengekspor Docker image hasil build menjadi berkas `.tar`, mengirimkannya ke server VPS Anda via SSH/SCP, dan langsung menjalankan container aplikasi baru secara otomatis di server tujuan.
+
+### 4. Perintah Package Manager & Konfigurasi
+- **`install <Package>`**:
+  Menginstal package pihak ketiga framework RustBasic ke proyek Anda.
+- **`uninstall <Package>`**:
+  Mencopot package pihak ketiga beserta berkas konfigurasi lokalnya.
+- **`list packages`**:
+  Menampilkan daftar seluruh package RustBasic yang terinstal di dalam proyek Anda.
+- **`publish [<Target>]`**:
+  Menyalin template konfigurasi package (seperti `cors`, `csrf`, atau `app`) ke direktori proyek lokal Anda (`src/config/`) untuk dikustomisasi secara mandiri.
 
 ---
 
