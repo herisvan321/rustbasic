@@ -26,13 +26,13 @@ Edit file `Cargo.toml` di root project Anda:
 [dependencies]
 
 # Pilihan 1: SQLite saja (default — tidak perlu tambahan)
-rustbasic-core = { path = "../rustbasic-core" }
+rustbasic-core = { version = "0.1" }
 
 # Pilihan 2: MySQL / MariaDB
-rustbasic-core = { path = "../rustbasic-core", features = ["mysql"] }
+rustbasic-core = { version = "0.1", features = ["mysql"] }
 
 # Pilihan 3: SQLite bundled (tanpa libsqlite3 di sistem)
-rustbasic-core = { path = "../rustbasic-core", features = ["sqlite-bundled"] }
+rustbasic-core = { version = "0.1", features = ["sqlite-bundled"] }
 ```
 
 > ⚠️ **Penting:** Jika file `.env` berisi `DB_CONNECTION=mysql`, fitur `mysql` **wajib diaktifkan**. Jika tidak, server akan panic saat startup dengan pesan:

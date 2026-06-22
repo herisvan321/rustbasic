@@ -20,7 +20,7 @@ name = "rustbasic"
 path = "src/main.rs"
 
 [dependencies]
-rustbasic-core = { version = "0.1",  features = [
+rustbasic-core = { version = "0.0",  features = [
     "sqlite",
     "mysql",
     "websocket"
@@ -45,6 +45,4 @@ panic = "abort"
 unexpected_cfgs = "allow"
 
 [build-dependencies]
-rustbasic-core = { version = "0.1", path = "../rustbasic-core" }
-
-[target.'cfg(any(target_os = "android", target_os = "ios"))'.dependencies]
+rustbasic-core = { version = "0.0" }

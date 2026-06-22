@@ -16,20 +16,20 @@ RustBasic menggunakan sistem **Cargo features** untuk memilih driver database se
 [dependencies]
 
 # Pilihan 1: SQLite (default, paling ringan — tidak perlu server database)
-rustbasic-core = { path = "../rustbasic-core" }
+rustbasic-core = { version = "0.0" }
 
 # Pilihan 2: MySQL / MariaDB
-rustbasic-core = { path = "../rustbasic-core", features = ["mysql"] }
+rustbasic-core = { version = "0.0", features = ["mysql"] }
 
 # Pilihan 3: SQLite + MySQL (dua driver sekaligus)
-rustbasic-core = { path = "../rustbasic-core", features = ["mysql"] }
+rustbasic-core = { version = "0.0", features = ["mysql"] }
 # SQLite sudah aktif secara default, tidak perlu ditulis ulang
 
 # Pilihan 4: MySQL + Kirim Email
-rustbasic-core = { path = "../rustbasic-core", features = ["mysql", "mail"] }
+rustbasic-core = { version = "0.0", features = ["mysql", "mail"] }
 
 # Pilihan 5: Semua fitur
-rustbasic-core = { path = "../rustbasic-core", features = ["mysql", "mail", "http-client"] }
+rustbasic-core = { version = "0.0", features = ["mysql", "mail", "http-client"] }
 ```
 
 > ⚠️ **Penting:** Jika file `.env` Anda berisi `DB_CONNECTION=mysql`, **wajib** tambahkan `features = ["mysql"]` di `Cargo.toml`. Jika tidak, server akan panic saat startup dengan pesan error yang meminta Anda mengaktifkan fitur tersebut.
