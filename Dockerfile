@@ -41,8 +41,7 @@ COPY --from=builder /build/target/release/rustbasic .
 COPY --from=builder /build/src/resources/views/ src/resources/views/
 COPY --from=builder /build/src/dist/ src/dist/
 COPY --from=builder /build/public/ public/
-COPY --from=builder /build/database/migrations/ database/migrations/
-COPY --from=builder /build/database/seeders/ database/seeders/
+COPY --from=builder /build/database/ database/
 COPY --from=builder /build/.env.example .env
 
 # Expose port aplikasi
