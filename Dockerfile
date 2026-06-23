@@ -19,11 +19,13 @@ WORKDIR /build
 # Copy source code
 COPY . .
 
-# Build release binary using Cargo registry and git cache
+# Build release binary using Cargo registry, git cache, and target cache
 ENV CARGO_REGISTRIES_CRATES_IO_PROTOCOL=sparse
 RUN --mount=type=cache,target=/usr/local/cargo/registry \
     --mount=type=cache,target=/usr/local/cargo/git \
-    cargo build --release --bin rustbasic
+    --mount=type=cache,target=/build/target \
+    cargo build --release --bin rustbasic && \
+    cp target/release/rustbasic /build/rustbasic-bin
 
 # Stage 2: Runtime
 FROM debian:bookworm-slim
@@ -35,7 +37,7 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /app
 
 # Copy binary dari builder stage
-COPY --from=builder /build/target/release/rustbasic .
+COPY --from=builder /build/rustbasic-bin ./rustbasic
 
 # Copy assets yang diperlukan dari builder stage
 COPY --from=builder /build/src/resources/views/ src/resources/views/
